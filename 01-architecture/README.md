@@ -22,15 +22,15 @@ Core architecture of Claude Code v2.1.88 — component hierarchy, hooks system, 
 
 ## Architecture Overview
 
-<img src="../infographics/architecture-overview.svg" alt="Architecture Overview" width="100%">
+![Architecture Overview](../infographics/architecture-overview.svg)
 
 ## Rendering Pipeline
 
-<img src="../infographics/ink-rendering-pipeline.svg" alt="Ink Rendering Pipeline" width="100%">
+![Ink Rendering Pipeline](../infographics/ink-rendering-pipeline.svg)
 
 ## Bootstrap Sequence
 
-<img src="../infographics/bootstrap-sequence.svg" alt="Bootstrap Sequence" width="100%">
+![Bootstrap Sequence](../infographics/bootstrap-sequence.svg)
 
 ## Key Findings
 

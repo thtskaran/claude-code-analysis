@@ -1,240 +1,114 @@
-<svg viewBox="0 0 2000 1200" xmlns="http://www.w3.org/2000/svg">
+<?xml version="1.0" ?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1100" width="1400px" height="1100px" style="background-color: #ffffff">
   <defs>
-    
-
-    <!-- Arrow markers -->
-    <marker id="arrowsess" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="userSpaceOnUse">
-      <path d="M0,0 L0,6 L9,3 z" fill="#4db8ff"/>
+    <filter id="dropShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feOffset in="SourceGraphic" dx="0" dy="2"/>
+      <feGaussianBlur in="offsetblur" stdDeviation="3"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <marker id="arrowhead-arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#94A3B8"/>
     </marker>
-    <marker id="arrowpers" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="userSpaceOnUse">
-      <path d="M0,0 L0,6 L9,3 z" fill="#44ff88"/>
+    <marker id="arrowhead-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#10B981"/>
     </marker>
-    <marker id="arrowrem" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="userSpaceOnUse">
-      <path d="M0,0 L0,6 L9,3 z" fill="#ff8844"/>
+    <marker id="arrowhead-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#3B82F6"/>
     </marker>
-    <marker id="arrowreact" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="userSpaceOnUse">
-      <path d="M0,0 L0,6 L9,3 z" fill="#dd66ff"/>
+    <marker id="arrowhead-orange" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#F97316"/>
     </marker>
-    <marker id="arrowflow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="userSpaceOnUse">
-      <path d="M0,0 L0,6 L9,3 z" fill="#66d9ff"/>
+    <marker id="arrowhead-purple" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#8B5CF6"/>
+    </marker>
+    <marker id="arrowhead-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#EF4444"/>
     </marker>
   </defs>
-
-  <!-- Background -->
-  <rect width="2000" height="1200" class="bg" style="fill: #0a0e17;"/>
-
-  <!-- Title -->
-  <text x="1000" y="40" class="text-title" style="font-family: 'Courier New', monospace; font-size: 32px; font-weight: bold; fill: #4db8ff;" text-anchor="middle">Claude Code v2.1.88 — Memory Systems Architecture</text>
-
-  <!-- Legend -->
-  <circle cx="50" cy="65" r="6" class="box-persistent" style="fill: #1a3a2a; stroke: #44ff88; stroke-width: 2;"/>
-  <text x="70" y="70" class="text-small" style="font-family: 'Courier New', monospace; font-size: 12px; fill: #7a9acc;">Persistent</text>
-
-  <circle cx="250" cy="65" r="6" class="box-session" style="fill: #1a3a52; stroke: #4db8ff; stroke-width: 2;"/>
-  <text x="270" y="70" class="text-small" style="font-family: 'Courier New', monospace; font-size: 12px; fill: #7a9acc;">Session</text>
-
-  <circle cx="450" cy="65" r="6" class="box-remote" style="fill: #3a2a1a; stroke: #ff8844; stroke-width: 2;"/>
-  <text x="470" y="70" class="text-small" style="font-family: 'Courier New', monospace; font-size: 12px; fill: #7a9acc;">Remote</text>
-
-  <circle cx="650" cy="65" r="6" class="box-reactive" style="fill: #2a1a3a; stroke: #dd66ff; stroke-width: 2;"/>
-  <text x="670" y="70" class="text-small" style="font-family: 'Courier New', monospace; font-size: 12px; fill: #7a9acc;">Reactive</text>
-
-  <!-- SECTION 1: Memdir Semantic Memory (Persistent) -->
-  <text x="30" y="125" class="text-heading" style="font-family: 'Courier New', monospace; font-size: 18px; font-weight: bold; fill: #66d9ff;">MEMDIR SEMANTIC MEMORY (Persistent, ~/.claude-code/memory/)</text>
-
-  <rect x="30" y="150" width="420" height="260" class="box-persistent" style="fill: #1a3a2a; stroke: #44ff88; stroke-width: 2;" rx="8"/>
-  <text x="240" y="175" class="text-label" style="font-family: 'Courier New', monospace; font-size: 14px; fill: #a0d0ff;" text-anchor="middle">Memdir Index + Topic Files</text>
-
-  <text x="50" y="205" class="text-small" style="font-family: 'Courier New', monospace; font-size: 12px; fill: #7a9acc;">File Structure:</text>
-  <text x="50" y="225" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">- MEMORY.md: master index</text>
-  <text x="50" y="243" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">- topics/{name}.md: semantic store</text>
-  <text x="50" y="261" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">- .gitignore: exclude secrets</text>
-
-  <text x="50" y="290" class="text-small" style="font-family: 'Courier New', monospace; font-size: 12px; fill: #7a9acc;">4-Type Taxonomy:</text>
-  <text x="50" y="308" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">1. user: preferences, habits</text>
-  <text x="50" y="326" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">2. feedback: corrections, edits</text>
-  <text x="50" y="344" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">3. project: codebase context</text>
-  <text x="50" y="362" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">4. reference: doc links, API</text>
-
-  <text x="50" y="386" class="text-small" style="font-family: 'Courier New', monospace; font-size: 12px; fill: #7a9acc;">Constraints (per query):</text>
-  <text x="50" y="404" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">- Max 5 memories selected</text>
-  <text x="50" y="422" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">- 200 lines / 25 KB cap each</text>
-
-  <!-- SECTION 2: Team Memory Sync (Remote) -->
-  <text x="490" y="125" class="text-heading" style="font-family: 'Courier New', monospace; font-size: 18px; font-weight: bold; fill: #66d9ff;">TEAM MEMORY SYNC (Remote, Pull-Push)</text>
-
-  <rect x="490" y="150" width="420" height="260" class="box-remote" style="fill: #3a2a1a; stroke: #ff8844; stroke-width: 2;" rx="8"/>
-  <text x="700" y="175" class="text-label" style="font-family: 'Courier New', monospace; font-size: 14px; fill: #a0d0ff;" text-anchor="middle">Remote Sync Protocol</text>
-
-  <text x="510" y="205" class="text-small" style="font-family: 'Courier New', monospace; font-size: 12px; fill: #7a9acc;">Push Strategy:</text>
-  <text x="510" y="225" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">- Compute delta: SHA256 hash</text>
-  <text x="510" y="243" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">- ETag caching (git show-ref)</text>
-  <text x="510" y="261" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">- Push only changed files</text>
-
-  <text x="510" y="290" class="text-small" style="font-family: 'Courier New', monospace; font-size: 12px; fill: #7a9acc;">Pull Strategy:</text>
-  <text x="510" y="308" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">- Fetch from origin/main</text>
-  <text x="510" y="326" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">- Merge with optimistic lock</text>
-  <text x="510" y="344" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">- Conflict resolution: last-write</text>
-
-  <text x="510" y="368" class="text-small" style="font-family: 'Courier New', monospace; font-size: 12px; fill: #7a9acc;">Security (44 gitleaks rules):</text>
-  <text x="510" y="386" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">- API key detection</text>
-  <text x="510" y="404" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">- JWT/token patterns</text>
-
-  <!-- SECTION 3: Session Memory Extraction (Session) -->
-  <text x="950" y="125" class="text-heading" style="font-family: 'Courier New', monospace; font-size: 18px; font-weight: bold; fill: #66d9ff;">SESSION MEMORY EXTRACTION (Session-local)</text>
-
-  <rect x="950" y="150" width="420" height="260" class="box-session" style="fill: #1a3a52; stroke: #4db8ff; stroke-width: 2;" rx="8"/>
-  <text x="1160" y="175" class="text-label" style="font-family: 'Courier New', monospace; font-size: 14px; fill: #a0d0ff;" text-anchor="middle">Durable + Threshold-Based</text>
-
-  <text x="970" y="205" class="text-small" style="font-family: 'Courier New', monospace; font-size: 12px; fill: #7a9acc;">extractMemories() [Durable]:</text>
-  <text x="970" y="225" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">- stopHooks trigger on session end</text>
-  <text x="970" y="243" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">- Extract insights from transcript</text>
-  <text x="970" y="261" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">- Write to memdir atomically</text>
-
-  <text x="970" y="290" class="text-small" style="font-family: 'Courier New', monospace; font-size: 12px; fill: #7a9acc;">SessionMemory [Ephemeral]:</text>
-  <text x="970" y="308" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">- Init: 10K tokens capacity</text>
-  <text x="970" y="326" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">- Growth: +5K per conversation</text>
-  <text x="970" y="344" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">- Tool calls: +3 each</text>
-
-  <text x="970" y="368" class="text-small" style="font-family: 'Courier New', monospace; font-size: 12px; fill: #7a9acc;">Window Strategy:</text>
-  <text x="970" y="386" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">- Keep last 50 messages</text>
-  <text x="970" y="404" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">- Summarize older history</text>
-
-  <!-- SECTION 4: autoDream Consolidation (Persistent) -->
-  <text x="1410" y="125" class="text-heading" style="font-family: 'Courier New', monospace; font-size: 18px; font-weight: bold; fill: #66d9ff;">autoDream (Persistent Background)</text>
-
-  <rect x="1410" y="150" width="540" height="260" class="box-persistent" style="fill: #1a3a2a; stroke: #44ff88; stroke-width: 2;" rx="8"/>
-  <text x="1680" y="175" class="text-label" style="font-family: 'Courier New', monospace; font-size: 14px; fill: #a0d0ff;" text-anchor="middle">Scheduled Consolidation</text>
-
-  <text x="1430" y="205" class="text-small" style="font-family: 'Courier New', monospace; font-size: 12px; fill: #7a9acc;">Trigger Conditions:</text>
-  <text x="1430" y="225" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">- Every 24 hours (cron: 0 2 * * *)</text>
-  <text x="1430" y="243" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">- OR after 5 sessions completed</text>
-  <text x="1430" y="261" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">- PID lock file: ~/.claude-code/pids/autoDream.lock</text>
-
-  <text x="1430" y="290" class="text-small" style="font-family: 'Courier New', monospace; font-size: 12px; fill: #7a9acc;">Processing:</text>
-  <text x="1430" y="308" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">1. Read SessionMemory from durable store</text>
-  <text x="1430" y="326" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">2. Consolidate using Claude Sonnet</text>
-  <text x="1430" y="344" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">3. Extract key insights, decisions</text>
-  <text x="1430" y="362" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">4. Update MEMORY.md + topic files</text>
-
-  <!-- SECTION 5: AppState (Reactive) -->
-  <text x="30" y="480" class="text-heading" style="font-family: 'Courier New', monospace; font-size: 18px; font-weight: bold; fill: #66d9ff;">AppState (Reactive Store, useSyncExternalStore)</text>
-
-  <rect x="30" y="505" width="420" height="200" class="box-reactive" style="fill: #2a1a3a; stroke: #dd66ff; stroke-width: 2;" rx="8"/>
-  <text x="240" y="530" class="text-label" style="font-family: 'Courier New', monospace; font-size: 14px; fill: #a0d0ff;" text-anchor="middle">565+ Properties</text>
-
-  <text x="50" y="560" class="text-small" style="font-family: 'Courier New', monospace; font-size: 12px; fill: #7a9acc;">Core State Properties:</text>
-  <text x="50" y="580" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">- currentSessionId: string</text>
-  <text x="50" y="598" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">- uiMode: 'edit' | 'view' | 'focus'</text>
-  <text x="50" y="616" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">- commandHistory: Command[]</text>
-  <text x="50" y="634" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">- selectedMemories: Memory[]</text>
-  <text x="50" y="652" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">- permissionCache: Map&lt;string, Grant&gt;</text>
-
-  <text x="50" y="676" class="text-small" style="font-family: 'Courier New', monospace; font-size: 12px; fill: #7a9acc;">Listeners:</text>
-  <text x="50" y="694" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">- React components subscribe</text>
-
-  <!-- SECTION 6: Context Compaction -->
-  <text x="490" y="480" class="text-heading" style="font-family: 'Courier New', monospace; font-size: 18px; font-weight: bold; fill: #66d9ff;">CONTEXT COMPACTION (Memory Preservation)</text>
-
-  <rect x="490" y="505" width="420" height="200" class="box-session" style="fill: #1a3a52; stroke: #4db8ff; stroke-width: 2;" rx="8"/>
-  <text x="700" y="530" class="text-label" style="font-family: 'Courier New', monospace; font-size: 14px; fill: #a0d0ff;" text-anchor="middle">9-Section Summary Format</text>
-
-  <text x="510" y="560" class="text-small" style="font-family: 'Courier New', monospace; font-size: 12px; fill: #7a9acc;">Compaction Strategy:</text>
-  <text x="510" y="580" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">1. Summarize conversation history</text>
-  <text x="510" y="598" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">2. Extract key decisions, context</text>
-  <text x="510" y="616" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">3. Re-inject skills from skill store</text>
-  <text x="510" y="634" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">4. Preserve memory references (!mem)</text>
-  <text x="510" y="652" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">5. Keep critical tool definitions</text>
-
-  <text x="510" y="676" class="text-small" style="font-family: 'Courier New', monospace; font-size: 12px; fill: #7a9acc;">Output (injected to next session):</text>
-  <text x="510" y="694" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">- Compact 50% of original length</text>
-
-  <!-- SECTION 7: MagicDocs -->
-  <text x="950" y="480" class="text-heading" style="font-family: 'Courier New', monospace; font-size: 18px; font-weight: bold; fill: #66d9ff;">MagicDocs (Auto-Maintained Markdown)</text>
-
-  <rect x="950" y="505" width="420" height="200" class="box-persistent" style="fill: #1a3a2a; stroke: #44ff88; stroke-width: 2;" rx="8"/>
-  <text x="1160" y="530" class="text-label" style="font-family: 'Courier New', monospace; font-size: 14px; fill: #a0d0ff;" text-anchor="middle">Forked Agent + File Watcher</text>
-
-  <text x="970" y="560" class="text-small" style="font-family: 'Courier New', monospace; font-size: 12px; fill: #7a9acc;">Mechanism:</text>
-  <text x="970" y="580" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">- Spawn agent on file open</text>
-  <text x="970" y="598" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">- Monitor changes via inotify</text>
-  <text x="970" y="616" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">- Update on memory extraction</text>
-  <text x="970" y="634" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">- Sync with team memory push</text>
-
-  <text x="970" y="658" class="text-small" style="font-family: 'Courier New', monospace; font-size: 12px; fill: #7a9acc;">Markdown Format:</text>
-  <text x="970" y="676" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">- Frontmatter: metadata, tags</text>
-  <text x="970" y="694" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">- Sections: insights, decisions</text>
-
-  <!-- SECTION 8: Data Flow Diagram -->
-  <text x="30" y="780" class="text-heading" style="font-family: 'Courier New', monospace; font-size: 18px; font-weight: bold; fill: #66d9ff;">DATA FLOW: Session → Extract → Persist → Sync → Compact</text>
-
-  <!-- Flow boxes -->
-  <rect x="30" y="815" width="150" height="80" class="box-session" style="fill: #1a3a52; stroke: #4db8ff; stroke-width: 2;" rx="6"/>
-  <text x="105" y="840" class="text-label" style="font-family: 'Courier New', monospace; font-size: 14px; fill: #a0d0ff;" text-anchor="middle">SESSION</text>
-  <text x="50" y="865" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">Convo history</text>
-  <text x="50" y="880" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">Tool outputs</text>
-
-  <path d="M 180 855 L 240 855" class="line-session" style="stroke: #4db8ff; stroke-width: 2; fill: none;" marker-end="url(#arrowsess)"/>
-
-  <rect x="240" y="815" width="150" height="80" class="box-persistent" style="fill: #1a3a2a; stroke: #44ff88; stroke-width: 2;" rx="6"/>
-  <text x="315" y="840" class="text-label" style="font-family: 'Courier New', monospace; font-size: 14px; fill: #a0d0ff;" text-anchor="middle">EXTRACT</text>
-  <text x="260" y="865" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">Parse insights</text>
-  <text x="260" y="880" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">via Sonnet</text>
-
-  <path d="M 390 855 L 450 855" class="line-persist" style="stroke: #44ff88; stroke-width: 2; fill: none;" marker-end="url(#arrowpers)"/>
-
-  <rect x="450" y="815" width="150" height="80" class="box-persistent" style="fill: #1a3a2a; stroke: #44ff88; stroke-width: 2;" rx="6"/>
-  <text x="525" y="840" class="text-label" style="font-family: 'Courier New', monospace; font-size: 14px; fill: #a0d0ff;" text-anchor="middle">MEMDIR</text>
-  <text x="470" y="865" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">MEMORY.md</text>
-  <text x="470" y="880" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">topics/*.md</text>
-
-  <path d="M 600 855 L 660 855" class="line-remote" style="stroke: #ff8844; stroke-width: 2; fill: none;" marker-end="url(#arrowrem)"/>
-
-  <rect x="660" y="815" width="150" height="80" class="box-remote" style="fill: #3a2a1a; stroke: #ff8844; stroke-width: 2;" rx="6"/>
-  <text x="735" y="840" class="text-label" style="font-family: 'Courier New', monospace; font-size: 14px; fill: #a0d0ff;" text-anchor="middle">TEAM SYNC</text>
-  <text x="680" y="865" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">SHA256 delta</text>
-  <text x="680" y="880" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">Git push</text>
-
-  <path d="M 810 855 L 870 855" class="line-persist" style="stroke: #44ff88; stroke-width: 2; fill: none;" marker-end="url(#arrowpers)"/>
-
-  <rect x="870" y="815" width="150" height="80" class="box-persistent" style="fill: #1a3a2a; stroke: #44ff88; stroke-width: 2;" rx="6"/>
-  <text x="945" y="840" class="text-label" style="font-family: 'Courier New', monospace; font-size: 14px; fill: #a0d0ff;" text-anchor="middle">autoDream</text>
-  <text x="890" y="865" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">24h schedule</text>
-  <text x="890" y="880" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">Consolidate</text>
-
-  <path d="M 1020 855 L 1080 855" class="line-session" style="stroke: #4db8ff; stroke-width: 2; fill: none;" marker-end="url(#arrowsess)"/>
-
-  <rect x="1080" y="815" width="150" height="80" class="box-session" style="fill: #1a3a52; stroke: #4db8ff; stroke-width: 2;" rx="6"/>
-  <text x="1155" y="840" class="text-label" style="font-family: 'Courier New', monospace; font-size: 14px; fill: #a0d0ff;" text-anchor="middle">COMPACT</text>
-  <text x="1100" y="865" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">9 sections</text>
-  <text x="1100" y="880" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">!mem refs</text>
-
-  <path d="M 1230 855 L 1290 855" class="line-reactive" style="stroke: #dd66ff; stroke-width: 2; fill: none;" marker-end="url(#arrowreact)"/>
-
-  <rect x="1290" y="815" width="150" height="80" class="box-reactive" style="fill: #2a1a3a; stroke: #dd66ff; stroke-width: 2;" rx="6"/>
-  <text x="1365" y="840" class="text-label" style="font-family: 'Courier New', monospace; font-size: 14px; fill: #a0d0ff;" text-anchor="middle">AppState</text>
-  <text x="1310" y="865" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">Reactive UI</text>
-  <text x="1310" y="880" class="text-tiny" style="font-family: 'Courier New', monospace; font-size: 11px; fill: #5a7acc;">Update</text>
-
-  <!-- Feedback loop -->
-  <path d="M 1365 895 Q 1365 950 1155 950 Q 945 950 525 895" class="line-flow" style="stroke: #66d9ff; stroke-width: 1.5; fill: none; stroke-dasharray: 3,3;" marker-end="url(#arrowflow)" stroke-dasharray="4,4"/>
-  <text x="900" y="970" class="text-small" style="font-family: 'Courier New', monospace; font-size: 12px; fill: #7a9acc;">Feedback Loop (memory improves over time)</text>
-
-  <!-- SECTION 9: Interconnections Grid -->
-  <text x="30" y="1030" class="text-heading" style="font-family: 'Courier New', monospace; font-size: 18px; font-weight: bold; fill: #66d9ff;">SYSTEM INTERCONNECTIONS</text>
-
-  <rect x="30" y="1055" width="800" height="140" class="box-secondary" style="fill: #1a2a3a; stroke: #66d9ff; stroke-width: 1.5;" rx="6"/>
-
-  <text x="50" y="1080" class="text-small" style="font-family: 'Courier New', monospace; font-size: 12px; fill: #7a9acc;">• Memdir ↔ Team Sync: Delta push on extraction</text>
-  <text x="50" y="1100" class="text-small" style="font-family: 'Courier New', monospace; font-size: 12px; fill: #7a9acc;">• SessionMemory ↔ autoDream: Threshold trigger at 10K+5K+3n</text>
-  <text x="50" y="1120" class="text-small" style="font-family: 'Courier New', monospace; font-size: 12px; fill: #7a9acc;">• autoDream ↔ Memdir: Write consolidated insights back</text>
-  <text x="50" y="1140" class="text-small" style="font-family: 'Courier New', monospace; font-size: 12px; fill: #7a9acc;">• Context Compaction ↔ Memdir: Inject selected memories (!mem prefix)</text>
-
-  <rect x="880" y="1055" width="1050" height="140" class="box-secondary" style="fill: #1a2a3a; stroke: #66d9ff; stroke-width: 1.5;" rx="6"/>
-
-  <text x="900" y="1080" class="text-small" style="font-family: 'Courier New', monospace; font-size: 12px; fill: #7a9acc;">Memory Hierarchy (by durability):</text>
-  <text x="900" y="1100" class="text-small" style="font-family: 'Courier New', monospace; font-size: 12px; fill: #7a9acc;">Level 1 (Ephemeral): SessionMemory → AppState (current session only)</text>
-  <text x="900" y="1120" class="text-small" style="font-family: 'Courier New', monospace; font-size: 12px; fill: #7a9acc;">Level 2 (Persistent Local): Memdir → autoDream consolidation → MEMORY.md</text>
-  <text x="900" y="1140" class="text-small" style="font-family: 'Courier New', monospace; font-size: 12px; fill: #7a9acc;">Level 3 (Persistent Remote): Team Memory Sync (SHA256 delta, 44 gitleaks rules)</text>
-
+  <text x="40" y="45" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="bold" fill="#3B82F6">Memory Systems Architecture</text>
+  <text x="40" y="100" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="bold" fill="#3B82F6">Primary Systems</text>
+  <rect x="30" y="130" width="420" height="200" rx="12" fill="#EBF5FF" stroke="#3B82F6" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="240" y="150" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" fill="#1a1a2e">Memdir Semantic Memory</text>
+  <text x="45" y="172" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">~/.claude-code/memory/</text>
+  <text x="45" y="188" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">MEMORY.md + topics/</text>
+  <text x="45" y="204" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666"/>
+  <text x="45" y="220" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">4-type taxonomy:</text>
+  <text x="45" y="236" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">user, feedback, project, ref</text>
+  <text x="45" y="252" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666"/>
+  <text x="45" y="268" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Max 5 selected</text>
+  <text x="45" y="284" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">200 lines / 25KB cap</text>
+  <rect x="480" y="130" width="420" height="200" rx="12" fill="#ECFDF5" stroke="#10B981" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="690" y="150" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" fill="#1a1a2e">Team Memory Sync</text>
+  <text x="495" y="172" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">Pull-push replication</text>
+  <text x="495" y="188" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">SHA256 delta, ETag cache</text>
+  <text x="495" y="204" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Conflict: last-write wins</text>
+  <text x="495" y="220" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666"/>
+  <text x="495" y="236" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">44 gitleaks security rules</text>
+  <text x="495" y="252" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666"/>
+  <text x="495" y="268" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Encryption at rest</text>
+  <rect x="930" y="130" width="420" height="200" rx="12" fill="#FFF7ED" stroke="#F97316" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="1140" y="150" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" fill="#1a1a2e">Session Memory</text>
+  <text x="945" y="172" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">Init 10K tokens</text>
+  <text x="945" y="188" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Growth +5K per call</text>
+  <text x="945" y="204" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Tool calls +3 each</text>
+  <text x="945" y="220" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666"/>
+  <text x="945" y="236" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Keep last 50 messages</text>
+  <text x="945" y="252" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Summarize older history</text>
+  <text x="40" y="380" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="bold" fill="#8B5CF6">Background &amp; State</text>
+  <rect x="30" y="410" width="420" height="200" rx="12" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="240" y="430" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" fill="#1a1a2e">autoDream Consolidation</text>
+  <text x="45" y="452" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">Every 24h or 5 sessions</text>
+  <text x="45" y="468" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Consolidate via Claude</text>
+  <text x="45" y="484" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Extract key insights</text>
+  <text x="45" y="500" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666"/>
+  <text x="45" y="516" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Update MEMORY.md +</text>
+  <text x="45" y="532" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">topic summaries</text>
+  <rect x="480" y="410" width="420" height="200" rx="12" fill="#ECFEFF" stroke="#06B6D4" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="690" y="430" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" fill="#1a1a2e">AppState Reactive Store</text>
+  <text x="495" y="452" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">565+ reactive properties</text>
+  <text x="495" y="468" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">useSyncExternalStore</text>
+  <text x="495" y="484" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666"/>
+  <text x="495" y="500" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">currentSessionId, uiMode,</text>
+  <text x="495" y="516" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">commandHistory,</text>
+  <text x="495" y="532" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">permissionCache</text>
+  <rect x="930" y="410" width="420" height="200" rx="12" fill="#FEFCE8" stroke="#EAB308" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="1140" y="430" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" fill="#1a1a2e">Context Compaction</text>
+  <text x="945" y="452" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">9-section summary format</text>
+  <text x="945" y="468" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Summarize, extract</text>
+  <text x="945" y="484" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Re-inject !mem refs</text>
+  <text x="945" y="500" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666"/>
+  <text x="945" y="516" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Compact 50% of original</text>
+  <text x="40" y="660" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="bold" fill="#6B7280">Ancillary</text>
+  <rect x="30" y="690" width="420" height="100" rx="12" fill="#F9FAFB" stroke="#9CA3AF" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="240" y="710" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" fill="#1a1a2e">MagicDocs</text>
+  <text x="45" y="732" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">Forked agent + file watcher</text>
+  <text x="45" y="748" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">inotify monitoring</text>
+  <text x="40" y="840" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="bold" fill="#3B82F6">Data Flow &amp; Hierarchy</text>
+  <rect x="40" y="870" width="140" height="70" rx="12" fill="#EBF5FF" stroke="#3B82F6" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="55" y="890" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">SESSION</text>
+  <line x1="180" y1="905" x2="220" y2="905" stroke="#3B82F6" stroke-width="2" marker-end="url(#arrowhead-blue)"/>
+  <rect x="220" y="870" width="140" height="70" rx="12" fill="#EBF5FF" stroke="#3B82F6" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="235" y="890" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">EXTRACT</text>
+  <line x1="360" y1="905" x2="400" y2="905" stroke="#3B82F6" stroke-width="2" marker-end="url(#arrowhead-blue)"/>
+  <rect x="400" y="870" width="140" height="70" rx="12" fill="#EBF5FF" stroke="#3B82F6" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="415" y="890" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">MEMDIR</text>
+  <line x1="540" y1="905" x2="580" y2="905" stroke="#3B82F6" stroke-width="2" marker-end="url(#arrowhead-blue)"/>
+  <rect x="580" y="870" width="140" height="70" rx="12" fill="#EBF5FF" stroke="#3B82F6" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="595" y="890" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">TEAM SYNC</text>
+  <line x1="720" y1="905" x2="760" y2="905" stroke="#3B82F6" stroke-width="2" marker-end="url(#arrowhead-blue)"/>
+  <rect x="760" y="870" width="140" height="70" rx="12" fill="#EBF5FF" stroke="#3B82F6" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="775" y="890" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">autoDream</text>
+  <line x1="900" y1="905" x2="940" y2="905" stroke="#3B82F6" stroke-width="2" marker-end="url(#arrowhead-blue)"/>
+  <rect x="940" y="870" width="140" height="70" rx="12" fill="#EBF5FF" stroke="#3B82F6" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="955" y="890" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">COMPACT</text>
+  <line x1="1080" y1="905" x2="1120" y2="905" stroke="#3B82F6" stroke-width="2" marker-end="url(#arrowhead-blue)"/>
+  <rect x="1120" y="870" width="140" height="70" rx="12" fill="#EBF5FF" stroke="#3B82F6" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="1135" y="890" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">AppState</text>
+  <rect x="30" y="1000" width="1340" height="80" rx="12" fill="#F9FAFB" stroke="#9CA3AF" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="45" y="1020" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">Level 1 (Ephemeral): SessionMemory -&gt; AppState</text>
+  <text x="45" y="1036" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Level 2 (Persistent Local): Memdir -&gt; autoDream -&gt; MEMORY.md</text>
+  <text x="45" y="1052" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Level 3 (Persistent Remote): Team Sync (SHA256, gitleaks)</text>
 </svg>

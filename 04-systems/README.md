@@ -28,17 +28,17 @@ Runtime systems powering Claude Code — API client, context compaction, model s
 
 ## System Architecture
 
-<img src="../infographics/api-client-pipeline.svg" alt="API Client Pipeline" width="100%">
+![API Client Pipeline](../infographics/api-client-pipeline.svg)
 
 ## Compaction Tiers
 
-<img src="../infographics/compaction-tiers.svg" alt="Compaction Tiers" width="100%">
+![Compaction Tiers](../infographics/compaction-tiers.svg)
 
-<img src="../infographics/compaction-state-machine.svg" alt="Compaction State Machine" width="100%">
+![Compaction State Machine](../infographics/compaction-state-machine.svg)
 
 ## Memory Systems
 
-<img src="../infographics/memory-systems.svg" alt="Memory Systems Architecture" width="100%">
+![Memory Systems Architecture](../infographics/memory-systems.svg)
 
 ## Key Findings
 

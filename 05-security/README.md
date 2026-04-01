@@ -17,11 +17,11 @@ Security hardening, threat modeling, and vulnerability analysis of Claude Code. 
 
 ## Architecture Diagrams
 
-<img src="../infographics/permission-engine.svg" alt="Permission Engine Architecture" width="600" />
+![Permission Engine Architecture](../infographics/permission-engine.svg)
 
 Permission engine decision pipeline: 7-stage flow from tool request through deny/ask rules to final permission decision.
 
-<img src="../infographics/yolo-classifier-pipeline.svg" alt="YOLO Classifier Pipeline" width="600" />
+![YOLO Classifier Pipeline](../infographics/yolo-classifier-pipeline.svg)
 
 Two-stage YOLO classifier: Stage 1 (64-token fast-pass on explicit denials) routes to Stage 2 (4,096-token reasoning) for full context analysis.
 

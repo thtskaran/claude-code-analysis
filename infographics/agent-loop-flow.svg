@@ -1,97 +1,47 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" width="900" height="600">
-  <defs>
-    
-    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="userSpaceOnUse">
-      <polygon points="0 0, 10 3, 0 6" class="arrow-head" style="fill: #58a6ff;"/>
-    </marker>
-  </defs>
+<svg width="1000" height="700" viewBox="0 0 1000 700" xmlns="http://www.w3.org/2000/svg">
 
-  <rect class="bg" style="fill: #0d1117;" width="900" height="600"/>
+    <defs>
+        <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+            <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.08"/>
+        </filter>
+        <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+            <polygon points="0 0, 10 3, 0 6" fill="#94A3B8"/>
+        </marker>
+    </defs>
+    <text x="500" y="40" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="bold" fill="#3B82F6">Agent Loop Flow</text>
+    <rect x="400" y="80" width="200" height="50" rx="12" fill="#EBF5FF" stroke="#3B82F6" stroke-width="2" filter="url(#shadow)"/>
+    <text x="500.0" y="105" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">User Input</text>
+    <line x1="500" y1="130" x2="500" y2="160" stroke="#94A3B8" stroke-width="2" stroke-dasharray="none" marker-end="url(#arrowhead)"/>
+    <polygon points="500,165.0 535.0,200 500,235.0 465.0,200" fill="#FFF7ED" stroke="#F97316" stroke-width="2" filter="url(#shadow)"/>
+    <text x="500" y="192" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a2e">Context</text>
+    <text x="500" y="208" font-family="Inter, system-ui, sans-serif" font-size="11" text-anchor="middle" fill="#666666">Pressure &gt; 0.93?</text>
+    <line x1="500" y1="220" x2="500" y2="260" stroke="#94A3B8" stroke-width="2" stroke-dasharray="none" marker-end="url(#arrowhead)"/>
+    <rect x="400" y="260" width="200" height="60" rx="12" fill="#EBF5FF" stroke="#3B82F6" stroke-width="2" filter="url(#shadow)"/>
+    <text x="500.0" y="285" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a2e">Stream Model Call</text>
+    <text x="500.0" y="305" font-family="Inter, system-ui, sans-serif" font-size="11" text-anchor="middle" fill="#666666" font-style="italic">yields events to UI</text>
+    <line x1="500" y1="320" x2="500" y2="350" stroke="#94A3B8" stroke-width="2" stroke-dasharray="none" marker-end="url(#arrowhead)"/>
+    <polygon points="500,355.0 535.0,390 500,425.0 465.0,390" fill="#FFF7ED" stroke="#F97316" stroke-width="2" filter="url(#shadow)"/>
+    <text x="500" y="382" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a2e">Tool Use</text>
+    <text x="500" y="398" font-family="Inter, system-ui, sans-serif" font-size="11" text-anchor="middle" fill="#666666">Detected?</text>
+    <line x1="500" y1="410" x2="500" y2="450" stroke="#94A3B8" stroke-width="2" stroke-dasharray="none" marker-end="url(#arrowhead)"/>
+    <polygon points="500,455.0 535.0,490 500,525.0 465.0,490" fill="#FFF7ED" stroke="#F97316" stroke-width="2" filter="url(#shadow)"/>
+    <text x="500" y="482" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a2e">Should</text>
+    <text x="500" y="498" font-family="Inter, system-ui, sans-serif" font-size="11" text-anchor="middle" fill="#666666">Stop?</text>
+    <line x1="550" y1="490" x2="650" y2="490" stroke="#94A3B8" stroke-width="2" stroke-dasharray="none" marker-end="url(#arrowhead)"/>
+    <rect x="650" y="465" width="100" height="50" rx="12" fill="#ECFDF5" stroke="#10B981" stroke-width="2" filter="url(#shadow)"/>
+    <text x="700.0" y="490" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">End</text>
+    <line x1="450" y1="490" x2="350" y2="490" stroke="#94A3B8" stroke-width="2" stroke-dasharray="none" marker-end="url(#arrowhead)"/>
+    <rect x="250" y="465" width="100" height="50" rx="12" fill="#F9FAFB" stroke="#9CA3AF" stroke-width="2" filter="url(#shadow)"/>
+    <text x="300.0" y="490" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">Continue</text>
+    <text x="300.0" y="506" font-family="Inter, system-ui, sans-serif" font-size="11" text-anchor="middle" fill="#666666" font-style="italic">retry</text>
+    <rect x="250" y="200" width="140" height="70" rx="12" fill="#ECFDF5" stroke="#10B981" stroke-width="2" filter="url(#shadow)"/>
+    <text x="320.0" y="225" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a2e">Compaction</text>
+    <text x="320.0" y="245" font-family="Inter, system-ui, sans-serif" font-size="11" text-anchor="middle" fill="#666666" font-style="italic">3 Tiers</text>
+    <line x1="320" y1="235" x2="470" y2="235" stroke="#94A3B8" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrowhead)"/>
+    <rect x="640" y="330" width="140" height="70" rx="12" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="2" filter="url(#shadow)"/>
+    <text x="710.0" y="355" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a2e">StreamingToolExecutor</text>
+    <text x="710.0" y="375" font-family="Inter, system-ui, sans-serif" font-size="11" text-anchor="middle" fill="#666666" font-style="italic">concurrent/exclusive</text>
+    <line x1="680" y1="400" x2="680" y2="410" stroke="#94A3B8" stroke-width="2" stroke-dasharray="none" marker-end="url(#arrowhead)"/>
+    <line x1="680" y1="410" x2="530" y2="410" stroke="#94A3B8" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrowhead)"/>
 
-  <!-- Title -->
-  <text x="450" y="22" class="text-title" style="fill: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 15px; font-weight: 600;" text-anchor="middle">Agent Loop Flowchart</text>
-
-  <!-- START -->
-  <rect x="380" y="40" width="140" height="40" class="box-process" style="fill: #0969da; stroke: #0969da; stroke-width: 1;" rx="4"/>
-  <text x="450" y="65" class="text-primary" style="fill: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 12px;" text-anchor="middle">Start: User Input</text>
-
-  <!-- Arrow down -->
-  <path d="M 450 80 L 450 110" class="arrow" style="stroke: #58a6ff; stroke-width: 1.5; fill: none;" marker-end="url(#arrowhead)"/>
-
-  <!-- Context Pressure Check -->
-  <polygon points="450,110 530,160 450,210 370,160" class="diamond" style="fill: #f0883e; stroke: #f0883e; stroke-width: 1;"/>
-  <text x="450" y="160" class="text-decision" style="fill: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 11px;" text-anchor="middle">Context</text>
-  <text x="450" y="175" class="text-decision" style="fill: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 11px;" text-anchor="middle">Pressure</text>
-  <text x="450" y="190" class="text-decision" style="fill: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 11px;" text-anchor="middle">> 0.93?</text>
-
-  <!-- YES path to Compact -->
-  <path d="M 370 160 L 280 160" class="arrow" style="stroke: #58a6ff; stroke-width: 1.5; fill: none;" marker-end="url(#arrowhead)"/>
-  <text x="310" y="155" class="text-primary" style="fill: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 12px;" font-size="10">YES</text>
-
-  <rect x="160" y="130" width="120" height="60" class="box-compact" style="fill: #238636; stroke: #238636; stroke-width: 1;" rx="3"/>
-  <text x="220" y="155" class="text-primary" style="fill: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 12px;" text-anchor="middle">Compaction</text>
-  <text x="220" y="170" class="text-code" style="fill: #e6edf3; font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; font-size: 11px;" text-anchor="middle">(3 Tiers)</text>
-
-  <!-- Loop back from compact -->
-  <path d="M 220 190 L 220 280 L 450 280 L 450 210" class="arrow" style="stroke: #58a6ff; stroke-width: 1.5; fill: none;" marker-end="url(#arrowhead)" stroke-dasharray="2,2"/>
-
-  <!-- NO path to Stream -->
-  <path d="M 450 210 L 450 240" class="arrow" style="stroke: #58a6ff; stroke-width: 1.5; fill: none;" marker-end="url(#arrowhead)"/>
-  <text x="465" y="230" class="text-primary" style="fill: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 12px;" font-size="10">NO</text>
-
-  <!-- Stream Model Call -->
-  <rect x="350" y="240" width="200" height="50" class="box-process" style="fill: #0969da; stroke: #0969da; stroke-width: 1;" rx="3"/>
-  <text x="450" y="260" class="text-primary" style="fill: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 12px;" text-anchor="middle">Stream Model Call</text>
-  <text x="450" y="276" class="text-code" style="fill: #e6edf3; font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; font-size: 11px;" text-anchor="middle">(yields events to UI)</text>
-
-  <!-- Arrow down -->
-  <path d="M 450 290 L 450 320" class="arrow" style="stroke: #58a6ff; stroke-width: 1.5; fill: none;" marker-end="url(#arrowhead)"/>
-
-  <!-- Tool Use Check -->
-  <polygon points="450,320 530,370 450,420 370,370" class="diamond" style="fill: #f0883e; stroke: #f0883e; stroke-width: 1;"/>
-  <text x="450" y="375" class="text-decision" style="fill: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 11px;" text-anchor="middle">Tool Use</text>
-  <text x="450" y="390" class="text-decision" style="fill: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 11px;" text-anchor="middle">Detected?</text>
-
-  <!-- YES path to Executor -->
-  <path d="M 530 370 L 610 370" class="arrow" style="stroke: #58a6ff; stroke-width: 1.5; fill: none;" marker-end="url(#arrowhead)"/>
-  <text x="560" y="365" class="text-primary" style="fill: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 12px;" font-size="10">YES</text>
-
-  <rect x="610" y="340" width="150" height="60" class="box-process" style="fill: #0969da; stroke: #0969da; stroke-width: 1;" rx="3"/>
-  <text x="685" y="360" class="text-primary" style="fill: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 12px;" text-anchor="middle">StreamingToolExecutor</text>
-  <text x="685" y="375" class="text-code" style="fill: #e6edf3; font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; font-size: 11px;" text-anchor="middle">(concurrent/exclusive)</text>
-
-  <!-- Executor back to termination check -->
-  <path d="M 685 400 L 685 450 L 450 450 L 450 420" class="arrow" style="stroke: #58a6ff; stroke-width: 1.5; fill: none;" marker-end="url(#arrowhead)"/>
-
-  <!-- NO path to Termination -->
-  <path d="M 450 420 L 450 480" class="arrow" style="stroke: #58a6ff; stroke-width: 1.5; fill: none;" marker-end="url(#arrowhead)"/>
-  <text x="465" y="450" class="text-primary" style="fill: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 12px;" font-size="10">NO</text>
-
-  <!-- Termination Check -->
-  <polygon points="450,480 530,530 450,580 370,530" class="diamond" style="fill: #f0883e; stroke: #f0883e; stroke-width: 1;"/>
-  <text x="450" y="525" class="text-decision" style="fill: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 11px;" text-anchor="middle">Should Stop?</text>
-  <text x="450" y="540" class="text-small" style="fill: #8b949e; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 10px;" text-anchor="middle">(completed/aborted/</text>
-  <text x="450" y="550" class="text-small" style="fill: #8b949e; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 10px;" text-anchor="middle">max_turns/exhausted)</text>
-
-  <!-- YES path to END -->
-  <path d="M 530 530 L 760 530" class="arrow" style="stroke: #58a6ff; stroke-width: 1.5; fill: none;" marker-end="url(#arrowhead)"/>
-  <text x="640" y="525" class="text-primary" style="fill: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 12px;" font-size="10">YES</text>
-
-  <rect x="760" y="500" width="100" height="60" class="box-process" style="fill: #0969da; stroke: #0969da; stroke-width: 1;" rx="4"/>
-  <text x="810" y="533" class="text-primary" style="fill: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 12px;" text-anchor="middle">End</text>
-
-  <!-- NO path - Continue Loop -->
-  <path d="M 370 530 L 280 530" class="arrow" style="stroke: #58a6ff; stroke-width: 1.5; fill: none;" marker-end="url(#arrowhead)"/>
-  <text x="310" y="525" class="text-primary" style="fill: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 12px;" font-size="10">NO</text>
-
-  <!-- Continue options box -->
-  <rect x="80" y="500" width="200" height="60" class="box" style="fill: #1c2128; stroke: #30363d; stroke-width: 1;" rx="3"/>
-  <text x="180" y="515" class="text-code" style="fill: #e6edf3; font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; font-size: 11px;" text-anchor="middle">next_turn</text>
-  <text x="180" y="530" class="text-code" style="fill: #e6edf3; font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; font-size: 11px;" text-anchor="middle">collapse_drain_retry</text>
-  <text x="180" y="545" class="text-code" style="fill: #e6edf3; font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; font-size: 11px;" text-anchor="middle">reactive_compact_retry</text>
-
-  <!-- Loop back -->
-  <path d="M 180 500 L 180 100 L 370 160" class="arrow" style="stroke: #58a6ff; stroke-width: 1.5; fill: none;" marker-end="url(#arrowhead)" stroke-dasharray="2,2"/>
-  <text x="150" y="300" class="text-small" style="fill: #8b949e; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 10px;">escalation</text>
-  <text x="150" y="315" class="text-small" style="fill: #8b949e; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 10px;">recovery</text>
 </svg>

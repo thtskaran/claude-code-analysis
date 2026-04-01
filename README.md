@@ -8,9 +8,7 @@ This comprehensive analysis covers 82 documents totaling 112,000+ lines across 1
 
 ## Architecture Map
 
-See the full 8-layer system architecture diagram:
-
-[Architecture Overview](infographics/architecture-overview.svg)
+![Architecture Overview](infographics/architecture-overview.svg)
 
 ---
 

@@ -1,546 +1,152 @@
-<svg viewBox="0 0 2400 2000" xmlns="http://www.w3.org/2000/svg">
-  <!-- Background -->
-  <defs>
-    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#0a0e17;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#0f1219;stop-opacity:1" />
-    </linearGradient>
-
-    <!-- Color Gradients for Domains -->
-    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#1e3a8a;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#0f172a;stop-opacity:1" />
-    </linearGradient>
-
-    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#15803d;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#0b3d1a;stop-opacity:1" />
-    </linearGradient>
-
-    <linearGradient id="orangeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#d97706;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#6b3b1a;stop-opacity:1" />
-    </linearGradient>
-
-    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#7c3aed;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#3f1f6b;stop-opacity:1" />
-    </linearGradient>
-
-    <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#0891b2;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#0a3a3f;stop-opacity:1" />
-    </linearGradient>
-
-    <linearGradient id="pinkGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#db2777;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#5a1e45;stop-opacity:1" />
-    </linearGradient>
-
-    <linearGradient id="yellowGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#ca8a04;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#422006;stop-opacity:1" />
-    </linearGradient>
-
-    <!-- Arrow marker -->
-    <marker id="arrowblue" markerWidth="12" markerHeight="12" refX="11" refY="4" orient="auto" markerUnits="userSpaceOnUse">
-      <path d="M0,0 L0,8 L12,4 z" fill="#3b82f6" />
-    </marker>
-    <marker id="arrowgreen" markerWidth="12" markerHeight="12" refX="11" refY="4" orient="auto" markerUnits="userSpaceOnUse">
-      <path d="M0,0 L0,8 L12,4 z" fill="#22c55e" />
-    </marker>
-    <marker id="arrowyellow" markerWidth="12" markerHeight="12" refX="11" refY="4" orient="auto" markerUnits="userSpaceOnUse">
-      <path d="M0,0 L0,8 L12,4 z" fill="#eab308" />
-    </marker>
-    <marker id="arrowpurple" markerWidth="12" markerHeight="12" refX="11" refY="4" orient="auto" markerUnits="userSpaceOnUse">
-      <path d="M0,0 L0,8 L12,4 z" fill="#a78bfa" />
-    </marker>
-  </defs>
-
-  <rect width="2400" height="1800" fill="url(#bgGradient)"/>
-
-  <!-- Title -->
-  <text x="1200" y="50" font-size="48" font-weight="bold" text-anchor="middle" fill="#e0e7ff">
-    Claude Code v2.1.88 — Complete Architecture
-  </text>
-  <text x="1200" y="85" font-size="18" text-anchor="middle" fill="#94a3b8">
-    1,902 TypeScript Files | ~423K LOC | 82 Analysis Documents | 112K Lines of Analysis
-  </text>
-
-  <!-- Layer dividers and labels -->
-  <line x1="30" y1="130" x2="2370" y2="130" stroke="#334155" stroke-width="2"/>
-
-  <!-- ============================================================================ -->
-  <!-- LAYER 1: ENTRY &amp; BOOTSTRAP (top) -->
-  <!-- ============================================================================ -->
-
-  <text x="50" y="160" font-size="20" font-weight="bold" fill="#cbd5e1">Layer 1: Entry &amp; Bootstrap</text>
-  <line x1="30" y1="175" x2="2370" y2="175" stroke="#1e293b" stroke-width="1" stroke-dasharray="5,5"/>
-
-  <!-- main.tsx box -->
-  <rect x="50" y="190" width="320" height="140" fill="url(#blueGrad)" stroke="#3b82f6" stroke-width="2" rx="8"/>
-  <text x="210" y="220" font-size="16" font-weight="bold" text-anchor="middle" fill="#e0e7ff">main.tsx</text>
-  <text x="210" y="245" font-size="12" text-anchor="middle" fill="#bfdbfe">10-Step Boot Sequence</text>
-  <text x="210" y="265" font-size="11" text-anchor="middle" fill="#93c5fd">Config Parse → Plugin Load</text>
-  <text x="210" y="282" font-size="11" text-anchor="middle" fill="#93c5fd">Memory Init → Telemetry Start</text>
-  <text x="210" y="299" font-size="11" text-anchor="middle" fill="#93c5fd">Permission Setup → Ready</text>
-  <text x="210" y="320" font-size="13" font-weight="bold" text-anchor="middle" fill="#fbbf24">~2,440 LOC</text>
-
-  <!-- 4 Entrypoints -->
-  <rect x="420" y="190" width="150" height="65" fill="url(#blueGrad)" stroke="#3b82f6" stroke-width="2" rx="6"/>
-  <text x="495" y="210" font-size="12" font-weight="bold" text-anchor="middle" fill="#e0e7ff">CLI Entrypoint</text>
-  <text x="495" y="230" font-size="11" text-anchor="middle" fill="#93c5fd">argv parsing</text>
-  <text x="495" y="247" font-size="11" text-anchor="middle" fill="#93c5fd">~540 LOC</text>
-
-  <rect x="420" y="275" width="150" height="65" fill="url(#blueGrad)" stroke="#3b82f6" stroke-width="2" rx="6"/>
-  <text x="495" y="295" font-size="12" font-weight="bold" text-anchor="middle" fill="#e0e7ff">SDK Entrypoint</text>
-  <text x="495" y="315" font-size="11" text-anchor="middle" fill="#93c5fd">programmatic API</text>
-  <text x="495" y="332" font-size="11" text-anchor="middle" fill="#93c5fd">~380 LOC</text>
-
-  <!-- MCP &amp; Sandbox -->
-  <rect x="600" y="190" width="150" height="65" fill="url(#blueGrad)" stroke="#3b82f6" stroke-width="2" rx="6"/>
-  <text x="675" y="210" font-size="12" font-weight="bold" text-anchor="middle" fill="#e0e7ff">MCP Server</text>
-  <text x="675" y="230" font-size="11" text-anchor="middle" fill="#93c5fd">stdio transport</text>
-  <text x="675" y="247" font-size="11" text-anchor="middle" fill="#93c5fd">~620 LOC</text>
-
-  <rect x="600" y="275" width="150" height="65" fill="url(#blueGrad)" stroke="#3b82f6" stroke-width="2" rx="6"/>
-  <text x="675" y="295" font-size="12" font-weight="bold" text-anchor="middle" fill="#e0e7ff">Sandbox</text>
-  <text x="675" y="315" font-size="11" text-anchor="middle" fill="#93c5fd">isolated runtime</text>
-  <text x="675" y="332" font-size="11" text-anchor="middle" fill="#93c5fd">~450 LOC</text>
-
-  <!-- CLI Flags &amp; Env Vars -->
-  <rect x="800" y="190" width="200" height="150" fill="url(#blueGrad)" stroke="#3b82f6" stroke-width="2" rx="6"/>
-  <text x="900" y="215" font-size="13" font-weight="bold" text-anchor="middle" fill="#e0e7ff">CLI Configuration</text>
-  <text x="900" y="235" font-size="11" text-anchor="middle" fill="#93c5fd">60+ CLI Flags</text>
-  <text x="900" y="254" font-size="11" text-anchor="middle" fill="#93c5fd">35+ Environment Variables</text>
-  <text x="900" y="273" font-size="11" text-anchor="middle" fill="#93c5fd">88 Build-Time Feature Gates</text>
-  <text x="900" y="292" font-size="11" text-anchor="middle" fill="#93c5fd">Config validation &amp; merging</text>
-  <text x="900" y="311" font-size="11" text-anchor="middle" fill="#93c5fd">Profile &amp; preference loading</text>
-  <text x="900" y="330" font-size="13" font-weight="bold" text-anchor="middle" fill="#fbbf24">~1,850 LOC</text>
-
-  <!-- Feature Gates -->
-  <rect x="1050" y="190" width="220" height="150" fill="url(#purpleGrad)" stroke="#a78bfa" stroke-width="2" rx="6"/>
-  <text x="1160" y="215" font-size="13" font-weight="bold" text-anchor="middle" fill="#f3e8ff">Feature Gates (88 flags)</text>
-  <text x="1160" y="235" font-size="11" text-anchor="middle" fill="#e9d5ff">experimental_agents</text>
-  <text x="1160" y="253" font-size="11" text-anchor="middle" fill="#e9d5ff">enable_voice_input</text>
-  <text x="1160" y="271" font-size="11" text-anchor="middle" fill="#e9d5ff">unsafe_bash_allowed</text>
-  <text x="1160" y="289" font-size="11" text-anchor="middle" fill="#e9d5ff">plugin_marketplace</text>
-  <text x="1160" y="307" font-size="11" text-anchor="middle" fill="#e9d5ff">+ 84 more...</text>
-  <text x="1160" y="330" font-size="13" font-weight="bold" text-anchor="middle" fill="#fbbf24">Compile-time optimization</text>
-
-  <!-- Arrows down from Layer 1 -->
-  <path d="M 210 330 L 210 360" stroke="#3b82f6" stroke-width="3" fill="none" marker-end="url(#arrowblue)"/>
-  <text x="225" y="355" font-size="11" fill="#93c5fd">boot complete</text>
-
-  <!-- ============================================================================ -->
-  <!-- LAYER 2: UI LAYER -->
-  <!-- ============================================================================ -->
-
-  <text x="50" y="400" font-size="20" font-weight="bold" fill="#cbd5e1">Layer 2: UI &amp; Rendering Engine</text>
-  <line x1="30" y1="415" x2="2370" y2="415" stroke="#1e293b" stroke-width="1" stroke-dasharray="5,5"/>
-
-  <!-- Ink Engine -->
-  <rect x="50" y="430" width="280" height="180" fill="url(#pinkGrad)" stroke="#db2777" stroke-width="2" rx="8"/>
-  <text x="190" y="460" font-size="14" font-weight="bold" text-anchor="middle" fill="#fce7f3">Ink Rendering Engine</text>
-  <text x="190" y="480" font-size="11" text-anchor="middle" fill="#fbcfe8">96 files | React reconciler</text>
-  <text x="190" y="498" font-size="11" text-anchor="middle" fill="#fbcfe8">Yoga layout engine</text>
-  <text x="190" y="516" font-size="11" text-anchor="middle" fill="#fbcfe8">Screen buffer management</text>
-  <text x="190" y="534" font-size="11" text-anchor="middle" fill="#fbcfe8">ANSI diff optimization</text>
-  <text x="190" y="552" font-size="11" text-anchor="middle" fill="#fbcfe8">Component tree reconciliation</text>
-  <text x="190" y="570" font-size="11" text-anchor="middle" fill="#fbcfe8">Terminal output streaming</text>
-  <text x="190" y="593" font-size="13" font-weight="bold" text-anchor="middle" fill="#fbbf24">~28,400 LOC</text>
-
-  <!-- React Components -->
-  <rect x="370" y="430" width="280" height="180" fill="url(#pinkGrad)" stroke="#db2777" stroke-width="2" rx="8"/>
-  <text x="510" y="460" font-size="14" font-weight="bold" text-anchor="middle" fill="#fce7f3">React Components</text>
-  <text x="510" y="480" font-size="11" text-anchor="middle" fill="#fbcfe8">389 custom components</text>
-  <text x="510" y="498" font-size="11" text-anchor="middle" fill="#fbcfe8">PromptInput hub (2,338 LOC)</text>
-  <text x="510" y="516" font-size="11" text-anchor="middle" fill="#fbcfe8">VirtualMessageList (3K msgs)</text>
-  <text x="510" y="534" font-size="11" text-anchor="middle" fill="#fbcfe8">MessageRenderer with markdown</text>
-  <text x="510" y="552" font-size="11" text-anchor="middle" fill="#fbcfe8">Layout: sidebar, top-bar, input</text>
-  <text x="510" y="570" font-size="11" text-anchor="middle" fill="#fbcfe8">Theme system (dark/light)</text>
-  <text x="510" y="593" font-size="13" font-weight="bold" text-anchor="middle" fill="#fbbf24">~36,200 LOC</text>
-
-  <!-- Custom Hooks -->
-  <rect x="690" y="430" width="260" height="180" fill="url(#pinkGrad)" stroke="#db2777" stroke-width="2" rx="8"/>
-  <text x="820" y="460" font-size="14" font-weight="bold" text-anchor="middle" fill="#fce7f3">Custom Hooks (104)</text>
-  <text x="820" y="480" font-size="11" text-anchor="middle" fill="#fbcfe8">useTypeahead - AI completion</text>
-  <text x="820" y="498" font-size="11" text-anchor="middle" fill="#fbcfe8">useVoiceInput - mic control</text>
-  <text x="820" y="516" font-size="11" text-anchor="middle" fill="#fbcfe8">usePermissions - rule checking</text>
-  <text x="820" y="534" font-size="11" text-anchor="middle" fill="#fbcfe8">useNotifications - event hub</text>
-  <text x="820" y="552" font-size="11" text-anchor="middle" fill="#fbcfe8">useShortcuts - keybinding</text>
-  <text x="820" y="570" font-size="11" text-anchor="middle" fill="#fbcfe8">useAppState - reactive store</text>
-  <text x="820" y="593" font-size="13" font-weight="bold" text-anchor="middle" fill="#fbbf24">~24,100 LOC</text>
-
-  <!-- Keybindings &amp; Input -->
-  <rect x="1000" y="430" width="260" height="180" fill="url(#pinkGrad)" stroke="#db2777" stroke-width="2" rx="8"/>
-  <text x="1130" y="460" font-size="14" font-weight="bold" text-anchor="middle" fill="#fce7f3">Input &amp; Keybindings</text>
-  <text x="1130" y="480" font-size="11" text-anchor="middle" fill="#fbcfe8">220+ keybindings</text>
-  <text x="1130" y="498" font-size="11" text-anchor="middle" fill="#fbcfe8">18 context modes</text>
-  <text x="1130" y="516" font-size="11" text-anchor="middle" fill="#fbcfe8">Modal: editing/navigation</text>
-  <text x="1130" y="534" font-size="11" text-anchor="middle" fill="#fbcfe8">Ctrl+K command palette</text>
-  <text x="1130" y="552" font-size="11" text-anchor="middle" fill="#fbcfe8">Vim mode support</text>
-  <text x="1130" y="570" font-size="11" text-anchor="middle" fill="#fbcfe8">Key sequence macros</text>
-  <text x="1130" y="593" font-size="13" font-weight="bold" text-anchor="middle" fill="#fbbf24">~8,900 LOC</text>
-
-  <!-- Theme &amp; Style -->
-  <rect x="1310" y="430" width="260" height="180" fill="url(#pinkGrad)" stroke="#db2777" stroke-width="2" rx="8"/>
-  <text x="1440" y="460" font-size="14" font-weight="bold" text-anchor="middle" fill="#fce7f3">Theme &amp; Styling</text>
-  <text x="1440" y="480" font-size="11" text-anchor="middle" fill="#fbcfe8">Dark theme (primary)</text>
-  <text x="1440" y="498" font-size="11" text-anchor="middle" fill="#fbcfe8">Accessible color palette</text>
-  <text x="1440" y="516" font-size="11" text-anchor="middle" fill="#fbcfe8">CSS-in-JS (emotion)</text>
-  <text x="1440" y="534" font-size="11" text-anchor="middle" fill="#fbcfe8">Responsive breakpoints</text>
-  <text x="1440" y="552" font-size="11" text-anchor="middle" fill="#fbcfe8">Animation library</text>
-  <text x="1440" y="570" font-size="11" text-anchor="middle" fill="#fbcfe8">Custom fonts &amp; icons</text>
-  <text x="1440" y="593" font-size="13" font-weight="bold" text-anchor="middle" fill="#fbbf24">~6,800 LOC</text>
-
-  <!-- Terminal Integration -->
-  <rect x="1620" y="430" width="280" height="180" fill="url(#pinkGrad)" stroke="#db2777" stroke-width="2" rx="8"/>
-  <text x="1760" y="460" font-size="14" font-weight="bold" text-anchor="middle" fill="#fce7f3">Terminal Integration</text>
-  <text x="1760" y="480" font-size="11" text-anchor="middle" fill="#fbcfe8">Raw mode control</text>
-  <text x="1760" y="498" font-size="11" text-anchor="middle" fill="#fbcfe8">TTY resize detection</text>
-  <text x="1760" y="516" font-size="11" text-anchor="middle" fill="#fbcfe8">ANSI escape sequences</text>
-  <text x="1760" y="534" font-size="11" text-anchor="middle" fill="#fbcfe8">Mouse support (clickable)</text>
-  <text x="1760" y="552" font-size="11" text-anchor="middle" fill="#fbcfe8">Clipboard operations</text>
-  <text x="1760" y="570" font-size="11" text-anchor="middle" fill="#fbcfe8">Six-byte color support</text>
-  <text x="1760" y="593" font-size="13" font-weight="bold" text-anchor="middle" fill="#fbbf24">~5,200 LOC</text>
-
-  <!-- Arrow to Layer 3 -->
-  <path d="M 1200 610 L 1200 650" stroke="#db2777" stroke-width="3" fill="none" marker-end="url(#arrowblue)"/>
-  <text x="1220" y="640" font-size="11" fill="#fbcfe8">render events</text>
-
-  <!-- ============================================================================ -->
-  <!-- LAYER 3: CORE ENGINE -->
-  <!-- ============================================================================ -->
-
-  <text x="50" y="690" font-size="20" font-weight="bold" fill="#cbd5e1">Layer 3: Core Execution Engine</text>
-  <line x1="30" y1="705" x2="2370" y2="705" stroke="#1e293b" stroke-width="1" stroke-dasharray="5,5"/>
-
-  <!-- Query Loop -->
-  <rect x="50" y="720" width="320" height="160" fill="url(#blueGrad)" stroke="#3b82f6" stroke-width="2" rx="8"/>
-  <text x="210" y="750" font-size="14" font-weight="bold" text-anchor="middle" fill="#e0e7ff">Query State Machine</text>
-  <text x="210" y="770" font-size="11" text-anchor="middle" fill="#93c5fd">Infinite while-loop</text>
-  <text x="210" y="788" font-size="11" text-anchor="middle" fill="#93c5fd">6 states: IDLE → QUEUED →</text>
-  <text x="210" y="806" font-size="11" text-anchor="middle" fill="#93c5fd">EXECUTING → STREAMING →</text>
-  <text x="210" y="824" font-size="11" text-anchor="middle" fill="#93c5fd">DONE → ARCHIVING</text>
-  <text x="210" y="842" font-size="11" text-anchor="middle" fill="#93c5fd">Signal handling &amp; cleanup</text>
-  <text x="210" y="860" font-size="13" font-weight="bold" text-anchor="middle" fill="#fbbf24">~1,920 LOC</text>
-
-  <!-- API Client -->
-  <rect x="420" y="720" width="320" height="160" fill="url(#blueGrad)" stroke="#3b82f6" stroke-width="2" rx="8"/>
-  <text x="580" y="750" font-size="14" font-weight="bold" text-anchor="middle" fill="#e0e7ff">API Client (claude.ts)</text>
-  <text x="580" y="770" font-size="11" text-anchor="middle" fill="#93c5fd">3,419 LOC hub</text>
-  <text x="580" y="788" font-size="11" text-anchor="middle" fill="#93c5fd">Request streaming</text>
-  <text x="580" y="806" font-size="11" text-anchor="middle" fill="#93c5fd">Exponential backoff retry</text>
-  <text x="580" y="824" font-size="11" text-anchor="middle" fill="#93c5fd">4 provider support:</text>
-  <text x="580" y="842" font-size="11" text-anchor="middle" fill="#93c5fd">Anthropic | AWS Bedrock | GCP Vertex | Azure</text>
-  <text x="580" y="860" font-size="13" font-weight="bold" text-anchor="middle" fill="#fbbf24">Multi-endpoint</text>
-
-  <!-- Slash Commands -->
-  <rect x="790" y="720" width="300" height="160" fill="url(#blueGrad)" stroke="#3b82f6" stroke-width="2" rx="8"/>
-  <text x="940" y="750" font-size="14" font-weight="bold" text-anchor="middle" fill="#e0e7ff">Slash Commands (150+)</text>
-  <text x="940" y="770" font-size="11" text-anchor="middle" fill="#93c5fd">/prompt commands</text>
-  <text x="940" y="788" font-size="11" text-anchor="middle" fill="#93c5fd">/local (file-based)</text>
-  <text x="940" y="806" font-size="11" text-anchor="middle" fill="#93c5fd">/local-jsx (React)</text>
-  <text x="940" y="824" font-size="11" text-anchor="middle" fill="#93c5fd">/agent, /memory, /session</text>
-  <text x="940" y="842" font-size="11" text-anchor="middle" fill="#93c5fd">/tool, /plugin runners</text>
-  <text x="940" y="860" font-size="13" font-weight="bold" text-anchor="middle" fill="#fbbf24">~7,200 LOC</text>
-
-  <!-- Context Compaction -->
-  <rect x="1130" y="720" width="340" height="160" fill="url(#blueGrad)" stroke="#3b82f6" stroke-width="2" rx="8"/>
-  <text x="1300" y="750" font-size="14" font-weight="bold" text-anchor="middle" fill="#e0e7ff">Context Compaction (6 Strategies)</text>
-  <text x="1300" y="770" font-size="11" text-anchor="middle" fill="#93c5fd">1. Time-based MC (24h window)</text>
-  <text x="1300" y="788" font-size="11" text-anchor="middle" fill="#93c5fd">2. Cached MC (precomputed)</text>
-  <text x="1300" y="806" font-size="11" text-anchor="middle" fill="#93c5fd">3. Reactive MC (on demand)</text>
-  <text x="1300" y="824" font-size="11" text-anchor="middle" fill="#93c5fd">4. Session memory merge</text>
-  <text x="1300" y="842" font-size="11" text-anchor="middle" fill="#93c5fd">5. Full summarization</text>
-  <text x="1300" y="860" font-size="13" font-weight="bold" text-anchor="middle" fill="#fbbf24">~5,300 LOC</text>
-
-  <!-- Message Processing -->
-  <rect x="1520" y="720" width="300" height="160" fill="url(#blueGrad)" stroke="#3b82f6" stroke-width="2" rx="8"/>
-  <text x="1670" y="750" font-size="14" font-weight="bold" text-anchor="middle" fill="#e0e7ff">Message Processing</text>
-  <text x="1670" y="770" font-size="11" text-anchor="middle" fill="#93c5fd">Parse streaming chunks</text>
-  <text x="1670" y="788" font-size="11" text-anchor="middle" fill="#93c5fd">Tool use detection</text>
-  <text x="1670" y="806" font-size="11" text-anchor="middle" fill="#93c5fd">Stop reason handling</text>
-  <text x="1670" y="824" font-size="11" text-anchor="middle" fill="#93c5fd">Content aggregation</text>
-  <text x="1670" y="842" font-size="11" text-anchor="middle" fill="#93c5fd">History persistence</text>
-  <text x="1670" y="860" font-size="13" font-weight="bold" text-anchor="middle" fill="#fbbf24">~3,800 LOC</text>
-
-  <!-- Arrow to Layer 4 -->
-  <path d="M 1200 880 L 1200 920" stroke="#3b82f6" stroke-width="3" fill="none" marker-end="url(#arrowblue)"/>
-  <text x="1220" y="910" font-size="11" fill="#93c5fd">execute queries</text>
-
-  <!-- ============================================================================ -->
-  <!-- LAYER 4: PERMISSION &amp; SECURITY -->
-  <!-- ============================================================================ -->
-
-  <text x="50" y="960" font-size="20" font-weight="bold" fill="#cbd5e1">Layer 4: Permission &amp; Security</text>
-  <line x1="30" y1="975" x2="2370" y2="975" stroke="#1e293b" stroke-width="1" stroke-dasharray="5,5"/>
-
-  <!-- Permission System -->
-  <rect x="50" y="990" width="360" height="160" fill="url(#greenGrad)" stroke="#22c55e" stroke-width="2" rx="8"/>
-  <text x="230" y="1020" font-size="14" font-weight="bold" text-anchor="middle" fill="#dcfce7">Permission System</text>
-  <text x="230" y="1040" font-size="11" text-anchor="middle" fill="#bbf7d0">24 files | 9,409 LOC</text>
-  <text x="230" y="1058" font-size="11" text-anchor="middle" fill="#bbf7d0">6 permission modes:</text>
-  <text x="230" y="1076" font-size="11" text-anchor="middle" fill="#bbf7d0">ALLOW_ALL | DENY_ALL | STRICT</text>
-  <text x="230" y="1094" font-size="11" text-anchor="middle" fill="#bbf7d0">RULES-BASED | INTERACTIVE | YOLO</text>
-  <text x="230" y="1112" font-size="11" text-anchor="middle" fill="#bbf7d0">Rule matching engine</text>
-  <text x="230" y="1130" font-size="11" text-anchor="middle" fill="#bbf7d0">Allowlist/blocklist checking</text>
-  <text x="230" y="1148" font-size="13" font-weight="bold" text-anchor="middle" fill="#fbbf24">Rule-based enforcement</text>
-
-  <!-- YOLO Classifier -->
-  <rect x="460" y="990" width="340" height="160" fill="url(#greenGrad)" stroke="#22c55e" stroke-width="2" rx="8"/>
-  <text x="630" y="1020" font-size="14" font-weight="bold" text-anchor="middle" fill="#dcfce7">YOLO Classifier</text>
-  <text x="630" y="1040" font-size="11" text-anchor="middle" fill="#bbf7d0">Two-stage reasoning pipeline</text>
-  <text x="630" y="1058" font-size="11" text-anchor="middle" fill="#bbf7d0">Stage 1: Fast scan (64 tokens)</text>
-  <text x="630" y="1076" font-size="11" text-anchor="middle" fill="#bbf7d0">Stage 2: Deep reasoning (4,096 tokens)</text>
-  <text x="630" y="1094" font-size="11" text-anchor="middle" fill="#bbf7d0">Safe-to-execute classification</text>
-  <text x="630" y="1112" font-size="11" text-anchor="middle" fill="#bbf7d0">Risk scoring with confidence</text>
-  <text x="630" y="1130" font-size="11" text-anchor="middle" fill="#bbf7d0">Fallback to human review</text>
-  <text x="630" y="1148" font-size="13" font-weight="bold" text-anchor="middle" fill="#fbbf24">ML-based safety</text>
-
-  <!-- Bash Parser -->
-  <rect x="850" y="990" width="340" height="160" fill="url(#greenGrad)" stroke="#22c55e" stroke-width="2" rx="8"/>
-  <text x="1020" y="1020" font-size="14" font-weight="bold" text-anchor="middle" fill="#dcfce7">Bash Parser</text>
-  <text x="1020" y="1040" font-size="11" text-anchor="middle" fill="#bbf7d0">Hand-rolled recursive descent</text>
-  <text x="1020" y="1058" font-size="11" text-anchor="middle" fill="#bbf7d0">15 dangerous AST nodes:</text>
-  <text x="1020" y="1076" font-size="11" text-anchor="middle" fill="#bbf7d0">fork | exec | pipe | redirect</text>
-  <text x="1020" y="1094" font-size="11" text-anchor="middle" fill="#bbf7d0">rm | dd | shutdown | reboot</text>
-  <text x="1020" y="1112" font-size="11" text-anchor="middle" fill="#bbf7d0">Fail-closed allowlist enforcement</text>
-  <text x="1020" y="1130" font-size="11" text-anchor="middle" fill="#bbf7d0">~3,100 LOC parser</text>
-  <text x="1020" y="1148" font-size="13" font-weight="bold" text-anchor="middle" fill="#fbbf24">AST-based blocking</text>
-
-  <!-- Secret Scanning -->
-  <rect x="1240" y="990" width="340" height="160" fill="url(#greenGrad)" stroke="#22c55e" stroke-width="2" rx="8"/>
-  <text x="1410" y="1020" font-size="14" font-weight="bold" text-anchor="middle" fill="#dcfce7">Secret Scanning</text>
-  <text x="1410" y="1040" font-size="11" text-anchor="middle" fill="#bbf7d0">44 gitleaks rules</text>
-  <text x="1410" y="1058" font-size="11" text-anchor="middle" fill="#bbf7d0">AWS keys, GCP tokens, GitHub PATs</text>
-  <text x="1410" y="1076" font-size="11" text-anchor="middle" fill="#bbf7d0">Stripe &amp; Twilio API keys</text>
-  <text x="1410" y="1094" font-size="11" text-anchor="middle" fill="#bbf7d0">Regex + entropy detection</text>
-  <text x="1410" y="1112" font-size="11" text-anchor="middle" fill="#bbf7d0">Real-time file scanning</text>
-  <text x="1410" y="1130" font-size="11" text-anchor="middle" fill="#bbf7d0">User notification &amp; blocking</text>
-  <text x="1410" y="1148" font-size="13" font-weight="bold" text-anchor="middle" fill="#fbbf24">Pattern-based detection</text>
-
-  <!-- Audit Logging -->
-  <rect x="1630" y="990" width="300" height="160" fill="url(#greenGrad)" stroke="#22c55e" stroke-width="2" rx="8"/>
-  <text x="1780" y="1020" font-size="14" font-weight="bold" text-anchor="middle" fill="#dcfce7">Audit Logging</text>
-  <text x="1780" y="1040" font-size="11" text-anchor="middle" fill="#bbf7d0">Permission decisions</text>
-  <text x="1780" y="1058" font-size="11" text-anchor="middle" fill="#bbf7d0">Tool execution log</text>
-  <text x="1780" y="1076" font-size="11" text-anchor="middle" fill="#bbf7d0">User action timeline</text>
-  <text x="1780" y="1094" font-size="11" text-anchor="middle" fill="#bbf7d0">Denied requests</text>
-  <text x="1780" y="1112" font-size="11" text-anchor="middle" fill="#bbf7d0">Security events</text>
-  <text x="1780" y="1130" font-size="11" text-anchor="middle" fill="#bbf7d0">Queryable audit trail</text>
-  <text x="1780" y="1148" font-size="13" font-weight="bold" text-anchor="middle" fill="#fbbf24">~2,200 LOC</text>
-
-  <!-- Arrow to Layer 5 -->
-  <path d="M 1200 1150 L 1200 1190" stroke="#22c55e" stroke-width="3" fill="none" marker-end="url(#arrowgreen)"/>
-  <text x="1220" y="1180" font-size="11" fill="#bbf7d0">approved actions</text>
-
-  <!-- ============================================================================ -->
-  <!-- LAYER 5: AGENT ORCHESTRATION -->
-  <!-- ============================================================================ -->
-
-  <text x="50" y="1230" font-size="20" font-weight="bold" fill="#cbd5e1">Layer 5: Agent Orchestration</text>
-  <line x1="30" y1="1245" x2="2370" y2="1245" stroke="#1e293b" stroke-width="1" stroke-dasharray="5,5"/>
-
-  <!-- Swarm Mode -->
-  <rect x="50" y="1260" width="340" height="140" fill="url(#purpleGrad)" stroke="#a78bfa" stroke-width="2" rx="8"/>
-  <text x="220" y="1290" font-size="14" font-weight="bold" text-anchor="middle" fill="#f3e8ff">Swarm Mode</text>
-  <text x="220" y="1310" font-size="11" text-anchor="middle" fill="#e9d5ff">Leader-follower topology</text>
-  <text x="220" y="1328" font-size="11" text-anchor="middle" fill="#e9d5ff">File-based mailbox IPC</text>
-  <text x="220" y="1346" font-size="11" text-anchor="middle" fill="#e9d5ff">500ms polling interval</text>
-  <text x="220" y="1364" font-size="11" text-anchor="middle" fill="#e9d5ff">Sub-agent spawning</text>
-  <text x="220" y="1382" font-size="11" text-anchor="middle" fill="#e9d5ff">~1,850 LOC</text>
-
-  <!-- Coordinator Mode -->
-  <rect x="440" y="1260" width="340" height="140" fill="url(#purpleGrad)" stroke="#a78bfa" stroke-width="2" rx="8"/>
-  <text x="610" y="1290" font-size="14" font-weight="bold" text-anchor="middle" fill="#f3e8ff">Coordinator Mode</text>
-  <text x="610" y="1310" font-size="11" text-anchor="middle" fill="#e9d5ff">Centralized multi-agent</text>
-  <text x="610" y="1328" font-size="11" text-anchor="middle" fill="#e9d5ff">XML task notifications</text>
-  <text x="610" y="1346" font-size="11" text-anchor="middle" fill="#e9d5ff">Agent pool management</text>
-  <text x="610" y="1364" font-size="11" text-anchor="middle" fill="#e9d5ff">Result aggregation</text>
-  <text x="610" y="1382" font-size="11" text-anchor="middle" fill="#e9d5ff">~2,100 LOC</text>
-
-  <!-- Session API -->
-  <rect x="830" y="1260" width="340" height="140" fill="url(#purpleGrad)" stroke="#a78bfa" stroke-width="2" rx="8"/>
-  <text x="1000" y="1290" font-size="14" font-weight="bold" text-anchor="middle" fill="#f3e8ff">Session API &amp; Teleportation</text>
-  <text x="1000" y="1310" font-size="11" text-anchor="middle" fill="#e9d5ff">/v1/sessions endpoint</text>
-  <text x="1000" y="1328" font-size="11" text-anchor="middle" fill="#e9d5ff">Git bundle serialization</text>
-  <text x="1000" y="1346" font-size="11" text-anchor="middle" fill="#e9d5ff">Cross-process transfer</text>
-  <text x="1000" y="1364" font-size="11" text-anchor="middle" fill="#e9d5ff">State checkpoint/restore</text>
-  <text x="1000" y="1382" font-size="11" text-anchor="middle" fill="#e9d5ff">~1,400 LOC</text>
-
-  <!-- Speculative Execution -->
-  <rect x="1220" y="1260" width="340" height="140" fill="url(#purpleGrad)" stroke="#a78bfa" stroke-width="2" rx="8"/>
-  <text x="1390" y="1290" font-size="14" font-weight="bold" text-anchor="middle" fill="#f3e8ff">Speculative Execution</text>
-  <text x="1390" y="1310" font-size="11" text-anchor="middle" fill="#e9d5ff">Forked agent subprocess</text>
-  <text x="1390" y="1328" font-size="11" text-anchor="middle" fill="#e9d5ff">Copy-on-write overlay</text>
-  <text x="1390" y="1346" font-size="11" text-anchor="middle" fill="#e9d5ff">Dual-path execution</text>
-  <text x="1390" y="1364" font-size="11" text-anchor="middle" fill="#e9d5ff">Fast + safe strategies</text>
-  <text x="1390" y="1382" font-size="11" text-anchor="middle" fill="#e9d5ff">~980 LOC</text>
-
-  <!-- Agent Context Mgmt -->
-  <rect x="1610" y="1260" width="340" height="140" fill="url(#purpleGrad)" stroke="#a78bfa" stroke-width="2" rx="8"/>
-  <text x="1780" y="1290" font-size="14" font-weight="bold" text-anchor="middle" fill="#f3e8ff">Context Management</text>
-  <text x="1780" y="1310" font-size="11" text-anchor="middle" fill="#e9d5ff">Agent-local state</text>
-  <text x="1780" y="1328" font-size="11" text-anchor="middle" fill="#e9d5ff">Shared memory bridges</text>
-  <text x="1780" y="1346" font-size="11" text-anchor="middle" fill="#e9d5ff">Tool sandboxing</text>
-  <text x="1780" y="1364" font-size="11" text-anchor="middle" fill="#e9d5ff">Safe variable passing</text>
-  <text x="1780" y="1382" font-size="11" text-anchor="middle" fill="#e9d5ff">~1,600 LOC</text>
-
-  <!-- Arrow to Layer 6 -->
-  <path d="M 1200 1400 L 1200 1440" stroke="#a78bfa" stroke-width="3" fill="none" marker-end="url(#arrowpurple)"/>
-  <text x="1220" y="1430" font-size="11" fill="#e9d5ff">agent coordination</text>
-
-  <!-- ============================================================================ -->
-  <!-- LAYER 6: MEMORY &amp; STATE MANAGEMENT -->
-  <!-- ============================================================================ -->
-
-  <text x="50" y="1480" font-size="20" font-weight="bold" fill="#cbd5e1">Layer 6: Memory &amp; State Management</text>
-  <line x1="30" y1="1495" x2="2370" y2="1495" stroke="#1e293b" stroke-width="1" stroke-dasharray="5,5"/>
-
-  <!-- Memdir Semantic Memory -->
-  <rect x="50" y="1510" width="340" height="140" fill="url(#yellowGrad)" stroke="#eab308" stroke-width="2" rx="8"/>
-  <text x="220" y="1540" font-size="14" font-weight="bold" text-anchor="middle" fill="#fef3c7">Memdir Semantic Memory</text>
-  <text x="220" y="1560" font-size="11" text-anchor="middle" fill="#fde047">MEMORY.md + topic files</text>
-  <text x="220" y="1578" font-size="11" text-anchor="middle" fill="#fde047">4-type taxonomy:</text>
-  <text x="220" y="1596" font-size="11" text-anchor="middle" fill="#fde047">facts | goals | rules | errors</text>
-  <text x="220" y="1614" font-size="11" text-anchor="middle" fill="#fde047">Persistent user memory</text>
-  <text x="220" y="1632" font-size="11" text-anchor="middle" fill="#fde047">~3,200 LOC</text>
-
-  <!-- Team Memory Sync -->
-  <rect x="440" y="1510" width="340" height="140" fill="url(#yellowGrad)" stroke="#eab308" stroke-width="2" rx="8"/>
-  <text x="610" y="1540" font-size="14" font-weight="bold" text-anchor="middle" fill="#fef3c7">Team Memory Sync</text>
-  <text x="610" y="1560" font-size="11" text-anchor="middle" fill="#fde047">Pull-push replication</text>
-  <text x="610" y="1578" font-size="11" text-anchor="middle" fill="#fde047">SHA256 delta compression</text>
-  <text x="610" y="1596" font-size="11" text-anchor="middle" fill="#fde047">ETag caching strategy</text>
-  <text x="610" y="1614" font-size="11" text-anchor="middle" fill="#fde047">Multi-user collaboration</text>
-  <text x="610" y="1632" font-size="11" text-anchor="middle" fill="#fde047">~2,100 LOC</text>
-
-  <!-- Session Memory -->
-  <rect x="830" y="1510" width="340" height="140" fill="url(#yellowGrad)" stroke="#eab308" stroke-width="2" rx="8"/>
-  <text x="1000" y="1540" font-size="14" font-weight="bold" text-anchor="middle" fill="#fef3c7">Session Memory</text>
-  <text x="1000" y="1560" font-size="11" text-anchor="middle" fill="#fde047">10K init threshold</text>
-  <text x="1000" y="1578" font-size="11" text-anchor="middle" fill="#fde047">5K growth limit</text>
-  <text x="1000" y="1596" font-size="11" text-anchor="middle" fill="#fde047">LRU eviction policy</text>
-  <text x="1000" y="1614" font-size="11" text-anchor="middle" fill="#fde047">Hot-path message caching</text>
-  <text x="1000" y="1632" font-size="11" text-anchor="middle" fill="#fde047">~1,800 LOC</text>
-
-  <!-- autoDream Background Consolidation -->
-  <rect x="1220" y="1510" width="340" height="140" fill="url(#yellowGrad)" stroke="#eab308" stroke-width="2" rx="8"/>
-  <text x="1390" y="1540" font-size="14" font-weight="bold" text-anchor="middle" fill="#fef3c7">autoDream Consolidation</text>
-  <text x="1390" y="1560" font-size="11" text-anchor="middle" fill="#fde047">24h+ background run</text>
-  <text x="1390" y="1578" font-size="11" text-anchor="middle" fill="#fde047">Summarize old memories</text>
-  <text x="1390" y="1596" font-size="11" text-anchor="middle" fill="#fde047">Extract patterns &amp; insights</text>
-  <text x="1390" y="1614" font-size="11" text-anchor="middle" fill="#fde047">Compress archival data</text>
-  <text x="1390" y="1632" font-size="11" text-anchor="middle" fill="#fde047">~1,200 LOC</text>
-
-  <!-- AppState Reactive Store -->
-  <rect x="1610" y="1510" width="340" height="140" fill="url(#yellowGrad)" stroke="#eab308" stroke-width="2" rx="8"/>
-  <text x="1780" y="1540" font-size="14" font-weight="bold" text-anchor="middle" fill="#fef3c7">AppState Reactive Store</text>
-  <text x="1780" y="1560" font-size="11" text-anchor="middle" fill="#fde047">565+ reactive properties</text>
-  <text x="1780" y="1578" font-size="11" text-anchor="middle" fill="#fde047">Dependency tracking</text>
-  <text x="1780" y="1596" font-size="11" text-anchor="middle" fill="#fde047">Batch update optimization</text>
-  <text x="1780" y="1614" font-size="11" text-anchor="middle" fill="#fde047">Computed selectors</text>
-  <text x="1780" y="1632" font-size="11" text-anchor="middle" fill="#fde047">~4,100 LOC</text>
-
-  <!-- Arrow to Layer 7 -->
-  <path d="M 1200 1650 L 1200 1690" stroke="#eab308" stroke-width="3" fill="none" marker-end="url(#arrowyellow)"/>
-  <text x="1220" y="1680" font-size="11" fill="#fde047">state updates</text>
-
-  <!-- ============================================================================ -->
-  <!-- LAYER 7: PLUGINS &amp; TOOLS (bottom) -->
-  <!-- ============================================================================ -->
-
-  <text x="50" y="1730" font-size="20" font-weight="bold" fill="#cbd5e1">Layer 7: Plugins, Tools &amp; Integrations</text>
-  <line x1="30" y1="1745" x2="2370" y2="1745" stroke="#1e293b" stroke-width="1" stroke-dasharray="5,5"/>
-
-  <!-- Plugin System -->
-  <rect x="50" y="1680" width="280" height="120" fill="url(#orangeGrad)" stroke="#d97706" stroke-width="2" rx="6"/>
-  <text x="190" y="1785" font-size="13" font-weight="bold" text-anchor="middle" fill="#fed7aa">Plugin System</text>
-  <text x="190" y="1805" font-size="11" text-anchor="middle" fill="#fdba74">44 files | 20,521 LOC</text>
-  <text x="190" y="1823" font-size="11" text-anchor="middle" fill="#fdba74">5 scopes, DFS resolver</text>
-  <text x="190" y="1841" font-size="11" text-anchor="middle" fill="#fdba74">Marketplace: GCS+GitHub</text>
-
-  <!-- MCP Integration -->
-  <rect x="370" y="1680" width="280" height="120" fill="url(#orangeGrad)" stroke="#d97706" stroke-width="2" rx="6"/>
-  <text x="510" y="1785" font-size="13" font-weight="bold" text-anchor="middle" fill="#fed7aa">MCP Protocol</text>
-  <text x="510" y="1805" font-size="11" text-anchor="middle" fill="#fdba74">MCPB binary format</text>
-  <text x="510" y="1823" font-size="11" text-anchor="middle" fill="#fdba74">SHA256 hashing</text>
-  <text x="510" y="1841" font-size="11" text-anchor="middle" fill="#fdba74">Streaming transport</text>
-
-  <!-- Computer Use -->
-  <rect x="690" y="1680" width="280" height="120" fill="url(#orangeGrad)" stroke="#d97706" stroke-width="2" rx="6"/>
-  <text x="830" y="1785" font-size="13" font-weight="bold" text-anchor="middle" fill="#fed7aa">Computer Use</text>
-  <text x="830" y="1805" font-size="11" text-anchor="middle" fill="#fdba74">macOS MCP, Swift+Rust</text>
-  <text x="830" y="1823" font-size="11" text-anchor="middle" fill="#fdba74">6-layer safety gates</text>
-  <text x="830" y="1841" font-size="11" text-anchor="middle" fill="#fdba74">Visual feedback loop</text>
-
-  <!-- Claude in Chrome -->
-  <rect x="1010" y="1680" width="280" height="120" fill="url(#orangeGrad)" stroke="#d97706" stroke-width="2" rx="6"/>
-  <text x="1150" y="1785" font-size="13" font-weight="bold" text-anchor="middle" fill="#fed7aa">Claude in Chrome</text>
-  <text x="1150" y="1805" font-size="11" text-anchor="middle" fill="#fdba74">Native Messaging API</text>
-  <text x="1150" y="1823" font-size="11" text-anchor="middle" fill="#fdba74">7 browser support</text>
-  <text x="1150" y="1841" font-size="11" text-anchor="middle" fill="#fdba74">WebSocket bridge</text>
-
-  <!-- LSP Integration -->
-  <rect x="1330" y="1680" width="280" height="120" fill="url(#orangeGrad)" stroke="#d97706" stroke-width="2" rx="6"/>
-  <text x="1470" y="1785" font-size="13" font-weight="bold" text-anchor="middle" fill="#fed7aa">LSP Integration</text>
-  <text x="1470" y="1805" font-size="11" text-anchor="middle" fill="#fdba74">JSON-RPC 2.0 protocol</text>
-  <text x="1470" y="1823" font-size="11" text-anchor="middle" fill="#fdba74">3 retry attempts</text>
-  <text x="1470" y="1841" font-size="11" text-anchor="middle" fill="#fdba74">Multiple language support</text>
-
-  <!-- Web Fetch -->
-  <rect x="1650" y="1680" width="280" height="120" fill="url(#orangeGrad)" stroke="#d97706" stroke-width="2" rx="6"/>
-  <text x="1790" y="1785" font-size="13" font-weight="bold" text-anchor="middle" fill="#fed7aa">Web Fetch &amp; Scraping</text>
-  <text x="1790" y="1805" font-size="11" text-anchor="middle" fill="#fdba74">HTTP client with retry</text>
-  <text x="1790" y="1823" font-size="11" text-anchor="middle" fill="#fdba74">DOM parsing &amp; extraction</text>
-  <text x="1790" y="1841" font-size="11" text-anchor="middle" fill="#fdba74">Rate limiting</text>
-
-  <!-- ============================================================================ -->
-  <!-- LEGEND BOX (bottom right corner) -->
-  <!-- ============================================================================ -->
-
-  <rect x="2000" y="1410" width="350" height="310" fill="#0f1219" stroke="#334155" stroke-width="2" rx="8"/>
-
-  <text x="2175" y="1440" font-size="16" font-weight="bold" text-anchor="middle" fill="#e0e7ff">Legend &amp; Key Stats</text>
-  <line x1="2010" y1="1455" x2="2340" y2="1455" stroke="#334155" stroke-width="1"/>
-
-  <!-- Color codes -->
-  <rect x="2020" y="1470" width="12" height="12" fill="#3b82f6"/>
-  <text x="2045" y="1478" font-size="11" fill="#cbd5e1">Core Engine (blue)</text>
-
-  <rect x="2020" y="1495" width="12" height="12" fill="#15803d"/>
-  <text x="2045" y="1503" font-size="11" fill="#cbd5e1">Security (green)</text>
-
-  <rect x="2020" y="1520" width="12" height="12" fill="#d97706"/>
-  <text x="2045" y="1528" font-size="11" fill="#cbd5e1">Tools &amp; Plugins (orange)</text>
-
-  <rect x="2020" y="1545" width="12" height="12" fill="#7c3aed"/>
-  <text x="2045" y="1553" font-size="11" fill="#cbd5e1">Agents (purple)</text>
-
-  <rect x="2020" y="1570" width="12" height="12" fill="#0891b2"/>
-  <text x="2045" y="1578" font-size="11" fill="#cbd5e1">Networking (cyan)</text>
-
-  <rect x="2020" y="1595" width="12" height="12" fill="#db2777"/>
-  <text x="2045" y="1603" font-size="11" fill="#cbd5e1">UI Layer (pink)</text>
-
-  <rect x="2020" y="1620" width="12" height="12" fill="#ca8a04"/>
-  <text x="2045" y="1628" font-size="11" fill="#cbd5e1">Memory &amp; Storage (yellow)</text>
-
-  <!-- Key Stats -->
-  <line x1="2010" y1="1645" x2="2340" y2="1645" stroke="#334155" stroke-width="1"/>
-
-  <text x="2020" y="1665" font-size="10" fill="#94a3b8">1,902 TypeScript files</text>
-  <text x="2020" y="1680" font-size="10" fill="#94a3b8">~423K LOC source</text>
-  <text x="2020" y="1695" font-size="10" fill="#94a3b8">82 analysis documents</text>
-  <text x="2020" y="1710" font-size="10" fill="#94a3b8">112K lines of analysis</text>
-
-  <!-- Data Flow Notes -->
-  <line x1="2010" y1="1725" x2="2340" y2="1725" stroke="#334155" stroke-width="1"/>
-
-  <text x="2020" y="1745" font-size="10" fill="#94a3b8">Streaming responses</text>
-  <text x="2020" y="1680" font-size="10" fill="#94a3b8">Permission checks</text>
-  <text x="2020" y="1775" font-size="10" fill="#94a3b8">Tool execution</text>
+<svg width="1400" height="2000" viewBox="0 0 1400 2000" xmlns="http://www.w3.org/2000/svg">
+
+    <defs>
+        <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+            <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.08"/>
+        </filter>
+        <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+            <polygon points="0 0, 10 3, 0 6" fill="#94A3B8"/>
+        </marker>
+    </defs>
+    <text x="700" y="40" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="bold" fill="#3B82F6">Claude Code v2.1.88 - Architecture</text>
+    <text x="50" y="100" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="bold" fill="#3B82F6">Entry and Bootstrap</text>
+    <rect x="50" y="140" width="250" height="80" rx="12" fill="#EBF5FF" stroke="#3B82F6" stroke-width="2" filter="url(#shadow)"/>
+    <text x="175.0" y="165" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a2e">main.tsx</text>
+    <text x="175.0" y="185" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">2,440 LOC</text>
+    <text x="175.0" y="201" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">10-step boot, config</text>
+    <rect x="320" y="140" width="250" height="80" rx="12" fill="#EBF5FF" stroke="#3B82F6" stroke-width="2" filter="url(#shadow)"/>
+    <text x="445.0" y="165" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a2e">CLI</text>
+    <text x="445.0" y="185" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">540 LOC</text>
+    <text x="445.0" y="201" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">argv parsing</text>
+    <rect x="590" y="140" width="250" height="80" rx="12" fill="#EBF5FF" stroke="#3B82F6" stroke-width="2" filter="url(#shadow)"/>
+    <text x="715.0" y="165" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a2e">SDK</text>
+    <text x="715.0" y="185" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">380 LOC</text>
+    <text x="715.0" y="201" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">programmatic API</text>
+    <rect x="860" y="140" width="250" height="80" rx="12" fill="#EBF5FF" stroke="#3B82F6" stroke-width="2" filter="url(#shadow)"/>
+    <text x="985.0" y="165" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a2e">MCP Server</text>
+    <text x="985.0" y="185" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">620 LOC</text>
+    <text x="985.0" y="201" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">stdio transport</text>
+    <rect x="1130" y="140" width="250" height="80" rx="12" fill="#EBF5FF" stroke="#3B82F6" stroke-width="2" filter="url(#shadow)"/>
+    <text x="1255.0" y="165" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a2e">Config</text>
+    <text x="1255.0" y="185" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">1,850 LOC</text>
+    <text x="1255.0" y="201" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">60+ flags</text>
+    <text x="50" y="380" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="bold" fill="#8B5CF6">UI and Rendering</text>
+    <rect x="50" y="420" width="250" height="80" rx="12" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="2" filter="url(#shadow)"/>
+    <text x="175.0" y="445" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a2e">Ink Engine</text>
+    <text x="175.0" y="465" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">28,400 LOC</text>
+    <text x="175.0" y="481" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">React, Yoga</text>
+    <rect x="320" y="420" width="250" height="80" rx="12" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="2" filter="url(#shadow)"/>
+    <text x="445.0" y="445" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a2e">Components</text>
+    <text x="445.0" y="465" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">36,200 LOC</text>
+    <text x="445.0" y="481" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">389 components</text>
+    <rect x="590" y="420" width="250" height="80" rx="12" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="2" filter="url(#shadow)"/>
+    <text x="715.0" y="445" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a2e">Hooks</text>
+    <text x="715.0" y="465" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">24,100 LOC</text>
+    <text x="715.0" y="481" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">104 custom hooks</text>
+    <rect x="860" y="420" width="250" height="80" rx="12" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="2" filter="url(#shadow)"/>
+    <text x="985.0" y="445" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a2e">Keybindings</text>
+    <text x="985.0" y="465" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">8,900 LOC</text>
+    <text x="985.0" y="481" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">220+ keybindings</text>
+    <rect x="1130" y="420" width="250" height="80" rx="12" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="2" filter="url(#shadow)"/>
+    <text x="1255.0" y="445" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a2e">Terminal</text>
+    <text x="1255.0" y="465" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">5,200 LOC</text>
+    <text x="1255.0" y="481" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">raw mode, mouse</text>
+    <text x="50" y="660" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="bold" fill="#3B82F6">Core Engine</text>
+    <rect x="50" y="700" width="250" height="80" rx="12" fill="#EBF5FF" stroke="#3B82F6" stroke-width="2" filter="url(#shadow)"/>
+    <text x="175.0" y="725" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a2e">Query State Machine</text>
+    <text x="175.0" y="745" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">1,920 LOC</text>
+    <text x="175.0" y="761" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">6 states</text>
+    <rect x="320" y="700" width="250" height="80" rx="12" fill="#EBF5FF" stroke="#3B82F6" stroke-width="2" filter="url(#shadow)"/>
+    <text x="445.0" y="725" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a2e">API Client</text>
+    <text x="445.0" y="745" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">3,419 LOC</text>
+    <text x="445.0" y="761" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">4 providers</text>
+    <rect x="590" y="700" width="250" height="80" rx="12" fill="#EBF5FF" stroke="#3B82F6" stroke-width="2" filter="url(#shadow)"/>
+    <text x="715.0" y="725" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a2e">Slash Commands</text>
+    <text x="715.0" y="745" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">7,200 LOC</text>
+    <text x="715.0" y="761" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">150+ commands</text>
+    <rect x="860" y="700" width="250" height="80" rx="12" fill="#EBF5FF" stroke="#3B82F6" stroke-width="2" filter="url(#shadow)"/>
+    <text x="985.0" y="725" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a2e">Compaction</text>
+    <text x="985.0" y="745" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">5,300 LOC</text>
+    <text x="985.0" y="761" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">6 strategies</text>
+    <rect x="1130" y="700" width="250" height="80" rx="12" fill="#EBF5FF" stroke="#3B82F6" stroke-width="2" filter="url(#shadow)"/>
+    <text x="1255.0" y="725" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a2e">Message Processing</text>
+    <text x="1255.0" y="745" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">3,800 LOC</text>
+    <text x="1255.0" y="761" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">parse, persist</text>
+    <text x="50" y="940" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="bold" fill="#10B981">Security</text>
+    <rect x="50" y="980" width="250" height="80" rx="12" fill="#ECFDF5" stroke="#10B981" stroke-width="2" filter="url(#shadow)"/>
+    <text x="175.0" y="1005" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a2e">Permissions</text>
+    <text x="175.0" y="1025" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">9,409 LOC</text>
+    <text x="175.0" y="1041" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">6 modes</text>
+    <rect x="320" y="980" width="250" height="80" rx="12" fill="#ECFDF5" stroke="#10B981" stroke-width="2" filter="url(#shadow)"/>
+    <text x="445.0" y="1005" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a2e">YOLO Classifier</text>
+    <text x="445.0" y="1025" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">2-stage analysis</text>
+    <rect x="590" y="980" width="250" height="80" rx="12" fill="#ECFDF5" stroke="#10B981" stroke-width="2" filter="url(#shadow)"/>
+    <text x="715.0" y="1005" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a2e">Bash Parser</text>
+    <text x="715.0" y="1025" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">3,100 LOC</text>
+    <text x="715.0" y="1041" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">15 dangerous nodes</text>
+    <rect x="860" y="980" width="250" height="80" rx="12" fill="#ECFDF5" stroke="#10B981" stroke-width="2" filter="url(#shadow)"/>
+    <text x="985.0" y="1005" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a2e">Secret Scanner</text>
+    <text x="985.0" y="1025" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">44 gitleaks rules</text>
+    <rect x="1130" y="980" width="250" height="80" rx="12" fill="#ECFDF5" stroke="#10B981" stroke-width="2" filter="url(#shadow)"/>
+    <text x="1255.0" y="1005" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a2e">Audit Log</text>
+    <text x="1255.0" y="1025" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">2,200 LOC</text>
+    <text x="1255.0" y="1041" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">decisions, timeline</text>
+    <text x="50" y="1220" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="bold" fill="#8B5CF6">Agent Orchestration</text>
+    <rect x="50" y="1260" width="250" height="80" rx="12" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="2" filter="url(#shadow)"/>
+    <text x="175.0" y="1285" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a2e">Swarm Mode</text>
+    <text x="175.0" y="1305" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">1,850 LOC</text>
+    <text x="175.0" y="1321" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">leader-follower</text>
+    <rect x="320" y="1260" width="250" height="80" rx="12" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="2" filter="url(#shadow)"/>
+    <text x="445.0" y="1285" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a2e">Coordinator</text>
+    <text x="445.0" y="1305" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">2,100 LOC</text>
+    <text x="445.0" y="1321" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">centralized multi</text>
+    <rect x="590" y="1260" width="250" height="80" rx="12" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="2" filter="url(#shadow)"/>
+    <text x="715.0" y="1285" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a2e">Session API</text>
+    <text x="715.0" y="1305" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">1,400 LOC</text>
+    <text x="715.0" y="1321" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">git bundle</text>
+    <rect x="860" y="1260" width="250" height="80" rx="12" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="2" filter="url(#shadow)"/>
+    <text x="985.0" y="1285" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a2e">Speculative Exec</text>
+    <text x="985.0" y="1305" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">980 LOC</text>
+    <text x="985.0" y="1321" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">copy-on-write</text>
+    <text x="50" y="1500" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="bold" fill="#EAB308">Memory and State</text>
+    <rect x="50" y="1540" width="250" height="80" rx="12" fill="#FEFCE8" stroke="#EAB308" stroke-width="2" filter="url(#shadow)"/>
+    <text x="175.0" y="1565" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a2e">Memdir</text>
+    <text x="175.0" y="1585" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">3,200 LOC</text>
+    <text x="175.0" y="1601" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">MEMORY.md</text>
+    <rect x="320" y="1540" width="250" height="80" rx="12" fill="#FEFCE8" stroke="#EAB308" stroke-width="2" filter="url(#shadow)"/>
+    <text x="445.0" y="1565" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a2e">Team Sync</text>
+    <text x="445.0" y="1585" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">2,100 LOC</text>
+    <text x="445.0" y="1601" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">SHA256 delta</text>
+    <rect x="590" y="1540" width="250" height="80" rx="12" fill="#FEFCE8" stroke="#EAB308" stroke-width="2" filter="url(#shadow)"/>
+    <text x="715.0" y="1565" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a2e">Session Memory</text>
+    <text x="715.0" y="1585" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">1,800 LOC</text>
+    <text x="715.0" y="1601" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">10K init, LRU</text>
+    <rect x="860" y="1540" width="250" height="80" rx="12" fill="#FEFCE8" stroke="#EAB308" stroke-width="2" filter="url(#shadow)"/>
+    <text x="985.0" y="1565" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a2e">autoDream</text>
+    <text x="985.0" y="1585" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">1,200 LOC</text>
+    <text x="985.0" y="1601" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">24h consolidate</text>
+    <rect x="1130" y="1540" width="250" height="80" rx="12" fill="#FEFCE8" stroke="#EAB308" stroke-width="2" filter="url(#shadow)"/>
+    <text x="1255.0" y="1565" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a2e">AppState</text>
+    <text x="1255.0" y="1585" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">4,100 LOC</text>
+    <text x="1255.0" y="1601" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">565+ reactive</text>
+    <text x="50" y="1780" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="bold" fill="#F97316">Plugins and Tools</text>
+    <rect x="50" y="1820" width="250" height="80" rx="12" fill="#FFF7ED" stroke="#F97316" stroke-width="2" filter="url(#shadow)"/>
+    <text x="175.0" y="1845" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a2e">Plugin System</text>
+    <text x="175.0" y="1865" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">20,521 LOC</text>
+    <text x="175.0" y="1881" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">44 files, 5 scopes</text>
+    <rect x="320" y="1820" width="250" height="80" rx="12" fill="#FFF7ED" stroke="#F97316" stroke-width="2" filter="url(#shadow)"/>
+    <text x="445.0" y="1845" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a2e">MCP Protocol</text>
+    <text x="445.0" y="1865" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">MCPB binary</text>
+    <rect x="590" y="1820" width="250" height="80" rx="12" fill="#FFF7ED" stroke="#F97316" stroke-width="2" filter="url(#shadow)"/>
+    <text x="715.0" y="1845" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a2e">Computer Use</text>
+    <text x="715.0" y="1865" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">macOS MCP</text>
+    <rect x="860" y="1820" width="250" height="80" rx="12" fill="#FFF7ED" stroke="#F97316" stroke-width="2" filter="url(#shadow)"/>
+    <text x="985.0" y="1845" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a2e">Chrome Integration</text>
+    <text x="985.0" y="1865" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">Native Messaging</text>
+    <rect x="1130" y="1820" width="250" height="80" rx="12" fill="#FFF7ED" stroke="#F97316" stroke-width="2" filter="url(#shadow)"/>
+    <text x="1255.0" y="1845" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a2e">Web Fetch</text>
+    <text x="1255.0" y="1865" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333333">HTTP retry, DOM</text>
+    <rect x="50" y="2060" width="1300" height="60" rx="8" fill="#F9FAFB" stroke="#9CA3AF" stroke-width="2"/>
+    <text x="700" y="2100" font-family="Inter, system-ui, sans-serif" font-size="13" text-anchor="middle" fill="#333333">1,902 TypeScript files | 423K LOC | 82 analysis docs</text>
 
 </svg>

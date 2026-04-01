@@ -15,11 +15,11 @@ Autonomous agent capabilities including swarm orchestration, coordinator system,
 
 ## Architecture Diagrams
 
-<img src="../infographics/swarm-orchestration.svg" alt="Swarm Orchestration Architecture" width="600" />
+![Swarm Orchestration Architecture](../infographics/swarm-orchestration.svg)
 
 Swarm orchestration: leader-follower team structure with file-based mailbox IPC and three execution backends (tmux, iTerm2, in-process).
 
-<img src="../infographics/agent-loop-flow.svg" alt="Agent Loop Flow" width="600" />
+![Agent Loop Flow](../infographics/agent-loop-flow.svg)
 
 Agent loop execution: initialization → mailbox polling → permission checking → task execution → status update.
 

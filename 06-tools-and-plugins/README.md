@@ -23,15 +23,15 @@ Complete analysis of Claude Code's tool execution, command dispatch, plugin life
 
 ## Architecture Diagrams
 
-<img src="../infographics/command-dispatch.svg" alt="Command Dispatch Pipeline" width="600" />
+![Command Dispatch Pipeline](../infographics/command-dispatch.svg)
 
 Command dispatch flow: command lookup → feature-flag evaluation → auth-gating → execution model selection (prompt/local/local-jsx).
 
-<img src="../infographics/plugin-lifecycle.svg" alt="Plugin Lifecycle" width="600" />
+![Plugin Lifecycle](../infographics/plugin-lifecycle.svg)
 
 Plugin lifecycle: discovery → validation → installation → hook registration → execution → update checks → delisting.
 
-<img src="../infographics/streaming-tool-executor.svg" alt="Streaming Tool Executor" width="600" />
+![Streaming Tool Executor](../infographics/streaming-tool-executor.svg)
 
 Streaming tool executor architecture for managing concurrent tool invocations with resource limits and cancellation.
 

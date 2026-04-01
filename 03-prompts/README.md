@@ -11,7 +11,7 @@ Complete system prompt collection and model behavioral specifications. This sect
 
 ## System Prompt Organization
 
-<img src="../infographics/system-prompt-ordering.svg" alt="System Prompt Ordering" width="100%">
+![System Prompt Ordering](../infographics/system-prompt-ordering.svg)
 
 ## Prompt Architecture Overview
 

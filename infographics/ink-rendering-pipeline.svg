@@ -1,198 +1,106 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg viewBox="0 0 2400 1800" xmlns="http://www.w3.org/2000/svg" font-family="'Inter', 'Segoe UI', system-ui, sans-serif">
+<?xml version="1.0" ?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1000" width="1400px" height="1000px" style="background-color: #ffffff">
   <defs>
-    <!-- Arrow markers -->
-    <marker id="arrowHead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="userSpaceOnUse">
-      <polygon points="0 0, 10 3, 0 6" fill="#60c0ff"/>
+    <filter id="dropShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feOffset in="SourceGraphic" dx="0" dy="2"/>
+      <feGaussianBlur in="offsetblur" stdDeviation="3"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <marker id="arrowhead-arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#94A3B8"/>
     </marker>
-    <marker id="arrowHeadFeedback" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="userSpaceOnUse">
-      <polygon points="0 0, 10 3, 0 6" fill="#ff6090"/>
+    <marker id="arrowhead-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#10B981"/>
     </marker>
-
-    
+    <marker id="arrowhead-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#3B82F6"/>
+    </marker>
+    <marker id="arrowhead-orange" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#F97316"/>
+    </marker>
+    <marker id="arrowhead-purple" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#8B5CF6"/>
+    </marker>
+    <marker id="arrowhead-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#EF4444"/>
+    </marker>
   </defs>
-
-  <!-- Background -->
-  <rect width="2400" height="1800" fill="#0a0e17"/>
-
-  <!-- ==================== ROW 1: Initial Stages (y=80-380) ==================== -->
-
-  <!-- Stage 1: React Reconciliation -->
-  <rect x="40" y="80" width="700" height="300" class="stage-box" style="fill: #1a2f4a; stroke: #2d5a8c; stroke-width: 2;" rx="8"/>
-  <text x="60" y="110" class="stage-title" style="font-size: 20px; font-weight: 600; fill: #60c0ff;">React Reconciliation</text>
-  <text x="60" y="135" class="stage-file" style="font-size: 13px; fill: #a0d8ff; font-family: 'JetBrains Mono', 'Fira Code', monospace;">reconciler.ts (512 LOC)</text>
-  <text x="60" y="160" class="stage-desc" style="font-size: 12px; fill: #90c0e0;">Custom React Fiber Reconciler</text>
-
-  <text x="60" y="190" class="stage-item" style="font-size: 12px; fill: #80b0d0;">• Node lifecycle:</text>
-  <text x="80" y="208" class="stage-item" style="font-size: 12px; fill: #80b0d0;">createInstance, appendChild</text>
-  <text x="80" y="224" class="stage-item" style="font-size: 12px; fill: #80b0d0;">commitUpdate, removeChild</text>
-
-  <text x="60" y="250" class="stage-item" style="font-size: 12px; fill: #80b0d0;">• Event handlers via</text>
-  <text x="80" y="266" class="stage-item" style="font-size: 12px; fill: #80b0d0;">_eventHandlers</text>
-
-  <text x="60" y="295" class="stage-item" style="font-size: 12px; fill: #80b0d0;">• DevTools bridge</text>
-
-  <!-- Stage 2: DOM Element Tree -->
-  <rect x="780" y="80" width="700" height="300" class="stage-box" style="fill: #1a2f4a; stroke: #2d5a8c; stroke-width: 2;" rx="8"/>
-  <text x="800" y="110" class="stage-title" style="font-size: 20px; font-weight: 600; fill: #60c0ff;">DOM Element Tree</text>
-  <text x="800" y="135" class="stage-file" style="font-size: 13px; fill: #a0d8ff; font-family: 'JetBrains Mono', 'Fira Code', monospace;">dom.ts (484 LOC)</text>
-  <text x="800" y="160" class="stage-desc" style="font-size: 12px; fill: #90c0e0;">DOMElement Interface</text>
-
-  <text x="800" y="190" class="stage-item" style="font-size: 12px; fill: #80b0d0;">• Node types: ink-root,</text>
-  <text x="820" y="206" class="stage-item" style="font-size: 12px; fill: #80b0d0;">ink-box, ink-text,</text>
-  <text x="820" y="222" class="stage-item" style="font-size: 12px; fill: #80b0d0;">ink-virtual-text</text>
-
-  <text x="800" y="250" class="stage-item" style="font-size: 12px; fill: #80b0d0;">• Yoga node binding</text>
-
-  <text x="800" y="275" class="stage-item" style="font-size: 12px; fill: #80b0d0;">• Attributes: style,</text>
-  <text x="820" y="291" class="stage-item" style="font-size: 12px; fill: #80b0d0;">textStyle, eventHandlers</text>
-
-  <!-- Stage 3: Yoga Layout -->
-  <rect x="1520" y="80" width="700" height="300" class="stage-box" style="fill: #1a2f4a; stroke: #2d5a8c; stroke-width: 2;" rx="8"/>
-  <text x="1540" y="110" class="stage-title" style="font-size: 20px; font-weight: 600; fill: #60c0ff;">Yoga Layout Engine</text>
-  <text x="1540" y="135" class="stage-file" style="font-size: 13px; fill: #a0d8ff; font-family: 'JetBrains Mono', 'Fira Code', monospace;">layout/yoga.ts (308 LOC)</text>
-  <text x="1540" y="160" class="stage-desc" style="font-size: 12px; fill: #90c0e0;">Native flex layout</text>
-
-  <text x="1540" y="190" class="stage-item" style="font-size: 12px; fill: #80b0d0;">• Ink props → Yoga enums</text>
-
-  <text x="1540" y="215" class="stage-item" style="font-size: 12px; fill: #80b0d0;">• calculateLayout()</text>
-
-  <text x="1540" y="240" class="stage-item" style="font-size: 12px; fill: #80b0d0;">• 4-slot LRU cache</text>
-
-  <text x="1540" y="265" class="stage-item" style="font-size: 12px; fill: #80b0d0;">• Incremental updates</text>
-
-  <!-- Horizontal arrows Row 1 -->
-  <path d="M 750 230 L 770 230" stroke="#60c0ff" stroke-width="2" fill="none" marker-end="url(#arrowHead)"/>
-  <text x="760" y="215" class="arrow-label" style="font-size: 12px; fill: #60c0ff; font-weight: 500; text-anchor: middle;">React → DOM</text>
-
-  <path d="M 1490 230 L 1510 230" stroke="#60c0ff" stroke-width="2" fill="none" marker-end="url(#arrowHead)"/>
-  <text x="1500" y="215" class="arrow-label" style="font-size: 12px; fill: #60c0ff; font-weight: 500; text-anchor: middle;">Build → Layout</text>
-
-  <!-- ==================== ROW 2: Rendering Stages (y=440-780) ==================== -->
-
-  <!-- Vertical arrow from Stage 3 to Stage 4 (left side, outside boxes) -->
-  <path d="M 100 380 L 100 440" stroke="#60c0ff" stroke-width="2" fill="none" marker-end="url(#arrowHead)"/>
-
-  <!-- Stage 4: Render to Output -->
-  <rect x="40" y="440" width="700" height="340" class="stage-box" style="fill: #1a2f4a; stroke: #2d5a8c; stroke-width: 2;" rx="8"/>
-  <text x="60" y="470" class="stage-title" style="font-size: 20px; font-weight: 600; fill: #60c0ff;">Render to Output</text>
-  <text x="60" y="495" class="stage-file" style="font-size: 13px; fill: #a0d8ff; font-family: 'JetBrains Mono', 'Fira Code', monospace;">render-node-to-output.ts</text>
-  <text x="60" y="512" class="stage-file" style="font-size: 13px; fill: #a0d8ff; font-family: 'JetBrains Mono', 'Fira Code', monospace;">(1,462 LOC)</text>
-  <text x="60" y="537" class="stage-desc" style="font-size: 12px; fill: #90c0e0;">PRIMARY ENGINE</text>
-
-  <text x="60" y="567" class="stage-item" style="font-size: 12px; fill: #80b0d0;">• DFS traverse</text>
-
-  <text x="60" y="592" class="stage-item" style="font-size: 12px; fill: #80b0d0;">• Per-node: clip, text wrap,</text>
-  <text x="80" y="608" class="stage-item" style="font-size: 12px; fill: #80b0d0;">borders, selection overlay</text>
-
-  <text x="60" y="633" class="stage-item" style="font-size: 12px; fill: #80b0d0;">• Write/blit/clear/clip</text>
-  <text x="80" y="649" class="stage-item" style="font-size: 12px; fill: #80b0d0;">operations</text>
-
-  <text x="60" y="674" class="stage-item" style="font-size: 12px; fill: #80b0d0;">• Word/grapheme wrapping</text>
-
-  <!-- Stage 5: Screen Buffer -->
-  <rect x="780" y="440" width="700" height="340" class="stage-box" style="fill: #1a2f4a; stroke: #2d5a8c; stroke-width: 2;" rx="8"/>
-  <text x="800" y="470" class="stage-title" style="font-size: 20px; font-weight: 600; fill: #60c0ff;">Screen Buffer</text>
-  <text x="800" y="495" class="stage-file" style="font-size: 13px; fill: #a0d8ff; font-family: 'JetBrains Mono', 'Fira Code', monospace;">screen.ts (1,486 LOC)</text>
-  <text x="800" y="520" class="stage-desc" style="font-size: 12px; fill: #90c0e0;">Cell grid: packed Int32Array</text>
-
-  <text x="800" y="550" class="stage-item" style="font-size: 12px; fill: #80b0d0;">• Cell: styleId[31:17] |</text>
-  <text x="820" y="566" class="stage-item" style="font-size: 12px; fill: #80b0d0;">hyperlinkId[16:2] |</text>
-  <text x="820" y="582" class="stage-item" style="font-size: 12px; fill: #80b0d0;">width[1:0]</text>
-
-  <text x="800" y="607" class="stage-item" style="font-size: 12px; fill: #80b0d0;">• THREE POOLS:</text>
-  <text x="820" y="623" class="stage-item" style="font-size: 12px; fill: #80b0d0;">CharPool (ASCII 30% faster)</text>
-  <text x="820" y="639" class="stage-item" style="font-size: 12px; fill: #80b0d0;">StylePool, HyperlinkPool</text>
-
-  <!-- Stage 6: Frame Diff &amp; Terminal -->
-  <rect x="1520" y="440" width="700" height="340" class="stage-box" style="fill: #1a2f4a; stroke: #2d5a8c; stroke-width: 2;" rx="8"/>
-  <text x="1540" y="470" class="stage-title" style="font-size: 20px; font-weight: 600; fill: #60c0ff;">Frame Diff &amp; Terminal</text>
-  <text x="1540" y="495" class="stage-file" style="font-size: 13px; fill: #a0d8ff; font-family: 'JetBrains Mono', 'Fira Code', monospace;">log-update.ts (773 LOC)</text>
-  <text x="1540" y="520" class="stage-desc" style="font-size: 12px; fill: #90c0e0;">Frame-by-frame optimization</text>
-
-  <text x="1540" y="550" class="stage-item" style="font-size: 12px; fill: #80b0d0;">• ANSI style tracking</text>
-
-  <text x="1540" y="575" class="stage-item" style="font-size: 12px; fill: #80b0d0;">• Cursor optimization</text>
-
-  <text x="1540" y="600" class="stage-item" style="font-size: 12px; fill: #80b0d0;">• DECSTBM scroll (10KB→50B)</text>
-
-  <text x="1540" y="625" class="stage-item" style="font-size: 12px; fill: #80b0d0;">• DEC 2026 sync output</text>
-
-  <text x="1540" y="650" class="stage-item" style="font-size: 12px; fill: #80b0d0;">• writeDiffToTerminal()</text>
-
-  <!-- Horizontal arrows Row 2 -->
-  <path d="M 750 610 L 770 610" stroke="#60c0ff" stroke-width="2" fill="none" marker-end="url(#arrowHead)"/>
-  <text x="760" y="595" class="arrow-label" style="font-size: 12px; fill: #60c0ff; font-weight: 500; text-anchor: middle;">Layout → Buffer</text>
-
-  <path d="M 1490 610 L 1510 610" stroke="#60c0ff" stroke-width="2" fill="none" marker-end="url(#arrowHead)"/>
-  <text x="1500" y="595" class="arrow-label" style="font-size: 12px; fill: #60c0ff; font-weight: 500; text-anchor: middle;">Buffer → Diff</text>
-
-  <!-- ==================== ROW 3: Supporting Systems (y=840-1140) ==================== -->
-
-  <!-- Selection System -->
-  <rect x="40" y="840" width="700" height="300" class="stage-box" style="fill: #1a2f4a; stroke: #2d5a8c; stroke-width: 2;" rx="8"/>
-  <text x="60" y="870" class="stage-title" style="font-size: 20px; font-weight: 600; fill: #60c0ff;">Selection System</text>
-  <text x="60" y="895" class="stage-file" style="font-size: 13px; fill: #a0d8ff; font-family: 'JetBrains Mono', 'Fira Code', monospace;">selection.ts (917 LOC)</text>
-  <text x="60" y="920" class="stage-desc" style="font-size: 12px; fill: #90c0e0;">Anchor/focus coordinates</text>
-
-  <text x="60" y="950" class="stage-item" style="font-size: 12px; fill: #80b0d0;">• Multi-click: char/word/line</text>
-
-  <text x="60" y="975" class="stage-item" style="font-size: 12px; fill: #80b0d0;">• Drag-to-scroll</text>
-
-  <text x="60" y="1000" class="stage-item" style="font-size: 12px; fill: #80b0d0;">• hit-test.ts:</text>
-  <text x="80" y="1016" class="stage-item" style="font-size: 12px; fill: #80b0d0;">click → DOM element</text>
-
-  <!-- Terminal Capabilities -->
-  <rect x="780" y="840" width="700" height="300" class="stage-box" style="fill: #1a2f4a; stroke: #2d5a8c; stroke-width: 2;" rx="8"/>
-  <text x="800" y="870" class="stage-title" style="font-size: 20px; font-weight: 600; fill: #60c0ff;">Terminal Capabilities</text>
-  <text x="800" y="895" class="stage-file" style="font-size: 13px; fill: #a0d8ff; font-family: 'JetBrains Mono', 'Fira Code', monospace;">terminal.ts + terminal-querier.ts</text>
-  <text x="800" y="920" class="stage-desc" style="font-size: 12px; fill: #90c0e0;">Dynamic capability detection</text>
-
-  <text x="800" y="950" class="stage-item" style="font-size: 12px; fill: #80b0d0;">• XTVERSION, Kitty keyboard</text>
-
-  <text x="800" y="975" class="stage-item" style="font-size: 12px; fill: #80b0d0;">• DEC 2026, xterm.js detection</text>
-
-  <text x="800" y="1000" class="stage-item" style="font-size: 12px; fill: #80b0d0;">• Dynamic feature selection</text>
-
-  <!-- Input Pipeline -->
-  <rect x="1520" y="840" width="700" height="300" class="stage-box" style="fill: #1a2f4a; stroke: #2d5a8c; stroke-width: 2;" rx="8"/>
-  <text x="1540" y="870" class="stage-title" style="font-size: 20px; font-weight: 600; fill: #60c0ff;">Input Pipeline</text>
-  <text x="1540" y="895" class="stage-file" style="font-size: 13px; fill: #a0d8ff; font-family: 'JetBrains Mono', 'Fira Code', monospace;">parse-keypress.ts (801 LOC)</text>
-  <text x="1540" y="920" class="stage-desc" style="font-size: 12px; fill: #90c0e0;">Multi-protocol input parsing</text>
-
-  <text x="1540" y="950" class="stage-item" style="font-size: 12px; fill: #80b0d0;">• CSI u (Kitty), xterm</text>
-  <text x="1560" y="966" class="stage-item" style="font-size: 12px; fill: #80b0d0;">modifyOtherKeys</text>
-
-  <text x="1540" y="991" class="stage-item" style="font-size: 12px; fill: #80b0d0;">• SGR mouse, bracketed paste</text>
-
-  <text x="1540" y="1016" class="stage-item" style="font-size: 12px; fill: #80b0d0;">• Capture→bubble dispatch</text>
-
-  <!-- ==================== FEEDBACK ARROWS ==================== -->
-
-  <!-- Selection → Stage 4 (short vertical arrow on left) -->
-  <path d="M 80 840 L 80 780" stroke="#ff6090" stroke-width="2" stroke-dasharray="5,5" fill="none" marker-end="url(#arrowHeadFeedback)"/>
-
-  <!-- Terminal Caps → Stage 6 (short connection, right side) -->
-  <path d="M 1480 950 L 1520 950" stroke="#ff6090" stroke-width="2" stroke-dasharray="5,5" fill="none" marker-end="url(#arrowHeadFeedback)"/>
-
-  <!-- Input Pipeline → Stage 1 (curved up and around to top left) -->
-  <!-- Goes up right side, across top, down to left side -->
-  <path d="M 1550 840 L 1550 20 Q 1550 -20 1250 -20 Q 200 -20 200 80"
-        stroke="#ff6090" stroke-width="2" stroke-dasharray="5,5" fill="none" marker-end="url(#arrowHeadFeedback)"/>
-
-  <!-- ==================== LEGEND &amp; METRICS (Bottom Strip y=1300-1500) ==================== -->
-
-  <line x1="40" y1="1300" x2="2360" y2="1300" stroke="#2d5a8c" stroke-width="1"/>
-
-  <text x="40" y="1335" class="legend-title" style="font-size: 18px; font-weight: 600; fill: #60c0ff;">Architecture Overview</text>
-
-  <text x="40" y="1365" class="legend-item" style="font-size: 12px; fill: #90c0e0;">• Forward flow (blue): Input through reconciliation, layout, render, diff to terminal output</text>
-  <text x="40" y="1385" class="legend-item" style="font-size: 12px; fill: #90c0e0;">• Feedback flow (pink dashed): Selection state → render, terminal caps → output, input → reconciliation</text>
-
-  <text x="40" y="1420" class="metrics-label" style="font-size: 11px; fill: #7090b0; font-family: 'JetBrains Mono', 'Fira Code', monospace;">Total LOC: 7,743 | Pools: 3 | Max LRU: 4 | DFS traversal with clip regions and selection overlay</text>
-
-  <text x="40" y="1450" class="metrics-label" style="font-size: 11px; fill: #7090b0; font-family: 'JetBrains Mono', 'Fira Code', monospace;">Key optimization: Frame diff reduces output from 10KB average to 50B on idle scroll; cell packing uses 31 bits for style ID</text>
-
-  <text x="40" y="1480" class="metrics-label" style="font-size: 11px; fill: #7090b0; font-family: 'JetBrains Mono', 'Fira Code', monospace;">Input protocols: CSI u (Kitty), xterm modifyOtherKeys, SGR mouse, bracketed paste, dynamic capability detection</text>
-
+  <text x="40" y="45" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="bold" fill="#3B82F6">Ink Rendering Pipeline</text>
+  <text x="40" y="100" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="bold" fill="#3B82F6">Initial Stages</text>
+  <rect x="30" y="130" width="280" height="160" rx="12" fill="#EBF5FF" stroke="#3B82F6" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="170" y="150" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" fill="#1a1a2e">React Reconciliation</text>
+  <text x="45" y="172" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">reconciler.ts (512 LOC)</text>
+  <text x="45" y="188" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Custom React Fiber</text>
+  <text x="45" y="204" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Node lifecycle,</text>
+  <text x="45" y="220" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">event handlers</text>
+  <line x1="310" y1="210" x2="350" y2="210" stroke="#94A3B8" stroke-width="2" marker-end="url(#arrowhead-arrow)"/>
+  <rect x="290.0" y="200.0" width="80" height="16" fill="#ffffff" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="330.0" y="214.0" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="11" fill="#666666">React -&gt; DOM</text>
+  <rect x="350" y="130" width="280" height="160" rx="12" fill="#EBF5FF" stroke="#3B82F6" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="490" y="150" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" fill="#1a1a2e">DOM Element Tree</text>
+  <text x="365" y="172" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">dom.ts (484 LOC)</text>
+  <text x="365" y="188" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Node: ink-root,</text>
+  <text x="365" y="204" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">ink-box, ink-text</text>
+  <text x="365" y="220" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Yoga binding</text>
+  <line x1="630" y1="210" x2="670" y2="210" stroke="#94A3B8" stroke-width="2" marker-end="url(#arrowhead-arrow)"/>
+  <rect x="610.0" y="200.0" width="80" height="16" fill="#ffffff" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="650.0" y="214.0" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="11" fill="#666666">Build -&gt; Layout</text>
+  <rect x="670" y="130" width="280" height="160" rx="12" fill="#EBF5FF" stroke="#3B82F6" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="810" y="150" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" fill="#1a1a2e">Yoga Layout Engine</text>
+  <text x="685" y="172" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">layout/yoga.ts (308)</text>
+  <text x="685" y="188" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Native flex layout</text>
+  <text x="685" y="204" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">calculateLayout()</text>
+  <text x="685" y="220" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">4-slot LRU cache</text>
+  <text x="40" y="340" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="bold" fill="#10B981">Rendering Stages</text>
+  <rect x="30" y="370" width="280" height="180" rx="12" fill="#ECFDF5" stroke="#10B981" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="170" y="390" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" fill="#1a1a2e">Render to Output</text>
+  <text x="45" y="412" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">render-node.ts (1462)</text>
+  <text x="45" y="428" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">PRIMARY ENGINE</text>
+  <text x="45" y="444" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">DFS traverse</text>
+  <text x="45" y="460" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">clip, text wrap,</text>
+  <text x="45" y="476" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">borders, overlay</text>
+  <line x1="310" y1="460" x2="350" y2="460" stroke="#94A3B8" stroke-width="2" marker-end="url(#arrowhead-arrow)"/>
+  <rect x="290.0" y="450.0" width="80" height="16" fill="#ffffff" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="330.0" y="464.0" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="11" fill="#666666">Layout -&gt; Buffer</text>
+  <rect x="350" y="370" width="280" height="180" rx="12" fill="#ECFDF5" stroke="#10B981" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="490" y="390" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" fill="#1a1a2e">Screen Buffer</text>
+  <text x="365" y="412" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">screen.ts (1486 LOC)</text>
+  <text x="365" y="428" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Cell grid: Int32Array</text>
+  <text x="365" y="444" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">3 pools: Char, Style,</text>
+  <text x="365" y="460" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Hyperlink</text>
+  <text x="365" y="476" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">ASCII 30% faster</text>
+  <line x1="630" y1="460" x2="670" y2="460" stroke="#94A3B8" stroke-width="2" marker-end="url(#arrowhead-arrow)"/>
+  <rect x="610.0" y="450.0" width="80" height="16" fill="#ffffff" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="650.0" y="464.0" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="11" fill="#666666">Buffer -&gt; Diff</text>
+  <rect x="670" y="370" width="280" height="180" rx="12" fill="#ECFDF5" stroke="#10B981" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="810" y="390" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" fill="#1a1a2e">Frame Diff &amp; Terminal</text>
+  <text x="685" y="412" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">log-update.ts (773)</text>
+  <text x="685" y="428" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">ANSI style tracking</text>
+  <text x="685" y="444" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">DECSTBM scroll</text>
+  <text x="685" y="460" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">10KB -&gt; 50B</text>
+  <text x="685" y="476" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">DEC 2026 sync</text>
+  <text x="40" y="600" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="bold" fill="#8B5CF6">Supporting Systems</text>
+  <rect x="30" y="630" width="280" height="160" rx="12" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="170" y="650" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" fill="#1a1a2e">Selection System</text>
+  <text x="45" y="672" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">selection.ts (917)</text>
+  <text x="45" y="688" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Multi-click: char,</text>
+  <text x="45" y="704" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">word, line</text>
+  <text x="45" y="720" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Drag-to-scroll</text>
+  <rect x="350" y="630" width="280" height="160" rx="12" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="490" y="650" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" fill="#1a1a2e">Terminal Capabilities</text>
+  <text x="365" y="672" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">terminal.ts +</text>
+  <text x="365" y="688" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">terminal-querier.ts</text>
+  <text x="365" y="704" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">XTVERSION, Kitty</text>
+  <text x="365" y="720" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">DEC 2026, xterm.js</text>
+  <rect x="670" y="630" width="280" height="160" rx="12" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="810" y="650" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" fill="#1a1a2e">Input Pipeline</text>
+  <text x="685" y="672" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">parse-keypress.ts (801)</text>
+  <text x="685" y="688" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">CSI u, modifyOtherKeys</text>
+  <text x="685" y="704" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">SGR mouse,</text>
+  <text x="685" y="720" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">bracketed paste</text>
+  <line x1="160" y1="800" x2="160" y2="850" stroke="#94A3B8" stroke-width="2" marker-end="url(#arrowhead-arrow)"/>
+  <text x="40" y="930" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Total LOC: 7,743 | Key: Frame diff 10KB-&gt;50B on idle</text>
 </svg>

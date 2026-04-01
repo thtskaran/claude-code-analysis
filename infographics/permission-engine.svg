@@ -1,468 +1,103 @@
-<svg viewBox="0 0 2200 1700" xmlns="http://www.w3.org/2000/svg">
+<?xml version="1.0" ?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1400" width="1400px" height="1400px" style="background-color: #ffffff">
   <defs>
-    
-    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="userSpaceOnUse">
-      <polygon points="0 0, 10 3, 0 6" fill="#4a5f7f" />
+    <filter id="dropShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feOffset in="SourceGraphic" dx="0" dy="2"/>
+      <feGaussianBlur in="offsetblur" stdDeviation="3"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <marker id="arrowhead-arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#94A3B8"/>
     </marker>
-    <marker id="arrowhead-yes" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="userSpaceOnUse">
-      <polygon points="0 0, 10 3, 0 6" fill="#22c55e" />
+    <marker id="arrowhead-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#10B981"/>
     </marker>
-    <marker id="arrowhead-no" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="userSpaceOnUse">
-      <polygon points="0 0, 10 3, 0 6" fill="#ef4444" />
+    <marker id="arrowhead-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#3B82F6"/>
     </marker>
-    <marker id="arrowhead-maybe" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="userSpaceOnUse">
-      <polygon points="0 0, 10 3, 0 6" fill="#eab308" />
+    <marker id="arrowhead-orange" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#F97316"/>
+    </marker>
+    <marker id="arrowhead-purple" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#8B5CF6"/>
+    </marker>
+    <marker id="arrowhead-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#EF4444"/>
     </marker>
   </defs>
-
-  <!-- Background -->
-  <rect width="2200" height="1600" class="bg" style="fill: #0a0e17;"/>
-
-  <!-- Title Section -->
-  <text x="1100" y="35" text-anchor="middle" class="text-title" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 18px; font-weight: bold; fill: #e8eef7;">Claude Code v2.1.88: Permission Engine &amp; YOLO Classifier Decision Tree</text>
-  <line x1="50" y1="50" x2="2150" y2="50" class="line-divider" style="stroke: #2a3f5f; stroke-width: 1; stroke-dasharray: 5,5;"/>
-
-  <!-- ============ SECTION 1: ENTRY POINT (TOP CENTER) ============ -->
-  <g id="entry-point">
-    <!-- Input Box -->
-    <rect x="900" y="70" width="400" height="100" rx="8" class="data-store" style="fill: #1a2530; stroke: #06b6d4; stroke-width: 2;"/>
-    <text x="1100" y="95" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;">Tool Use Request</text>
-    <text x="1100" y="112" text-anchor="middle" class="text-value" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 11px; fill: #a0aac0;">{ toolName, parameters, context }</text>
-    <text x="920" y="135" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">ToolPermissionContext:</text>
-    <text x="920" y="150" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• tool • input • abortController</text>
-    <text x="920" y="165" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• readOnly • querySource</text>
-  </g>
-
-  <!-- Arrow down -->
-  <path d="M 1100 170 L 1100 210" class="arrow" style="stroke: #4a5f7f; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead);"/>
-
-  <!-- ============ SECTION 2: MODE SELECTION (LEFT SIDE) ============ -->
-  <g id="mode-selection">
-    <line x1="50" y1="60" x2="50" y2="1550" class="line-divider" style="stroke: #2a3f5f; stroke-width: 1; stroke-dasharray: 5,5;"/>
-
-    <text x="250" y="220" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;" font-size="14">MODE SELECTION &amp; FEATURE GATES</text>
-
-    <!-- Mode Diamond -->
-    <polygon points="250,270 190,330 250,390 310,330" class="decision-diamond" style="fill: #1a2332; stroke: #4a7c59; stroke-width: 2;"/>
-    <text x="250" y="335" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;">Current Mode?</text>
-
-    <!-- Mode Options with transitions -->
-    <g id="mode-default">
-      <rect x="40" y="420" width="110" height="50" rx="5" class="process-box" style="fill: #1f1a2f; stroke: #8b5cf6; stroke-width: 2;"/>
-      <text x="95" y="440" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;">default</text>
-      <text x="95" y="455" text-anchor="middle" class="text-value" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 11px; fill: #a0aac0;">Standard Rules</text>
-      <path d="M 190 370 L 120 420" class="arrow" style="stroke: #4a5f7f; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead);"/>
-    </g>
-
-    <g id="mode-plan">
-      <rect x="170" y="420" width="110" height="50" rx="5" class="process-box" style="fill: #1f1a2f; stroke: #8b5cf6; stroke-width: 2;"/>
-      <text x="225" y="440" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;">plan</text>
-      <text x="225" y="455" text-anchor="middle" class="text-value" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 11px; fill: #a0aac0;">Dry-run Only</text>
-      <path d="M 250 390 L 225 420" class="arrow" style="stroke: #4a5f7f; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead);"/>
-    </g>
-
-    <g id="mode-accept">
-      <rect x="300" y="420" width="110" height="50" rx="5" class="process-box" style="fill: #1f1a2f; stroke: #8b5cf6; stroke-width: 2;"/>
-      <text x="355" y="440" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;">acceptEdits</text>
-      <text x="355" y="455" text-anchor="middle" class="text-value" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 11px; fill: #a0aac0;">Auto Allow</text>
-      <path d="M 280 370 L 330 420" class="arrow" style="stroke: #4a5f7f; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead);"/>
-    </g>
-
-    <g id="mode-auto">
-      <rect x="430" y="420" width="110" height="50" rx="5" class="process-box" style="fill: #1f1a2f; stroke: #8b5cf6; stroke-width: 2;"/>
-      <text x="485" y="440" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;">auto</text>
-      <text x="485" y="455" text-anchor="middle" class="text-value" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 11px; fill: #a0aac0;">Classifier+Strip</text>
-      <path d="M 310 350 L 430 440" class="arrow" style="stroke: #4a5f7f; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead);"/>
-    </g>
-
-    <!-- Mode transition hint -->
-    <text x="250" y="500" text-anchor="middle" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">Shift+Tab cycles modes</text>
-
-    <!-- Feature gates -->
-    <rect x="40" y="530" width="410" height="120" rx="5" class="process-box" style="fill: #1f1a2f; stroke: #8b5cf6; stroke-width: 2;"/>
-    <text x="245" y="555" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;">Feature Gates &amp; Killswitches</text>
-    <text x="60" y="575" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• tengu_disable_bypass_permissions_mode</text>
-    <text x="60" y="590" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• bypassPermissionsKillswitch</text>
-    <text x="60" y="605" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• tengu_iron_gate_closed (auto mode circuit breaker)</text>
-    <text x="60" y="620" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• autoMode.ciruitBreakerActive (tracks denials)</text>
-    <text x="60" y="635" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• Feature gating per mode in context</text>
-
-    <!-- Mode validation diamond -->
-    <polygon points="250,680 190,730 250,780 310,730" class="decision-diamond" style="fill: #1a2332; stroke: #4a7c59; stroke-width: 2;"/>
-    <text x="250" y="735" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;">Mode Valid?</text>
-
-    <path d="M 250 650 L 250 680" class="arrow" style="stroke: #4a5f7f; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead);"/>
-
-    <!-- Invalid mode handling -->
-    <rect x="40" y="800" width="140" height="50" rx="5" class="deny-box" style="fill: #2f1a1a; stroke: #ef4444; stroke-width: 2;"/>
-    <text x="110" y="820" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;">Default to</text>
-    <text x="110" y="835" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;">default mode</text>
-    <path d="M 190 750 L 110 800" class="arrow-no" style="stroke: #ef4444; stroke-width: 2; fill: none; marker-end: url(#arrowhead-no);"/>
-  </g>
-
-  <!-- ============ SECTION 3: RULE EVALUATION (CENTER LEFT) ============ -->
-  <g id="rule-evaluation">
-    <text x="450" y="220" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;" font-size="14">RULE LOADING &amp; EVALUATION</text>
-
-    <!-- Rule cascade -->
-    <rect x="360" y="270" width="180" height="60" rx="5" class="rule-box" style="fill: #2f2519; stroke: #f97316; stroke-width: 2;"/>
-    <text x="450" y="295" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;">Load Rules Cascade</text>
-    <text x="450" y="312" text-anchor="middle" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">project → global → managed</text>
-
-    <path d="M 450 330 L 450 370" class="arrow" style="stroke: #4a5f7f; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead);"/>
-
-    <!-- Rule format -->
-    <rect x="360" y="370" width="180" height="75" rx="5" class="data-store" style="fill: #1a2530; stroke: #06b6d4; stroke-width: 2;"/>
-    <text x="450" y="395" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;">Rule Format</text>
-    <text x="450" y="412" text-anchor="middle" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">ToolName(ruleContent)</text>
-    <text x="370" y="430" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">Types: allow | deny | ask</text>
-    <text x="370" y="445" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">Glob: gitignore-style patterns</text>
-
-    <path d="M 450 445 L 450 485" class="arrow" style="stroke: #4a5f7f; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead);"/>
-
-    <!-- Rule matching logic -->
-    <polygon points="450,485 380,545 450,605 520,545" class="decision-diamond" style="fill: #1a2332; stroke: #4a7c59; stroke-width: 2;"/>
-    <text x="450" y="545" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;" font-size="11">Rule Match?</text>
-
-    <!-- YES path - Apply rule -->
-    <path d="M 520 545 L 580 545" class="arrow-yes" style="stroke: #22c55e; stroke-width: 2; fill: none; marker-end: url(#arrowhead-yes);"/>
-    <rect x="580" y="515" width="140" height="60" rx="5" class="allow-box" style="fill: #1a2f1f; stroke: #22c55e; stroke-width: 2;"/>
-    <text x="650" y="535" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;">Apply Matched</text>
-    <text x="650" y="552" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;">Rule Decision</text>
-    <text x="595" y="565" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">YES</text>
-
-    <!-- NO path - Continue to classifier -->
-    <path d="M 450 605 L 450 650" class="arrow-no" style="stroke: #ef4444; stroke-width: 2; fill: none; marker-end: url(#arrowhead-no);"/>
-    <text x="420" y="635" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">NO</text>
-
-    <!-- Shadowed rule detection -->
-    <rect x="360" y="650" width="180" height="60" rx="5" class="rule-box" style="fill: #2f2519; stroke: #f97316; stroke-width: 2;"/>
-    <text x="450" y="670" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;">Shadowed Rule</text>
-    <text x="450" y="687" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;">Detection</text>
-
-    <path d="M 450 710 L 450 750" class="arrow" style="stroke: #4a5f7f; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead);"/>
-
-    <!-- Shell rule matching note -->
-    <rect x="360" y="750" width="180" height="70" rx="5" class="rule-box" style="fill: #2f2519; stroke: #f97316; stroke-width: 2;"/>
-    <text x="450" y="775" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;">Shell Rule Matching</text>
-    <text x="370" y="795" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">Prefix-based patterns</text>
-    <text x="370" y="810" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">e.g. 'run:shell' → exact</text>
-  </g>
-
-  <!-- ============ SECTION 4: FILESYSTEM PERMISSION ENGINE (BOTTOM LEFT) ============ -->
-  <g id="filesystem-engine">
-    <text x="450" y="1000" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;" font-size="14">FILESYSTEM PERMISSION ENGINE</text>
-
-    <rect x="360" y="1030" width="180" height="85" rx="5" class="data-store" style="fill: #1a2530; stroke: #06b6d4; stroke-width: 2;"/>
-    <text x="450" y="1055" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;">Path Validation</text>
-    <text x="370" y="1070" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• Glob handling</text>
-    <text x="370" y="1085" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• Symlink resolution</text>
-    <text x="370" y="1100" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• UNC path detection</text>
-    <text x="370" y="1115" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• Case-insensitive checks</text>
-
-    <path d="M 450 1115 L 450 1155" class="arrow" style="stroke: #4a5f7f; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead);"/>
-
-    <rect x="360" y="1155" width="180" height="85" rx="5" class="deny-box" style="fill: #2f1a1a; stroke: #ef4444; stroke-width: 2;"/>
-    <text x="450" y="1180" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;">Dangerous File Protection</text>
-    <text x="370" y="1195" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• System files (.bashrc, etc)</text>
-    <text x="370" y="1210" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• Hidden configs</text>
-    <text x="370" y="1225" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• ADS/short-name attacks</text>
-
-    <path d="M 450 1240 L 450 1280" class="arrow" style="stroke: #4a5f7f; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead);"/>
-
-    <rect x="360" y="1280" width="180" height="70" rx="5" class="process-box" style="fill: #1f1a2f; stroke: #8b5cf6; stroke-width: 2;"/>
-    <text x="450" y="1305" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;">Skill Scope Narrowing</text>
-    <text x="370" y="1320" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">Sandbox allowlist check</text>
-    <text x="370" y="1335" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">Restrict to skill directory</text>
-  </g>
-
-  <!-- ============ SECTION 5: DANGEROUS PATTERN STRIPPING (BOTTOM CENTER) ============ -->
-  <g id="pattern-stripping">
-    <text x="950" y="1000" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;" font-size="14">DANGEROUS PATTERN STRIPPING</text>
-
-    <rect x="800" y="1030" width="300" height="100" rx="5" class="deny-box" style="fill: #2f1a1a; stroke: #ef4444; stroke-width: 2;"/>
-    <text x="950" y="1055" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;">Auto Mode Entry → Strip Patterns</text>
-    <text x="820" y="1075" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">CROSS_PLATFORM_CODE_EXEC:</text>
-    <text x="820" y="1090" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• python -c | node -e | ssh | curl -X</text>
-    <text x="820" y="1105" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• nc -e | bash -i | zsh -i</text>
-    <text x="820" y="1120" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">DANGEROUS_BASH_PATTERNS</text>
-
-    <path d="M 950 1130 L 950 1180" class="arrow" style="stroke: #4a5f7f; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead);"/>
-
-    <rect x="800" y="1180" width="300" height="90" rx="5" class="deny-box" style="fill: #2f1a1a; stroke: #ef4444; stroke-width: 2;"/>
-    <text x="950" y="1205" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;">PowerShell Patterns</text>
-    <text x="820" y="1225" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• -Command | -ScriptBlock</text>
-    <text x="820" y="1240" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• IEX | Invoke-Expression</text>
-    <text x="820" y="1255" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• Encoded command execution</text>
-  </g>
-
-  <!-- ============ SECTION 6: YOLO CLASSIFIER (CENTER - BIG SECTION) ============ -->
-  <g id="yolo-classifier">
-    <text x="1100" y="220" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;" font-size="14">YOLO CLASSIFIER (Decision Engine)</text>
-
-    <!-- Entry to classifier -->
-    <path d="M 650 545 L 800 545" class="arrow" style="stroke: #4a5f7f; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead);"/>
-    <path d="M 450 750 L 800 750" class="arrow" style="stroke: #4a5f7f; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead);"/>
-
-    <rect x="800" y="270" width="600" height="80" rx="5" class="classifier-box" style="fill: #1a232f; stroke: #3b82f6; stroke-width: 2;"/>
-    <text x="1100" y="295" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;">YOLO Classifier Entry</text>
-    <text x="1100" y="315" text-anchor="middle" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">System: base + template + user config + bash rules</text>
-    <text x="1100" y="330" text-anchor="middle" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">Input: tool context, rules (if any), dangerous patterns</text>
-
-    <!-- STAGE 1: FAST PATH -->
-    <rect x="800" y="380" width="300" height="140" rx="5" class="classifier-box" style="fill: #1a232f; stroke: #3b82f6; stroke-width: 2;"/>
-    <text x="950" y="405" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;">STAGE 1: Fast Path</text>
-    <text x="820" y="425" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• max_tokens = 64</text>
-    <text x="820" y="440" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• stop_sequences = ['&lt;/block&gt;']</text>
-    <text x="820" y="455" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• Temperature = 0</text>
-    <text x="820" y="470" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• Check for &lt;block&gt; tag</text>
-    <text x="820" y="485" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• Clean output → Stage 2?</text>
-    <text x="820" y="500" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• Output present → ALLOW</text>
-    <text x="820" y="515" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• Latency tracking</text>
-
-    <!-- STAGE 1 decision -->
-    <polygon points="950,540 880,600 950,660 1020,600" class="decision-diamond" style="fill: #1a2332; stroke: #4a7c59; stroke-width: 2;"/>
-    <text x="950" y="595" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;" font-size="10">Contains</text>
-    <text x="950" y="610" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;" font-size="10">&lt;block&gt;?</text>
-
-    <!-- STAGE 1 - YES: go to Stage 2 -->
-    <path d="M 1020 600 L 1150 600" class="arrow-maybe" style="stroke: #eab308; stroke-width: 2; fill: none; marker-end: url(#arrowhead-maybe);"/>
-    <text x="1080" y="595" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">YES</text>
-
-    <!-- STAGE 2: REASONING PATH -->
-    <rect x="1150" y="510" width="320" height="180" rx="5" class="classifier-box" style="fill: #1a232f; stroke: #3b82f6; stroke-width: 2;"/>
-    <text x="1310" y="535" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;">STAGE 2: Reasoning Path</text>
-    <text x="1170" y="555" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• max_tokens = 4,096</text>
-    <text x="1170" y="570" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• Full reasoning enabled</text>
-    <text x="1170" y="585" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• Parse &lt;decision&gt; tag</text>
-    <text x="1170" y="600" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">  allow | deny | ask</text>
-    <text x="1170" y="615" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• Prompt caching: 1h TTL</text>
-    <text x="1170" y="630" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• Cache hit rate: 60-80%</text>
-    <text x="1170" y="645" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• Track tokens &amp; latency</text>
-    <text x="1170" y="660" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• Usage stats event</text>
-    <text x="1170" y="675" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• Return decision + reason</text>
-
-    <!-- STAGE 1 - NO: direct ALLOW -->
-    <path d="M 950 660 L 950 710" class="arrow-yes" style="stroke: #22c55e; stroke-width: 2; fill: none; marker-end: url(#arrowhead-yes);"/>
-    <rect x="880" y="710" width="140" height="50" rx="5" class="allow-box" style="fill: #1a2f1f; stroke: #22c55e; stroke-width: 2;"/>
-    <text x="950" y="730" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;">ALLOW</text>
-    <text x="950" y="745" text-anchor="middle" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">(Clean output)</text>
-    <text x="860" y="695" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">NO</text>
-
-    <!-- Stage 2 output -->
-    <path d="M 1310 690 L 1310 750" class="arrow" style="stroke: #4a5f7f; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead);"/>
-
-    <!-- Decision outcomes from Stage 2 -->
-    <polygon points="1310,750 1220,810 1310,870 1400,810" class="decision-diamond" style="fill: #1a2332; stroke: #4a7c59; stroke-width: 2;"/>
-    <text x="1310" y="805" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;" font-size="10">Decision</text>
-    <text x="1310" y="820" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;" font-size="10">Type?</text>
-  </g>
-
-  <!-- ============ SECTION 7: DENIAL TRACKING (CENTER RIGHT) ============ -->
-  <g id="denial-tracking">
-    <text x="1550" y="220" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;" font-size="14">DENIAL TRACKING &amp; FALLBACK</text>
-
-    <rect x="1450" y="270" width="250" height="110" rx="5" class="process-box" style="fill: #1f1a2f; stroke: #8b5cf6; stroke-width: 2;"/>
-    <text x="1575" y="295" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;">Denial Counter</text>
-    <text x="1470" y="315" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• denialTracking.ts state</text>
-    <text x="1470" y="330" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• 3 consecutive denials</text>
-    <text x="1470" y="345" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">  → Fallback to user prompt</text>
-    <text x="1470" y="360" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• 20 total denials</text>
-    <text x="1470" y="375" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">  → Permanent fallback</text>
-
-    <path d="M 1575 380 L 1575 420" class="arrow" style="stroke: #4a5f7f; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead);"/>
-
-    <!-- Fallback paths from Stage 2 -->
-    <path d="M 1220 810 L 1180 810 L 1180 600 L 1150 600" class="arrow-no" style="stroke: #ef4444; stroke-width: 2; fill: none; marker-end: url(#arrowhead-no);"/>
-    <text x="1195" y="805" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">DENY</text>
-
-    <path d="M 1400 810 L 1450 810" class="arrow-maybe" style="stroke: #eab308; stroke-width: 2; fill: none; marker-end: url(#arrowhead-maybe);"/>
-    <text x="1425" y="805" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">ASK</text>
-
-    <rect x="1450" y="420" width="250" height="100" rx="5" class="ask-box" style="fill: #2f2a1a; stroke: #eab308; stroke-width: 2;"/>
-    <text x="1575" y="445" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;">ASK USER</text>
-    <text x="1470" y="465" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• Show reason from classifier</text>
-    <text x="1470" y="480" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• Offer "Always allow" rule</text>
-    <text x="1470" y="495" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• Wait for user response</text>
-    <text x="1470" y="510" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• Log decision event</text>
-
-    <path d="M 1575 520 L 1575 560" class="arrow" style="stroke: #4a5f7f; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead);"/>
-
-    <rect x="1450" y="560" width="250" height="90" rx="5" class="process-box" style="fill: #1f1a2f; stroke: #8b5cf6; stroke-width: 2;"/>
-    <text x="1575" y="585" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;">Circuit Breaker Check</text>
-    <text x="1470" y="605" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• autoMode.circuitBreakerActive?</text>
-    <text x="1470" y="620" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• Track failures (denial rate)</text>
-    <text x="1470" y="635" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• Disable auto if threshold hit</text>
-  </g>
-
-  <!-- ============ SECTION 8: OUTPUT &amp; RESULTS (BOTTOM RIGHT) ============ -->
-  <g id="output-section">
-    <text x="1550" y="1000" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;" font-size="14">FINAL OUTPUT &amp; TELEMETRY</text>
-
-    <!-- Allow path -->
-    <path d="M 1020 730 L 1100 730 L 1100 800" class="arrow-yes" style="stroke: #22c55e; stroke-width: 2; fill: none; marker-end: url(#arrowhead-yes);"/>
-
-    <!-- Deny path -->
-    <path d="M 850 760 L 750 800" class="arrow-no" style="stroke: #ef4444; stroke-width: 2; fill: none; marker-end: url(#arrowhead-no);"/>
-    <rect x="680" y="800" width="140" height="50" rx="5" class="deny-box" style="fill: #2f1a1a; stroke: #ef4444; stroke-width: 2;"/>
-    <text x="750" y="820" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;">DENY</text>
-    <text x="750" y="835" text-anchor="middle" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">Permission Denied</text>
-
-    <!-- Ask path -->
-    <path d="M 1450 810 L 1400 900" class="arrow-maybe" style="stroke: #eab308; stroke-width: 2; fill: none; marker-end: url(#arrowhead-maybe);"/>
-
-    <!-- All paths merge -->
-    <rect x="950" y="800" width="180" height="60" rx="5" class="allow-box" style="fill: #1a2f1f; stroke: #22c55e; stroke-width: 2;"/>
-    <text x="1040" y="820" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;">ALLOW</text>
-    <text x="1040" y="835" text-anchor="middle" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">Permission Granted</text>
-    <path d="M 1040 860 L 1100 900" class="arrow" style="stroke: #4a5f7f; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead);"/>
-
-    <rect x="1350" y="850" width="180" height="60" rx="5" class="ask-box" style="fill: #2f2a1a; stroke: #eab308; stroke-width: 2;"/>
-    <text x="1440" y="870" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;">ASK</text>
-    <text x="1440" y="885" text-anchor="middle" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">Prompt User</text>
-    <path d="M 1395 910 L 1100 950" class="arrow" style="stroke: #4a5f7f; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead);"/>
-
-    <!-- Merge point: PermissionResult -->
-    <rect x="950" y="950" width="300" height="120" rx="5" class="data-store" style="fill: #1a2530; stroke: #06b6d4; stroke-width: 2;"/>
-    <text x="1100" y="975" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;">PermissionResult</text>
-    <text x="970" y="995" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• decision: allow | deny | ask</text>
-    <text x="970" y="1010" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• reason: string explanation</text>
-    <text x="970" y="1025" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• classifier?: stage &amp; stats</text>
-    <text x="970" y="1040" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• metadata: tokens, latency, etc</text>
-    <text x="970" y="1055" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• suggestion: "Always allow" rule</text>
-
-    <path d="M 1100 1070 L 1100 1120" class="arrow" style="stroke: #4a5f7f; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead);"/>
-
-    <!-- Telemetry -->
-    <rect x="950" y="1120" width="300" height="100" rx="5" class="data-store" style="fill: #1a2530; stroke: #06b6d4; stroke-width: 2;"/>
-    <text x="1100" y="1145" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;">Telemetry &amp; Logging</text>
-    <text x="970" y="1165" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• tengu_auto_mode_decision event</text>
-    <text x="970" y="1180" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• Token usage stats</text>
-    <text x="970" y="1195" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• Latency tracking (ms)</text>
-    <text x="970" y="1210" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">• Cache hit/miss tracking</text>
-
-    <path d="M 1100 1220 L 1100 1280" class="arrow" style="stroke: #4a5f7f; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead);"/>
-
-    <!-- Final output box -->
-    <rect x="950" y="1280" width="300" height="50" rx="5" class="allow-box" style="fill: #1a2f1f; stroke: #22c55e; stroke-width: 2;"/>
-    <text x="1100" y="1305" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;">Return PermissionResult</text>
-    <text x="1100" y="1320" text-anchor="middle" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">to Tool Executor</text>
-  </g>
-
-  <!-- ============ SECTION 9: COMPLEX DECISION PATHS (RIGHT SIDE) ============ -->
-  <g id="complex-paths">
-    <line x1="1750" y1="60" x2="1750" y2="1550" class="line-divider" style="stroke: #2a3f5f; stroke-width: 1; stroke-dasharray: 5,5;"/>
-
-    <text x="1900" y="220" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;" font-size="14">DECISION PATH LOGIC</text>
-
-    <!-- Path 1: Rules allow -->
-    <rect x="1800" y="270" width="330" height="70" rx="5" class="allow-box" style="fill: #1a2f1f; stroke: #22c55e; stroke-width: 2;"/>
-    <text x="1965" y="295" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;">Path 1: Rule = ALLOW</text>
-    <text x="1820" y="315" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">Skip classifier, return ALLOW immediately</text>
-    <text x="1820" y="330" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">No telemetry, no denial tracking</text>
-
-    <!-- Path 2: Rules deny -->
-    <rect x="1800" y="360" width="330" height="70" rx="5" class="deny-box" style="fill: #2f1a1a; stroke: #ef4444; stroke-width: 2;"/>
-    <text x="1965" y="385" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;">Path 2: Rule = DENY</text>
-    <text x="1820" y="405" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">Skip classifier, return DENY immediately</text>
-    <text x="1820" y="420" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">Log denial event, increment counter</text>
-
-    <!-- Path 3: Rules ask -->
-    <rect x="1800" y="450" width="330" height="85" rx="5" class="ask-box" style="fill: #2f2a1a; stroke: #eab308; stroke-width: 2;"/>
-    <text x="1965" y="475" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;">Path 3: Rule = ASK</text>
-    <text x="1820" y="495" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">Skip classifier, ask user immediately</text>
-    <text x="1820" y="510" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">Track in denial counter if denied</text>
-    <text x="1820" y="525" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">Offer suggestion for permanent rule</text>
-
-    <!-- Path 4: No rules, auto mode -->
-    <rect x="1800" y="555" width="330" height="100" rx="5" class="classifier-box" style="fill: #1a232f; stroke: #3b82f6; stroke-width: 2;"/>
-    <text x="1965" y="580" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;">Path 4: No Rules + Auto Mode</text>
-    <text x="1820" y="600" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">Run Stage 1 (fast path)</text>
-    <text x="1820" y="615" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">Strip dangerous patterns from input</text>
-    <text x="1820" y="630" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">If Stage 1 triggers, run Stage 2</text>
-    <text x="1820" y="645" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">Return decision from classifier</text>
-
-    <!-- Path 5: No rules, default/other mode -->
-    <rect x="1800" y="675" width="330" height="100" rx="5" class="ask-box" style="fill: #2f2a1a; stroke: #eab308; stroke-width: 2;"/>
-    <text x="1965" y="700" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;">Path 5: No Rules + Other Modes</text>
-    <text x="1820" y="720" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">Run Stage 1 (fast path only)</text>
-    <text x="1820" y="735" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">If &lt;block&gt; detected, go to Stage 2</text>
-    <text x="1820" y="750" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">If Stage 2 = ASK, prompt user</text>
-    <text x="1820" y="765" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">Otherwise respect classifier output</text>
-
-    <!-- Path 6: Circuit breaker -->
-    <rect x="1800" y="795" width="330" height="100" rx="5" class="deny-box" style="fill: #2f1a1a; stroke: #ef4444; stroke-width: 2;"/>
-    <text x="1965" y="820" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;">Path 6: Circuit Breaker Active</text>
-    <text x="1820" y="840" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">Auto mode disabled (too many denials)</text>
-    <text x="1820" y="855" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">Fall back to user prompting for all</text>
-    <text x="1820" y="870" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">Monitor tengu_iron_gate_closed flag</text>
-    <text x="1820" y="885" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">Manual re-enable required</text>
-
-    <!-- Thresholds and constants box -->
-    <rect x="1800" y="915" width="330" height="210" rx="5" class="data-store" style="fill: #1a2530; stroke: #06b6d4; stroke-width: 2;"/>
-    <text x="1965" y="940" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;">Key Constants &amp; Thresholds</text>
-
-    <text x="1820" y="960" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">Stage 1:</text>
-    <text x="1820" y="975" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">  max_tokens: 64</text>
-    <text x="1820" y="990" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">  stop_sequences: ['&lt;/block&gt;']</text>
-
-    <text x="1820" y="1010" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">Stage 2:</text>
-    <text x="1820" y="1025" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">  max_tokens: 4,096</text>
-    <text x="1820" y="1040" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">  Prompt cache TTL: 1 hour</text>
-
-    <text x="1820" y="1060" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">Denial Tracking:</text>
-    <text x="1820" y="1075" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">  Consecutive threshold: 3</text>
-    <text x="1820" y="1090" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">  Total threshold: 20</text>
-
-    <text x="1820" y="1110" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">Cache Stats:</text>
-    <text x="1820" y="1125" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">  Hit rate: 60-80%</text>
-  </g>
-
-  <!-- ============ LEGEND &amp; REFERENCE ============ -->
-  <g id="legend">
-    <text x="100" y="1450" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;" font-size="12">LEGEND &amp; REFERENCE GUIDE</text>
-
-    <!-- Legend items -->
-    <rect x="100" y="1470" width="140" height="40" rx="5" class="allow-box" style="fill: #1a2f1f; stroke: #22c55e; stroke-width: 2;"/>
-    <text x="170" y="1495" text-anchor="middle" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">ALLOW Decision</text>
-
-    <rect x="280" y="1470" width="140" height="40" rx="5" class="deny-box" style="fill: #2f1a1a; stroke: #ef4444; stroke-width: 2;"/>
-    <text x="350" y="1495" text-anchor="middle" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">DENY Decision</text>
-
-    <rect x="460" y="1470" width="140" height="40" rx="5" class="ask-box" style="fill: #2f2a1a; stroke: #eab308; stroke-width: 2;"/>
-    <text x="530" y="1495" text-anchor="middle" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">ASK USER Decision</text>
-
-    <rect x="660" y="1470" width="140" height="40" rx="5" class="classifier-box" style="fill: #1a232f; stroke: #3b82f6; stroke-width: 2;"/>
-    <text x="730" y="1495" text-anchor="middle" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">YOLO Classifier</text>
-
-    <rect x="850" y="1470" width="140" height="40" rx="5" class="process-box" style="fill: #1f1a2f; stroke: #8b5cf6; stroke-width: 2;"/>
-    <text x="890" y="1495" text-anchor="middle" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">Process/Logic</text>
-
-    <rect x="1000" y="1470" width="140" height="40" rx="5" class="data-store" style="fill: #1a2530; stroke: #06b6d4; stroke-width: 2;"/>
-    <text x="1070" y="1495" text-anchor="middle" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">Data Structure</text>
-
-    <rect x="1180" y="1470" width="140" height="40" rx="5" class="rule-box" style="fill: #2f2519; stroke: #f97316; stroke-width: 2;"/>
-    <text x="1250" y="1495" text-anchor="middle" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">Rules Engine</text>
-
-    <!-- Arrow legend -->
-    <line x1="1380" y1="1490" x2="1480" y2="1490" class="arrow-yes" style="stroke: #22c55e; stroke-width: 2; fill: none; marker-end: url(#arrowhead-yes);"/>
-    <text x="1510" y="1495" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">Yes / ALLOW Path</text>
-
-    <line x1="1720" y1="1490" x2="1820" y2="1490" class="arrow-no" style="stroke: #ef4444; stroke-width: 2; fill: none; marker-end: url(#arrowhead-no);"/>
-    <text x="1850" y="1495" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">No / DENY Path</text>
-
-    <line x1="1400" y1="1545" x2="1480" y2="1545" class="arrow-maybe" style="stroke: #eab308; stroke-width: 2; fill: none; marker-end: url(#arrowhead-maybe);"/>
-    <text x="1510" y="1550" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">Maybe / ASK Path</text>
-
-    <polygon points="1700,1540 1690,1550 1700,1560 1710,1550" class="decision-diamond" style="fill: #1a2332; stroke: #4a7c59; stroke-width: 2;"/>
-    <text x="1770" y="1550" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">Decision Point</text>
-  </g>
-
-  <!-- ============ SUMMARY CALLOUT ============ -->
-  <g id="summary">
-    <rect x="100" y="1530" width="680" height="50" rx="8" fill="#2f2a1a" stroke="#f97316" stroke-width="2"/>
-    <text x="440" y="1550" text-anchor="middle" class="text-label" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; fill: #c9d1e0;">COMPLETE DECISION FLOW: Entry → Mode Selection → Rules → Classifier (2-stage) → Denial Tracking → Output</text>
-    <text x="440" y="1565" text-anchor="middle" class="text-small" style="font-family: 'Monaco', 'Courier New', monospace; font-size: 10px; fill: #8895b0;">Every permission request traces one of 6 major paths through this engine</text>
-  </g>
-
+  <text x="40" y="45" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="bold" fill="#06B6D4">Permission Engine &amp; YOLO Classifier</text>
+  <text x="40" y="100" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="bold" fill="#06B6D4">Entry Point</text>
+  <rect x="30" y="130" width="400" height="100" rx="12" fill="#ECFEFF" stroke="#06B6D4" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="230" y="150" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" fill="#1a1a2e">Tool Use Request</text>
+  <text x="45" y="172" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">{ toolName, parameters,</text>
+  <text x="45" y="188" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">context }</text>
+  <line x1="230" y1="230" x2="230" y2="280" stroke="#94A3B8" stroke-width="2" marker-end="url(#arrowhead-arrow)"/>
+  <text x="40" y="300" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="bold" fill="#8B5CF6">Mode Selection</text>
+  <polygon points="150,320.0 190.0,360 150,400.0 110.0,360" fill="#FFF7ED" stroke="#F97316" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="150" y="365" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="bold" fill="#1a1a2e">Mode?</text>
+  <rect x="40" y="480" width="80" height="60" rx="12" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="55" y="500" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">default</text>
+  <rect x="130" y="480" width="80" height="60" rx="12" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="145" y="500" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">plan</text>
+  <rect x="220" y="480" width="80" height="60" rx="12" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="235" y="500" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">acceptEdits</text>
+  <rect x="310" y="480" width="80" height="60" rx="12" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="325" y="500" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">auto</text>
+  <rect x="40" y="560" width="340" height="100" rx="12" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="210" y="580" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" fill="#1a1a2e">Feature Gates</text>
+  <text x="55" y="602" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">tengu_disable_bypass</text>
+  <text x="55" y="618" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">killswitch, iron_gate,</text>
+  <text x="55" y="634" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">circuitBreaker</text>
+  <text x="450" y="300" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="bold" fill="#F97316">Rule Evaluation</text>
+  <rect x="430" y="330" width="340" height="90" rx="12" fill="#FFF7ED" stroke="#F97316" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="600" y="350" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" fill="#1a1a2e">Load Rules Cascade</text>
+  <text x="445" y="372" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">project -&gt; global -&gt; managed</text>
+  <rect x="430" y="440" width="340" height="110" rx="12" fill="#ECFEFF" stroke="#06B6D4" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="600" y="460" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" fill="#1a1a2e">Rule Format</text>
+  <text x="445" y="482" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">ToolName(ruleContent)</text>
+  <text x="445" y="498" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Types: allow | deny | ask</text>
+  <polygon points="600,560.0 640.0,600 600,640.0 560.0,600" fill="#FFF7ED" stroke="#F97316" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="600" y="605" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="bold" fill="#1a1a2e">Match?</text>
+  <rect x="550" y="700" width="100" height="80" rx="12" fill="#ECFDF5" stroke="#10B981" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="565" y="720" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">Apply Rule</text>
+  <text x="850" y="300" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="bold" fill="#3B82F6">YOLO Classifier</text>
+  <rect x="800" y="330" width="350" height="110" rx="12" fill="#EBF5FF" stroke="#3B82F6" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="975" y="350" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" fill="#1a1a2e">Stage 1: Fast Path</text>
+  <text x="815" y="372" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">max_tokens = 64</text>
+  <text x="815" y="388" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">stop_sequences = ['&lt;/block&gt;']</text>
+  <text x="815" y="404" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Temperature = 0</text>
+  <polygon points="975,460.0 1015.0,500 975,540.0 935.0,500" fill="#FFF7ED" stroke="#F97316" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="975" y="505" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="bold" fill="#1a1a2e">Contains?</text>
+  <rect x="1050" y="480" width="80" height="80" rx="12" fill="#ECFDF5" stroke="#10B981" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="1065" y="500" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">ALLOW</text>
+  <rect x="800" y="600" width="350" height="150" rx="12" fill="#EBF5FF" stroke="#3B82F6" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="975" y="620" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" fill="#1a1a2e">Stage 2: Reasoning</text>
+  <text x="815" y="642" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">max_tokens = 4,096</text>
+  <text x="815" y="658" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Parse &lt;decision&gt; tag</text>
+  <text x="815" y="674" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Cache: 1h TTL</text>
+  <text x="815" y="690" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">60-80% hit rate</text>
+  <text x="1150" y="300" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="bold" fill="#8B5CF6">Decision Paths</text>
+  <rect x="1110" y="330" width="270" height="60" rx="12" fill="#ECFDF5" stroke="#10B981" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="1125" y="350" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">Path 1: ALLOW</text>
+  <rect x="1110" y="400" width="270" height="60" rx="12" fill="#FEF2F2" stroke="#EF4444" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="1125" y="420" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">Path 2: DENY</text>
+  <rect x="1110" y="470" width="270" height="60" rx="12" fill="#FEFCE8" stroke="#EAB308" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="1125" y="490" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">Path 3: ASK</text>
+  <rect x="1110" y="540" width="270" height="60" rx="12" fill="#EBF5FF" stroke="#3B82F6" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="1125" y="560" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">Path 4: Auto Mode</text>
+  <rect x="1110" y="610" width="270" height="60" rx="12" fill="#EBF5FF" stroke="#3B82F6" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="1125" y="630" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">Path 5: Other Modes</text>
+  <rect x="1110" y="680" width="270" height="60" rx="12" fill="#FEF2F2" stroke="#EF4444" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="1125" y="700" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">Path 6: Circuit Break</text>
+  <text x="40" y="1180" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="bold" fill="#06B6D4">Output</text>
+  <rect x="30" y="1210" width="600" height="100" rx="12" fill="#ECFEFF" stroke="#06B6D4" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="330" y="1230" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" fill="#1a1a2e">PermissionResult</text>
+  <text x="45" y="1252" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">decision + reason + metadata</text>
+  <rect x="680" y="1210" width="300" height="100" rx="12" fill="#F9FAFB" stroke="#9CA3AF" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="830" y="1230" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" fill="#1a1a2e">Telemetry</text>
+  <text x="695" y="1252" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">events, token usage,</text>
+  <text x="695" y="1268" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">latency</text>
 </svg>

@@ -1,122 +1,88 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" width="900" height="600">
+<?xml version="1.0" ?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 600" width="1100px" height="600px" style="background-color: #ffffff">
   <defs>
-    
-    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="userSpaceOnUse">
-      <polygon points="0 0, 10 3, 0 6" fill="#30363d"/>
+    <filter id="dropShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feOffset in="SourceGraphic" dx="0" dy="2"/>
+      <feGaussianBlur in="offsetblur" stdDeviation="3"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <marker id="arrowhead-arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#94A3B8"/>
+    </marker>
+    <marker id="arrowhead-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#10B981"/>
+    </marker>
+    <marker id="arrowhead-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#3B82F6"/>
+    </marker>
+    <marker id="arrowhead-orange" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#F97316"/>
+    </marker>
+    <marker id="arrowhead-purple" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#8B5CF6"/>
+    </marker>
+    <marker id="arrowhead-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#EF4444"/>
     </marker>
   </defs>
-
-  <rect class="bg" style="fill: #0d1117;" width="900" height="600"/>
-
-  <!-- Title -->
-  <text x="450" y="25" class="text-title" style="fill: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 15px; font-weight: 600;" text-anchor="middle">Three-Tier Compaction System</text>
-
-  <!-- TIER 1: Microcompact -->
-  <rect x="50" y="50" width="250" height="520" class="tier-box" style="fill: #161b22; stroke: #238636; stroke-width: 2;" rx="4"/>
-
-  <text x="175" y="75" class="text-label" style="fill: #79c0ff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 11px; font-weight: 500;" text-anchor="middle" font-size="13">Tier 1: Microcompact</text>
-  <text x="175" y="92" class="text-small" style="fill: #8b949e; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 10px;" text-anchor="middle">No API Call</text>
-
-  <!-- Tier 1 content -->
-  <rect x="65" y="105" width="220" height="45" class="box-low" style="fill: #238636; stroke: #238636; stroke-width: 1;" rx="2"/>
-  <text x="175" y="125" class="text-primary" style="fill: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 12px;" text-anchor="middle">Two Paths:</text>
-  <text x="175" y="138" class="text-code" style="fill: #e6edf3; font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; font-size: 11px;" text-anchor="middle" font-size="10">Time-based (>60min gap)</text>
-
-  <rect x="65" y="160" width="220" height="45" class="box-low" style="fill: #238636; stroke: #238636; stroke-width: 1;" rx="2"/>
-  <text x="175" y="180" class="text-code" style="fill: #e6edf3; font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; font-size: 11px;" text-anchor="middle">Cached (cache_edits API)</text>
-
-  <rect x="65" y="215" width="220" height="45" class="box" style="fill: #1c2128; stroke: #30363d; stroke-width: 1;" rx="2"/>
-  <text x="175" y="235" class="text-code" style="fill: #e6edf3; font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; font-size: 11px;" text-anchor="middle">[Old tool result</text>
-  <text x="175" y="248" class="text-code" style="fill: #e6edf3; font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; font-size: 11px;" text-anchor="middle">content cleared]</text>
-
-  <text x="65" y="280" class="text-label" style="fill: #79c0ff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 11px; font-weight: 500;">Whitelisted Tools:</text>
-  <text x="75" y="298" class="text-code" style="fill: #e6edf3; font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; font-size: 11px;" font-size="9">Read, Bash, Grep, Glob,</text>
-  <text x="75" y="312" class="text-code" style="fill: #e6edf3; font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; font-size: 11px;" font-size="9">WebSearch, WebFetch,</text>
-  <text x="75" y="326" class="text-code" style="fill: #e6edf3; font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; font-size: 11px;" font-size="9">Edit, Write</text>
-
-  <rect x="65" y="340" width="220" height="50" class="box" style="fill: #1c2128; stroke: #30363d; stroke-width: 1;" rx="2"/>
-  <text x="175" y="360" class="text-primary" style="fill: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 12px;" text-anchor="middle" font-size="11">Cost: Free</text>
-  <text x="175" y="375" class="text-small" style="fill: #8b949e; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 10px;" text-anchor="middle">Quality: Low</text>
-
-  <line x1="65" y1="400" x2="285" y2="400" class="line" style="stroke: #30363d; stroke-width: 1; fill: none;"/>
-
-  <text x="175" y="420" class="text-small" style="fill: #8b949e; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 10px;" text-anchor="middle">Circuit breaker:</text>
-  <text x="175" y="435" class="text-small" style="fill: #8b949e; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 10px;" text-anchor="middle">Skip after 3</text>
-  <text x="175" y="450" class="text-small" style="fill: #8b949e; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 10px;" text-anchor="middle">consecutive failures</text>
-
-  <!-- TIER 2: Full Compaction -->
-  <rect x="325" y="50" width="250" height="520" class="tier-box" style="fill: #161b22; stroke: #238636; stroke-width: 2;" rx="4"/>
-
-  <text x="450" y="75" class="text-label" style="fill: #79c0ff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 11px; font-weight: 500;" text-anchor="middle" font-size="13">Tier 2: Full Compaction</text>
-  <text x="450" y="92" class="text-small" style="fill: #8b949e; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 10px;" text-anchor="middle">API Call Required</text>
-
-  <!-- Tier 2 process -->
-  <rect x="340" y="105" width="220" height="35" class="box-mid" style="fill: #0969da; stroke: #0969da; stroke-width: 1;" rx="2"/>
-  <text x="450" y="127" class="text-code" style="fill: #e6edf3; font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; font-size: 11px;" text-anchor="middle">Strip Images</text>
-
-  <path d="M 450 140 L 450 160" class="line" style="stroke: #30363d; stroke-width: 1; fill: none;" marker-end="url(#arrowhead)"/>
-
-  <rect x="340" y="160" width="220" height="35" class="box-mid" style="fill: #0969da; stroke: #0969da; stroke-width: 1;" rx="2"/>
-  <text x="450" y="182" class="text-code" style="fill: #e6edf3; font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; font-size: 11px;" text-anchor="middle">Compact Prompt</text>
-
-  <path d="M 450 195 L 450 215" class="line" style="stroke: #30363d; stroke-width: 1; fill: none;" marker-end="url(#arrowhead)"/>
-
-  <rect x="340" y="215" width="220" height="50" class="box-mid" style="fill: #0969da; stroke: #0969da; stroke-width: 1;" rx="2"/>
-  <text x="450" y="235" class="text-code" style="fill: #e6edf3; font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; font-size: 11px;" text-anchor="middle">PTL Retry</text>
-  <text x="450" y="250" class="text-small" style="fill: #8b949e; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 10px;" text-anchor="middle">(max 3 attempts)</text>
-
-  <path d="M 450 265 L 450 285" class="line" style="stroke: #30363d; stroke-width: 1; fill: none;" marker-end="url(#arrowhead)"/>
-
-  <rect x="340" y="285" width="220" height="50" class="box-mid" style="fill: #0969da; stroke: #0969da; stroke-width: 1;" rx="2"/>
-  <text x="450" y="305" class="text-code" style="fill: #e6edf3; font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; font-size: 11px;" text-anchor="middle">Post-Restore</text>
-  <text x="450" y="320" class="text-small" style="fill: #8b949e; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 10px;" text-anchor="middle">(5 files, 50K budget)</text>
-
-  <line x1="340" y1="345" x2="560" y2="345" class="line" style="stroke: #30363d; stroke-width: 1; fill: none;"/>
-
-  <rect x="340" y="355" width="220" height="50" class="box" style="fill: #1c2128; stroke: #30363d; stroke-width: 1;" rx="2"/>
-  <text x="450" y="375" class="text-code" style="fill: #e6edf3; font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; font-size: 11px;" text-anchor="middle">NO_TOOLS Sandwich</text>
-  <text x="450" y="390" class="text-small" style="fill: #8b949e; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 10px;" text-anchor="middle">(safety guard)</text>
-
-  <line x1="340" y1="415" x2="560" y2="415" class="line" style="stroke: #30363d; stroke-width: 1; fill: none;"/>
-
-  <rect x="340" y="425" width="220" height="50" class="box" style="fill: #1c2128; stroke: #30363d; stroke-width: 1;" rx="2"/>
-  <text x="450" y="445" class="text-primary" style="fill: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 12px;" text-anchor="middle" font-size="11">Cost: Medium</text>
-  <text x="450" y="460" class="text-small" style="fill: #8b949e; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 10px;" text-anchor="middle">Quality: High</text>
-
-  <!-- TIER 3: Session Memory -->
-  <rect x="600" y="50" width="250" height="520" class="tier-box" style="fill: #161b22; stroke: #238636; stroke-width: 2;" rx="4"/>
-
-  <text x="725" y="75" class="text-label" style="fill: #79c0ff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 11px; font-weight: 500;" text-anchor="middle" font-size="13">Tier 3: Session Memory</text>
-  <text x="725" y="92" class="text-small" style="fill: #8b949e; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 10px;" text-anchor="middle">Zero Cost</text>
-
-  <!-- Tier 3 content -->
-  <rect x="615" y="105" width="220" height="50" class="box-high" style="fill: #f0883e; stroke: #f0883e; stroke-width: 1;" rx="2"/>
-  <text x="725" y="125" class="text-primary" style="fill: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 12px;" text-anchor="middle">Pre-built by</text>
-  <text x="725" y="140" class="text-primary" style="fill: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 12px;" text-anchor="middle">Background Agents</text>
-
-  <line x1="615" y1="165" x2="835" y2="165" class="line" style="stroke: #30363d; stroke-width: 1; fill: none;"/>
-
-  <text x="625" y="185" class="text-label" style="fill: #79c0ff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 11px; font-weight: 500;" font-size="11">Keeps Minimum:</text>
-  <text x="635" y="202" class="text-code" style="fill: #e6edf3; font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; font-size: 11px;" font-size="9">10K tokens</text>
-  <text x="635" y="217" class="text-code" style="fill: #e6edf3; font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; font-size: 11px;" font-size="9">5 messages</text>
-  <text x="635" y="232" class="text-code" style="fill: #e6edf3; font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; font-size: 11px;" font-size="9">max 40K budget</text>
-
-  <line x1="615" y1="250" x2="835" y2="250" class="line" style="stroke: #30363d; stroke-width: 1; fill: none;"/>
-
-  <text x="625" y="270" class="text-label" style="fill: #79c0ff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 11px; font-weight: 500;" font-size="11">9 Sections:</text>
-  <text x="635" y="287" class="text-code" style="fill: #e6edf3; font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; font-size: 11px;" font-size="9">2000 tokens each</text>
-
-  <rect x="615" y="295" width="220" height="45" class="box" style="fill: #1c2128; stroke: #30363d; stroke-width: 1;" rx="2"/>
-  <text x="725" y="312" class="text-small" style="fill: #8b949e; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 10px;" text-anchor="middle">System | Transcript</text>
-  <text x="725" y="327" class="text-small" style="fill: #8b949e; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 10px;" text-anchor="middle">Decisions | Files | Tools</text>
-
-  <line x1="615" y1="350" x2="835" y2="350" class="line" style="stroke: #30363d; stroke-width: 1; fill: none;"/>
-
-  <rect x="615" y="360" width="220" height="50" class="box" style="fill: #1c2128; stroke: #30363d; stroke-width: 1;" rx="2"/>
-  <text x="725" y="380" class="text-primary" style="fill: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 12px;" text-anchor="middle" font-size="11">Cost: Free</text>
-  <text x="725" y="395" class="text-small" style="fill: #8b949e; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 10px;" text-anchor="middle">Quality: Medium</text>
-
-  <!-- Legend at bottom -->
-  <text x="50" y="585" class="text-small" style="fill: #8b949e; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 10px;">Cost increases left to right</text>
-  <line x1="50" y1="590" x2="900" y2="590" class="divider" style="stroke: #30363d; stroke-width: 2;"/>
+  <text x="40" y="45" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="bold" fill="#10B981">Three-Tier Compaction System</text>
+  <rect x="30" y="100" width="320" height="450" rx="12" fill="#ECFDF5" stroke="#10B981" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="190" y="120" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" fill="#1a1a2e">Tier 1: Microcompact</text>
+  <text x="45" y="142" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">Two paths:</text>
+  <text x="45" y="158" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">* Time-based (&gt;60min)</text>
+  <text x="45" y="174" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">* Cached (cache_edits)</text>
+  <text x="45" y="190" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666"/>
+  <text x="45" y="206" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Old tool results cleared</text>
+  <text x="45" y="222" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666"/>
+  <text x="45" y="238" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Whitelisted tools:</text>
+  <text x="45" y="254" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Read, Bash, Grep,</text>
+  <text x="45" y="270" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Glob, WebSearch,</text>
+  <text x="45" y="286" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">WebFetch, Edit, Write</text>
+  <text x="45" y="302" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666"/>
+  <text x="45" y="318" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Cost: Free</text>
+  <text x="45" y="334" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Quality: Low</text>
+  <text x="45" y="350" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666"/>
+  <text x="45" y="366" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Circuit: Skip</text>
+  <text x="45" y="382" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">after 3 failures</text>
+  <rect x="380" y="100" width="320" height="450" rx="12" fill="#EBF5FF" stroke="#3B82F6" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="540" y="120" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" fill="#1a1a2e">Tier 2: Full Compact</text>
+  <text x="395" y="142" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">* Strip Images</text>
+  <text x="395" y="158" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">* Compact Prompt</text>
+  <text x="395" y="174" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">  (forked agent)</text>
+  <text x="395" y="190" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">* PTL Retry</text>
+  <text x="395" y="206" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">  (max 3x)</text>
+  <text x="395" y="222" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666"/>
+  <text x="395" y="238" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">* Post-Restore</text>
+  <text x="395" y="254" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">  5 files, 50K budget</text>
+  <text x="395" y="270" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666"/>
+  <text x="395" y="286" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">* NO_TOOLS guard</text>
+  <text x="395" y="302" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666"/>
+  <text x="395" y="318" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Cost: Medium</text>
+  <text x="395" y="334" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Quality: High</text>
+  <text x="395" y="350" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666"/>
+  <text x="395" y="366" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Best for:</text>
+  <text x="395" y="382" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Large contexts</text>
+  <rect x="730" y="100" width="320" height="450" rx="12" fill="#FFF7ED" stroke="#F97316" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="890" y="120" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" fill="#1a1a2e">Tier 3: Session Mem</text>
+  <text x="745" y="142" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#333333">Pre-built by</text>
+  <text x="745" y="158" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Background Agents</text>
+  <text x="745" y="174" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666"/>
+  <text x="745" y="190" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Keeps:</text>
+  <text x="745" y="206" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">* 10K tokens</text>
+  <text x="745" y="222" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">* 5 messages</text>
+  <text x="745" y="238" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">* max 40K budget</text>
+  <text x="745" y="254" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666"/>
+  <text x="745" y="270" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">9 Sections * 2K tokens</text>
+  <text x="745" y="286" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">System | Transcript</text>
+  <text x="745" y="302" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Decisions | Files | Tools</text>
+  <text x="745" y="318" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666"/>
+  <text x="745" y="334" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Cost: Free</text>
+  <text x="745" y="350" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Quality: Medium</text>
+  <text x="745" y="366" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666"/>
+  <text x="745" y="382" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#666666">Always available</text>
+  <line x1="350" y1="325" x2="380" y2="325" stroke="#10B981" stroke-width="2" marker-end="url(#arrowhead-green)"/>
+  <line x1="700" y1="325" x2="730" y2="325" stroke="#3B82F6" stroke-width="2" marker-end="url(#arrowhead-blue)"/>
 </svg>
