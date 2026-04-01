@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" width="900" height="600">
+  <defs>
+    <style>
+      .bg { fill: #0d1117; }
+      .text-primary { fill: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 12px; }
+      .text-code { fill: #e6edf3; font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace; font-size: 11px; }
+      .text-title { fill: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 15px; font-weight: 600; }
+      .text-small { fill: #8b949e; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 10px; }
+      .text-label { fill: #79c0ff; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 11px; font-weight: 500; }
+      .box { fill: #1c2128; stroke: #30363d; stroke-width: 1; }
+      .box-input { fill: #0969da; stroke: #0969da; stroke-width: 1; }
+      .box-process { fill: #238636; stroke: #238636; stroke-width: 1; }
+      .box-output { fill: #f0883e; stroke: #f0883e; stroke-width: 1; }
+      .diamond { fill: #a371f7; stroke: #a371f7; stroke-width: 1; }
+      .line { stroke: #30363d; stroke-width: 1.5; fill: none; }
+      .arrow { stroke: #58a6ff; stroke-width: 1.5; fill: none; }
+      .arrow-head { fill: #58a6ff; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="900" height="600"/>
+
+  <!-- Title -->
+  <text x="450" y="25" class="text-title" text-anchor="middle">Streaming Tool Executor</text>
+
+  <!-- Model Streaming Input -->
+  <rect x="50" y="50" width="200" height="50" class="box-input" rx="4"/>
+  <text x="150" y="70" class="text-primary" text-anchor="middle">Model Streaming</text>
+  <text x="150" y="85" class="text-code" text-anchor="middle">(tokens arriving)</text>
+
+  <!-- Arrow down -->
+  <path d="M 150 100 L 150 140" class="arrow" marker-end="url(#arrowhead)"/>
+
+  <!-- Tool Use Block Detection -->
+  <rect x="50" y="140" width="200" height="50" class="box-process" rx="4"/>
+  <text x="150" y="160" class="text-primary" text-anchor="middle">Tool Use Block</text>
+  <text x="150" y="175" class="text-code" text-anchor="middle">Detected</text>
+
+  <!-- Arrow right to Queue -->
+  <path d="M 250 165 L 310 165" class="arrow" marker-end="url(#arrowhead)"/>
+
+  <!-- Queue Box -->
+  <rect x="310" y="130" width="120" height="70" class="box" rx="4" stroke="#238636" stroke-width="2"/>
+  <text x="370" y="150" class="text-label" text-anchor="middle">Queue</text>
+  <text x="370" y="168" class="text-code" text-anchor="middle">Added to</text>
+  <text x="370" y="182" class="text-code" text-anchor="middle">Tool Queue</text>
+
+  <!-- Arrow down from Queue -->
+  <path d="M 370 200 L 370 240" class="arrow" marker-end="url(#arrowhead)"/>
+
+  <!-- Classification Decision -->
+  <polygon points="370,240 450,290 370,340 290,290" class="diamond"/>
+  <text x="370" y="285" class="text-code" text-anchor="middle" font-size="10">isConcurrency</text>
+  <text x="370" y="300" class="text-code" text-anchor="middle" font-size="10">Safe(input)?</text>
+
+  <!-- Safe Path - Parallel -->
+  <path d="M 450 290 L 530 290" class="arrow" marker-end="url(#arrowhead)"/>
+  <text x="475" y="285" class="text-label">YES</text>
+
+  <rect x="530" y="250" width="160" height="80" class="box-process" rx="4"/>
+  <text x="610" y="275" class="text-primary" text-anchor="middle">Execute in Parallel:</text>
+  <text x="610" y="292" class="text-code" text-anchor="middle" font-size="10">Read, Glob,</text>
+  <text x="610" y="306" class="text-code" text-anchor="middle" font-size="10">Grep (concurrent)</text>
+
+  <!-- Exclusive Path -->
+  <path d="M 370 340 L 370 390" class="arrow" marker-end="url(#arrowhead)"/>
+  <text x="385" y="365" class="text-label">NO</text>
+
+  <rect x="280" y="390" width="180" height="80" class="box-process" rx="4"/>
+  <text x="370" y="415" class="text-primary" text-anchor="middle">Wait for Queue to Drain</text>
+  <text x="370" y="432" class="text-code" text-anchor="middle" font-size="10">Bash, Edit,</text>
+  <text x="370" y="446" class="text-code" text-anchor="middle" font-size="10">Write (exclusive)</text>
+
+  <!-- Abort Controller Section -->
+  <rect x="50" y="390" width="200" height="120" class="box" rx="4" stroke="#f0883e" stroke-width="2"/>
+  <text x="150" y="410" class="text-label" text-anchor="middle">Abort Controller Tree:</text>
+
+  <text x="60" y="432" class="text-code" font-size="10">Root</text>
+  <line x1="65" y1="438" x2="190" y2="438" class="line"/>
+
+  <text x="75" y="458" class="text-code" font-size="10">Child per Tool</text>
+  <text x="75" y="472" class="text-code" font-size="10">(bubble-up on failure)</text>
+
+  <!-- Status Lifecycle -->
+  <rect x="530" y="380" width="320" height="130" class="box" rx="4" stroke="#238636" stroke-width="2"/>
+  <text x="690" y="400" class="text-label" text-anchor="middle">Status Lifecycle:</text>
+
+  <text x="545" y="422" class="text-code">queued</text>
+  <path d="M 585 418 L 605 418" class="arrow" marker-end="url(#arrowhead)" stroke-width="1"/>
+
+  <text x="615" y="422" class="text-code">executing</text>
+  <path d="M 670 418 L 690 418" class="arrow" marker-end="url(#arrowhead)" stroke-width="1"/>
+
+  <text x="700" y="422" class="text-code">completed</text>
+
+  <text x="545" y="448" class="text-code">yielded</text>
+
+  <!-- Yield Methods -->
+  <text x="545" y="475" class="text-label" font-size="10">Dual Yield:</text>
+  <text x="555" y="492" class="text-code" font-size="10">getRemainingResults()</text>
+  <text x="565" y="505" class="text-small">(blocking)</text>
+
+  <text x="555" y="522" class="text-code" font-size="10">getCompletedResults()</text>
+  <text x="565" y="535" class="text-small">(non-blocking)</text>
+
+  <!-- Combined output section -->
+  <rect x="280" y="530" width="570" height="60" class="box-output" rx="4"/>
+  <text x="565" y="555" class="text-primary" text-anchor="middle">Tool Results Yielded → Agent Loop</text>
+  <text x="565" y="572" class="text-small" text-anchor="middle">(next iteration continues with results)</text>
+
+  <!-- Arrow marker -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" class="arrow-head"/>
+    </marker>
+  </defs>
+</svg>
