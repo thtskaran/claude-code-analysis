@@ -38,18 +38,19 @@ This isn't a shallow overview — it's a complete architectural reconstruction o
 
 ## Use It As a Skill (Plug & Play)
 
-This repo isn't just for reading. **Install the `/internals` skill** and your Claude Code agent autonomously consults its own architectural map while working on your tasks.
+This repo isn't just for reading. **Install the `/internals` skill** and your Claude Code agent runs a multi-pass deep audit of your codebase against Anthropic's production patterns.
 
 ```bash
-# One command — installs globally across all projects
 mkdir -p ~/.claude/skills/internals && curl -sL \
   https://raw.githubusercontent.com/thtskaran/claude-code-analysis/master/.claude/skills/internals/SKILL.md \
   -o ~/.claude/skills/internals/SKILL.md
 ```
 
-**What happens:** Claude Code gets a skill that auto-triggers when it detects situations where self-knowledge would help — context growing long, tools getting blocked, agents needing coordination, prompts needing optimization. It fetches the relevant document from this repo via WebFetch and applies the architectural knowledge in real-time.
+**This isn't a one-shot summary.** The skill runs a ReAct loop — it reads your code, fetches matching Anthropic docs from this repo, creates a scratchpad to think across passes, re-reads your code with new knowledge (you always miss things the first time), follows document chains across subsystems, and keeps looping until every open question is answered. Only then does it deliver findings — with specific thresholds, failure modes, and exact changes.
 
-You can also invoke it manually: `/internals compaction`, `/internals permissions`, `/internals agents`, etc.
+The skill fetches a live [TREE.md](TREE.md) index on every run, so it stays current as this repo grows. Install once, never update.
+
+![Skill ReAct Loop](infographics/skill-react-loop.svg)
 
 → **[Full install guide](INSTALL-SKILL.md)**
 
@@ -107,6 +108,8 @@ Every major subsystem has a corresponding diagram. Click to view full-size.
 | **Plugin Lifecycle** | **Streaming Executor** | **Swarm Orchestration** |
 | ![Prompts](infographics/system-prompt-ordering.svg) | ![Tiers](infographics/compaction-tiers.svg) | ![Agent](infographics/agent-loop-flow.svg) |
 | **Prompt Ordering** | **Compaction Tiers** | **Agent Loop** |
+| ![Skill](infographics/skill-react-loop.svg) | | |
+| **[/internals Skill Loop](#use-it-as-a-skill-plug--play)** | | |
 
 ---
 
@@ -118,7 +121,7 @@ Every major subsystem has a corresponding diagram. Click to view full-size.
 | Lines of TypeScript | 512,000+ |
 | Analysis documents | 82 |
 | Lines of analysis | 112,000+ |
-| Architectural diagrams | 15 |
+| Architectural diagrams | 16 |
 | Feature flags documented | 88+ |
 | React hooks catalogued | 104 |
 | Commands and tools mapped | 150+ |

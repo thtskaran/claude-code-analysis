@@ -1,16 +1,8 @@
-# Install: Claude Code Self-Knowledge Skill
+# Install: `/internals` Skill
 
-One folder. Drop it in. Your Claude Code agent gets autonomous access to a complete map of its own internals.
+A multi-pass deep audit skill. It reads your code, fetches Anthropic's production patterns, builds a scratchpad to think across passes, re-reads your code with new knowledge, follows chains across subsystems, and doesn't stop until every question is answered.
 
-## What This Does
-
-Gives Claude Code a `/internals` skill that fetches its own reverse-engineered architectural docs from GitHub on-demand. When your agent hits context pressure, permission blocks, tool failures, or agent coordination issues — it knows exactly which document to pull and what pattern to apply.
-
-The skill auto-triggers when relevant. No manual intervention needed — though you can also invoke `/internals compaction` or `/internals permissions` directly.
-
-## Install (30 seconds)
-
-### Option A: One command
+## Install
 
 ```bash
 mkdir -p ~/.claude/skills/internals && curl -sL \
@@ -18,67 +10,60 @@ mkdir -p ~/.claude/skills/internals && curl -sL \
   -o ~/.claude/skills/internals/SKILL.md
 ```
 
-This installs it globally — works across all your projects.
-
-### Option B: Per-project
-
-```bash
-mkdir -p .claude/skills/internals && curl -sL \
-  https://raw.githubusercontent.com/thtskaran/claude-code-analysis/master/.claude/skills/internals/SKILL.md \
-  -o .claude/skills/internals/SKILL.md
-```
-
-### Option C: Manual
-
-1. Create `~/.claude/skills/internals/` (or `.claude/skills/internals/` in your project)
-2. Copy [`SKILL.md`](.claude/skills/internals/SKILL.md) into that folder
-3. Done
+That's it. Works across all your projects.
 
 ## How It Works
 
-The `SKILL.md` contains:
+The skill runs a **multi-pass ReAct loop**, not a one-shot analysis:
 
-- **A trigger description** — Claude auto-invokes when it detects situations where self-knowledge would help (context growing, tools blocked, agents spawning, etc.)
-- **A ReAct loop** — Identify subsystem → fetch the right doc from GitHub via WebFetch → extract insight → apply it
-- **A full document manifest** — 82 files mapped with one-line descriptions so the agent picks the right one
-- **Critical constants** — Hardcoded thresholds (93% compaction, 64-token YOLO, etc.) available without fetching
+![Skill ReAct Loop](infographics/skill-react-loop.svg)
 
-The agent uses `WebFetch` to pull raw markdown from `raw.githubusercontent.com` on-demand. It only fetches what's relevant — not the whole repo.
+**Pass 1 — Recon:** Fetches the live `TREE.md` index from GitHub. Reads your source files — not just the file you pointed at, but imports, callers, config, tests, error handling. Creates a scratchpad at `.claude/internals-scratchpad.md` with sections for subsystems, docs to fetch, gaps, open questions, and threads to pull.
+
+**Pass 2 — First Fetch:** Pulls 2-4 primary Anthropic docs matched by topic tags. Reads them fully — critical patterns are buried deep. Extracts specifics to the scratchpad: thresholds, constants, failure modes, security boundaries, edge cases, performance decisions. Not summaries. Exact mechanisms.
+
+**Pass 3 — Re-Read:** Goes back to your code with new knowledge. You always see things you missed the first time: error paths Anthropic handles that you don't, thresholds you hardcoded wrong, security surfaces left open, resilience mechanisms that don't exist in your code. Updates the scratchpad with new gaps and open questions.
+
+**Pass 4 — Deep Fetch:** Follows chains. API client has no context management? Fetches the compaction doc. Permission model is flat? Fetches both the YOLO classifier and bash parser docs. Looks for cross-system patterns (circuit breakers, fallback tiers, escalation chains). Keeps fetching until the scratchpad has zero open questions.
+
+**Pass 5 — Synthesis:** Delivers per-subsystem findings: what you built, what Anthropic built, where you diverge, what breaks without it, what to change (with exact numbers). Then cross-cutting gaps ranked by blast radius. Finalizes the scratchpad with a timestamp and summary.
+
+## The Scratchpad
+
+The skill creates `.claude/internals-scratchpad.md` in your project as persistent working memory. This is how it thinks across passes without losing context. It tracks:
+
+- Subsystems identified in your code
+- Anthropic docs fetched and patterns extracted
+- Gaps between your implementation and production patterns
+- Open questions that need more docs to answer
+- Chains to follow (doc A references subsystem B, need to fetch doc C)
+
+The scratchpad is left behind after the audit — you can reference it, share it, or use it as a checklist.
+
+## What It Covers
+
+Whatever subsystem you're building, there's an Anthropic pattern for it:
+
+- **API clients** — 5-provider streaming, retry with jitter, cost tracking
+- **Context management** — 3-tier compaction, 93% trigger, 9-section summary, circuit breakers
+- **Security** — 2-stage AI classifier, bash parser blocking 15 AST types, sanitization maps
+- **Agent systems** — leader-follower swarms, file-based IPC, permission brokering
+- **Permissions** — 6 modes, 7-stage pipeline, denial escalation
+- **Plugins** — 6-phase lifecycle, DFS deps, homograph detection
+- **CLI/TUI** — custom React renderer, Yoga layout, packed cell buffers, frame diffing
+- **Build systems** — 88 feature flags, dead code elimination
+- **Prompts** — 20 techniques, cache boundaries, 7+13 section architecture
+- **State management** — migrations, schema evolution, persistence
+- **Telemetry** — 200+ events, sampling, PII classification
+- **Error handling** — circuit breakers, fallback chains, token escalation
 
 ## Usage
 
-### Automatic (recommended)
-
-Just work normally. The skill's description tells Claude when to activate:
-
-> *Context getting long? Claude fetches the compaction doc, learns the 3-tier system and 93% threshold, restructures its approach.*
->
-> *Bash command blocked? Claude fetches the parser doc, learns the 15 dangerous AST types, rewrites the command to pass.*
-
-### Manual
+The skill auto-triggers when Claude detects relevant subsystems in your code. Or invoke manually:
 
 ```
-/internals compaction
-/internals permissions
-/internals bash-parser
-/internals agents
-/internals prompts
+/internals
 ```
-
-Or just `/internals` with any topic — it maps to the right document.
-
-## Verify It's Working
-
-After installing, start a new Claude Code session and ask:
-
-> "What do you know about your own compaction system? Check your internals."
-
-If it fetches from `raw.githubusercontent.com/thtskaran/claude-code-analysis/...` and gives you specifics about 3-tier compaction with the 93% threshold and 9-section summary template — it's working.
-
-## Requirements
-
-- Claude Code (any version with skills support)
-- WebFetch tool available (enabled by default)
 
 ## Uninstall
 
