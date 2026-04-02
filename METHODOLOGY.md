@@ -1,307 +1,204 @@
-# Methodology: Reverse-Engineering Anthropic's Claude Code Codebase
+# How We Reverse-Engineered 512K Lines of Claude Code
 
-**Author:** Karan Prasad (hello@karanprasad.com | https://karanprasad.com)
-
-## How the Source Became Available
-
-On March 31, 2026, Anthropic published a build of the `@anthropic-ai/claude-code` npm package that included a `.map` (source map) file. Source maps are standard debugging artifacts that map bundled/minified JavaScript back to the original TypeScript source. Because npm packages are publicly downloadable by design, anyone who ran `npm pack` or inspected the package tarball could reconstruct the full TypeScript source tree.
-
-This was not a hack, exploit, or breach. No access controls were bypassed. The `.map` file was shipped as part of a routine npm publish and was later removed by Anthropic in a subsequent release. The analysis in this repository was performed on the source reconstructed from that publicly available artifact.
-
-**No source code is redistributed in this repository.** All content here is original analysis, commentary, and documentation.
-
-## Overview
-
-This document describes the systematic extraction techniques used to analyze the Claude Code codebase. The methodology combines static analysis, programmatic extraction, targeted deep reading, and prompt reconstruction across five sequential phases. The approach prioritizes breadth-first discovery (identifying all major components) followed by depth-first investigation (understanding critical systems in detail).
+**Author:** Karan Prasad ([hello@karanprasad.com](mailto:hello@karanprasad.com) | [karanprasad.com](https://karanprasad.com))
 
 ---
 
-## Phase 1: Static Analysis
+## The Starting Point
 
-### Initial Document Review
+On March 31, 2026, Anthropic shipped an npm package that accidentally included a `.map` file — a standard debugging artifact that maps bundled JavaScript back to original TypeScript source. Because npm packages are public by design, anyone who ran `npm pack` could reconstruct the full source tree. Security researcher [Chaofan Shou](https://x.com/Fried_rice) flagged it publicly. Anthropic removed it in a later release.
 
-All 30 markdown files in the `/analysis` directory were read sequentially, totaling approximately 3 MB of pre-existing analysis documentation. These documents provided contextual grounding on major architectural patterns, known limitations, and prior investigative findings. Key insights included:
-- High-level system overview and component relationships
-- Known ant-only (internal Anthropic) code patterns
-- Existing classification of features and permissions systems
+No hack. No exploit. No access controls bypassed. Just a packaging oversight that exposed 1,902 TypeScript files and ~512,000 lines of source code.
 
-### TypeScript Source Inventory
-
-The codebase consists of 1,884 TypeScript source files. Rather than exhaustive reading, a selective strategy was employed: prioritization by module impact (utilities, core services, UI entry points) and by architectural role (API client, message handling, tool execution, permissions).
-
-### Critical Path Manual Reading
-
-Three core subsystems were read manually end-to-end:
-
-1. **Agent Loop**: Execution flow of single-turn and multi-turn interactions, including message dispatch, tool execution sequencing, and response completion logic.
-
-2. **API Client**: Raw HTTP streaming, retry mechanisms, prompt caching interaction, and error handling for Claude API calls.
-
-3. **Core Infrastructure**: Message compaction, permission evaluation, hook execution, and bash parsing for security-critical command interpretation.
+We studied the snapshot systematically, then destroyed our local copy. This document describes exactly how we conducted the analysis. Everything in this repository is our own original research — architectural diagrams, analysis documents, and commentary. **No source code is redistributed.**
 
 ---
 
-## Phase 2: Programmatic Analysis (Custom Node.js Scripts)
+## The Problem
 
-To scale analysis beyond manual reading, three custom extraction scripts were written and executed against the full TypeScript source tree.
+You can't just "read" half a million lines of TypeScript. The codebase has circular dependencies, runtime-constructed prompts, feature flags that strip entire modules at build time, and an internal-only branch (`ant`) that accounts for ~15% of the code. Brute-force reading would take months and miss structural relationships.
 
-### Script 1: ast-analyzer.mjs
-
-**Purpose**: Systematic extraction of syntactic structure across all 1,884 files.
-
-**Implementation**: Regex-based extraction rather than full AST parsing. Rationale: regex extraction is ~3x faster and proves sufficient for identifying exported symbols without semantic analysis.
-
-**Extraction targets and results**:
-- **Exported functions**: 6,552 identified (via `export function`, `export const`, default exports)
-- **Classes**: 99 identified (including tool classes, service classes, hook factories)
-- **Types/Interfaces**: 1,308 identified (including Zod schema definitions and TypeScript interfaces)
-- **Zod schemas**: 327 identified (field validation schemas; initial pass found only 14; pattern refinement increased to 327)
-
-**Feature flag discovery**:
-- Identified 90 feature flags using the pattern `feature('FLAG_NAME')` (case-insensitive regex match)
-- Flags control runtime behavior including experimental UI, beta permissions modes, and internal-only features
-
-**Dependency graph construction**:
-- Parsed all `import` statements to build module dependency graph
-- Identified circular dependencies, leaf modules, and high-coupling zones
-- Served as input for Phase 3 targeting
-
-### Script 2: deep-extract.mjs
-
-**Purpose**: Semantic-level extraction of behavioral logic and descriptive text.
-
-**Extraction categories**:
-
-1. **Inline tool class definitions**: Mined class definitions extending `Tool` base class. These classes define individual tool behavior, including parameter validation and execution hooks.
-
-2. **Zod schema descriptions**: Extracted descriptive text from `.describe()` calls within Zod field definitions. These descriptions often encode behavioral requirements or rationale that do not appear in comments.
-
-3. **Error and correction messages**: String literal extraction to identify user-facing error messages, system messages, and recovery guidance embedded in source code.
-
-4. **System-reminder injection patterns**: Identified code patterns that inject system-reminder context into chat messages, including detection of injected instructions and permission boundaries.
-
-5. **Behavioral constants**: Extracted hardcoded thresholds, timeouts, retry counts, and other behavioral parameters from module scope and config objects.
-
-6. **Recovery and fallback messages**: Identified graceful degradation paths and fallback behaviors when primary systems fail.
-
-**Output**: 2,251 discrete findings documented with source file and line range.
-
-### Script 3: graph-and-complexity.mjs
-
-**Purpose**: Quantitative ranking of modules and functions by structural complexity and centrality.
-
-**Analyses**:
-
-1. **Module coupling metrics**: Computed the total coupling (in-edges + out-edges) for each module in the dependency graph. The utils module exhibited the highest coupling (76 total), indicating it is a common dependency and likely contains foundational abstractions.
-
-2. **Cyclomatic complexity proxy**: Ranked the top 50 functions by estimated cyclomatic complexity using:
-   - Count of `if`/`else if` chains
-   - Nested conditional depth
-   - Loop nesting depth
-   - Case statement branches
-
-   The `parseWord` function ranked highest (estimated complexity: 123), indicating complex conditional logic for word-by-word message processing.
-
-3. **Pattern frequency analysis**: Generated a table ranking architectural patterns and code idioms by frequency across the codebase. Examples: tool execution wrappers (47 instances), permission check guards (156 instances), retry-with-backoff patterns (23 instances).
+So we built a five-phase extraction pipeline: automated symbol discovery, semantic extraction, dependency graph construction, targeted deep analysis of high-value modules, and cross-referenced prompt reconstruction. Each phase fed the next.
 
 ---
 
-## Phase 3: Targeted Deep Reading
+## Phase 1: Orientation — Static Inventory
 
-Based on dependency graph analysis and complexity rankings, 12 critical files were selected for line-by-line reading. To parallelize this work, multiple reading agents were dispatched concurrently, each responsible for one or more files.
+We started with a breadth-first survey. Rather than reading every file, we prioritized by architectural role — entry points, the API client, the agent execution loop, the permission engine, tool execution, and the bash parser (security-critical).
 
-### Selected Files and Findings
+Three subsystems got manual end-to-end analysis:
 
-| File | Lines | Key Insights |
-|------|-------|--------------|
-| `src/screens/REPL.tsx` | 5,005 | UI rendering loop, frustration detection heuristics, user feedback survey integration |
-| `src/utils/permissions/yoloClassifier.ts` | 1,495 | Auto-mode permission classifier using heuristic rules and confidence thresholding |
-| `src/coordinator/coordinatorMode.ts` | 369 | Multi-agent orchestration for parallel tool execution and result aggregation |
-| `src/constants/prompts.ts` | 914 | System prompt construction, component ordering, conditional prompt injection |
-| `src/utils/messages.ts` | 5,512 | Message normalization pipeline (whitespace, encoding, embedding preparation) |
-| `src/utils/hooks.ts` | 5,022 | Hook execution system (lifecycle hooks, error handling, hook composition) |
-| `src/services/compact/compact.ts` | 1,705 | Message compaction algorithm (token counting, priority-based pruning, cache strategy) |
-| `src/services/compact/microCompact.ts` | 530 | Microcompaction for single-message optimization |
-| `src/services/tools/StreamingToolExecutor.ts` | 530 | Concurrent tool execution with streaming result aggregation |
-| `src/services/api/claude.ts` | 3,419 | API client implementation, raw HTTP streaming, token counting |
-| `src/services/api/withRetry.ts` | Variable | Retry logic with exponential backoff and jitter |
-| `src/services/api/promptCacheBreakDetection.ts` | 728 | Cache validation diagnostics and break-point detection |
-| `src/utils/bash/bashParser.ts` | 4,437 | Security-critical bash parser for command injection defense and sandboxing |
+1. **Agent loop** — the core execution flow: how user queries become model calls, how tool use is dispatched mid-stream, and how the system decides when to stop or continue
+2. **API client** — raw HTTP streaming, SSE chunk parsing, exponential backoff retry with jitter, prompt cache boundary detection, and multi-provider routing across Anthropic, AWS Bedrock, GCP Vertex, and Azure
+3. **Core infrastructure** — context compaction (6 strategies, from lightweight microcompaction to forked-subprocess summarization), the permission evaluation pipeline, the hook lifecycle system, and the security-critical bash command parser
 
-### Parallel Reading Strategy
-
-Large files (>2,000 lines) were split into contiguous line ranges, with each range assigned to a separate reading agent. Results were consolidated after completion to reconstruct the full file semantics. This approach reduced total wall-clock time by approximately 70%.
+This gave us the high-level map. Then we automated.
 
 ---
 
-## Phase 4: Prompt Extraction
+## Phase 2: Automated Extraction
 
-### Challenge: Scale of prompt-bible.md
+To scale beyond manual reading, we wrote three custom Node.js extraction scripts and ran them against the full source tree. We chose regex-based parsing over full AST analysis — approximately 3x faster and sufficient for symbol-level extraction at this scale.
 
-The file `prompt-bible.md` contains the complete system prompt concatenation and measures 2.1 MB (32,000+ lines). Direct reading exceeds practical context limits.
+### Script 1: Symbol Inventory (~400 lines)
 
-### Solution: Parallel Line-Range Extraction
+Systematic extraction of every exported symbol across all 1,884 files:
 
-The file was divided into three contiguous ranges:
-- **Range 1**: Lines 1-10,666
-- **Range 2**: Lines 10,667-21,332
-- **Range 3**: Lines 21,333-32,000
+| Target | Count |
+|--------|-------|
+| Exported functions | 6,552 |
+| Classes | 99 |
+| Types and Interfaces | 1,308 |
+| Zod validation schemas | 327 |
+| Feature flags | 90 |
 
-Each range was assigned to a separate reading agent, tasked with extracting verbatim prompt text and identifying structural sections (e.g., "Safety Rules", "Action Types", "Injection Defense").
+The Zod schema discovery is worth calling out. Our first pass found only 14 — clearly wrong given the validation-heavy architecture. We rewrote the regex patterns three times, progressively catching schemas defined via intermediate variables, inline `.shape()` compositions, conditional construction, and cross-module re-exports. Final count: 327 — a 23x increase over the naive pass. This kind of iterative refinement defined the whole project.
 
-### Cross-Reference with Source Code
+This script also constructed the full module dependency graph from `import` statements — which became the targeting input for Phase 3.
 
-Extracted prompt sections were cross-referenced against `src/constants/prompts.ts` to verify:
-- System prompt section ordering and composition
-- Conditional prompt injection (feature-flag driven)
-- Dynamic prompt modification based on user context
+### Script 2: Semantic Extraction (~600 lines)
 
-### Prompt Engineering Techniques Identified
+Not just *what symbols exist*, but *what they mean*:
 
-Analysis of the prompt-bible.md and system prompt construction identified 20 novel prompt engineering techniques:
-- Immutable rule layering (safety rules placed before user requests)
-- Recursive attack prevention (self-referential instruction defense)
-- Injection isolation (DOM elements and function results treated as untrusted)
-- Context origin tracking (distinguishing tool results from user input)
-- Emotional manipulation defense (authority impersonation, urgency tactics)
-- Explicit permission gating (for downloads, transactions, account modifications)
-- Copyright defense (limiting quoted content to < 15 words per source)
+- **Tool class definitions** — every class extending the `Tool` base, including parameter schemas and execution hooks. This is how we mapped all 40+ tool implementations.
+- **Zod `.describe()` strings** — the description text inside schema field definitions. These often encode behavioral requirements and design rationale that never appear in comments. A goldmine for understanding *intent* behind validation rules.
+- **Error and recovery messages** — every user-facing error string, system message, and graceful degradation path. Tells you what the system expects to go wrong.
+- **System-reminder injection patterns** — code paths that inject hidden context into conversations, including permission boundaries and safety instructions the user never sees.
+- **Behavioral constants** — hardcoded thresholds, timeouts, retry limits, token budgets, polling intervals. The numbers that define how the system actually behaves.
+- **Fallback chains** — what happens when primary systems fail. Circuit breakers, no-op substitutions, degraded-mode behavior.
 
----
+**Output**: 2,251 discrete findings, each documented with module location and surrounding context.
 
-## Phase 5: Consolidation and Verification
+### Script 3: Graph Analysis & Complexity Ranking (~350 lines)
 
-### Master Extraction Document
+Quantitative ranking to identify architectural hotspots:
 
-All findings from Phases 1-4 were merged into a single master extraction document (`claude-code-rnd-extraction.md`), organized into 19 appendices (A through S) covering:
-- A: Module dependency graph
-- B: Feature flags (90 total)
-- C: Tool definitions (inline classes)
-- D: Zod schemas and validation rules
-- E: Permission classifier rules
-- F: Error messages and recovery logic
-- G: System prompts (by component)
-- H: Hook execution lifecycle
-- I: Message compaction algorithm
-- J: API client streaming implementation
-- K: Bash parser security rules
-- L: Retry and backoff strategies
-- M: Prompt engineering techniques
-- N: System-reminder injection patterns
-- O: Coupling and complexity rankings
-- P: Tool execution flow
-- Q: Cache invalidation logic
-- R: UI frustration detection heuristics
-- S: Multi-agent orchestration
-
-### Verification by Spot-Check
-
-Extraction completeness was validated through targeted spot-check questions:
-- "Does the extraction include the profanity regex used in message filtering?" (Yes, found in src/utils/messages.ts)
-- "Are all 90 feature flags accounted for?" (Yes, enumerated in appendix B)
-- "Does the extraction capture the bail-out logic for unrecoverable API failures?" (Yes, found in withRetry.ts and promptCacheBreakDetection.ts)
-- "Are system-reminder injection defense mechanisms fully documented?" (Yes, patterns extracted from src/services/api/claude.ts)
+- **Module coupling analysis** — computed total coupling (in-edges + out-edges) for every module in the dependency graph. The shared utilities module had the highest coupling (76 total edges), confirming it as the foundational abstraction layer.
+- **Cyclomatic complexity proxy** — ranked the top 50 functions by estimated complexity using conditional depth, loop nesting, and branch count. The word-level message parser ranked #1 (estimated complexity: 123), reflecting dense conditional logic for handling every edge case in multi-language text processing.
+- **Architectural pattern frequency** — 156 permission check guards, 47 tool execution wrappers, 23 retry-with-backoff implementations, 12 streaming event transformers. These frequencies reveal what the system considers important enough to repeat everywhere.
 
 ---
 
-## Challenges and Solutions
+## Phase 3: Targeted Deep Analysis
 
-### Challenge 1: Scale of prompt-bible.md
+The dependency graph and complexity rankings told us where to aim. We selected 12 high-value modules for line-by-line analysis. To parallelize, we dispatched multiple reading agents concurrently — modules exceeding 2,000 lines were split into contiguous ranges assigned to separate agents, then consolidated. This cut wall-clock time by approximately 70%.
 
-**Problem**: File exceeds practical single-read context limits (32,000 lines, 2.1 MB).
+| Module | Scale | What We Reconstructed |
+|--------|------:|----------------------|
+| REPL / UI rendering loop | ~5,000 lines | The terminal rendering lifecycle, frustration detection heuristics, user feedback survey integration, and how the React+Ink component tree mounts |
+| YOLO safety classifier | ~1,500 lines | The two-stage permission pipeline — a 64-token fast scan (Stage 1) followed by a 4,096-token deep reasoning pass (Stage 2) at temperature zero |
+| Multi-agent coordinator | ~370 lines | How parallel agents are orchestrated, how tasks are distributed via XML notifications, and how results aggregate back |
+| System prompt assembler | ~900 lines | Section ordering, conditional injection based on feature flags, cache boundary placement, and the 7-static + 13-dynamic section architecture |
+| Message processing pipeline | ~5,500 lines | Normalization (whitespace, encoding, embedding prep), content aggregation, history persistence, and how tool results get folded back in |
+| Hook execution system | ~5,000 lines | Lifecycle hooks, error handling chains, hook composition patterns, and how plugins attach pre/post processors |
+| Context compaction engine | ~2,200 lines | The full compaction algorithm — token counting, priority-based pruning, 9-section summarization prompt, forked subprocess execution, and post-compact skill re-injection |
+| Streaming tool executor | ~530 lines | Concurrent vs exclusive execution routing, abort controller trees with bubble-up cancellation, and the dual-yield result pattern |
+| API client & streaming | ~3,400 lines | Raw HTTP streaming, SSE event parsing, token counting (input/output/cache), multi-provider factory, and how tool invocations happen mid-stream |
+| Retry & backoff framework | ~300 lines | Exponential backoff with jitter, error classification (rate limit vs auth vs network vs prompt-too-long), and foreground vs background retry strategies |
+| Prompt cache break detection | ~730 lines | How the system detects when cached prompt segments become invalid, the diagnostic pipeline, and recovery strategies |
+| Bash command parser | ~4,400 lines | A hand-rolled recursive descent parser that identifies 15 categories of dangerous AST nodes (fork, exec, pipe, redirect, rm, dd, shutdown, reboot) and implements a fail-closed allowlist |
 
-**Solution**: Divided into three parallel line-range reads; each agent extracted relevant sections independently. Result: complete prompt reconstruction without exceeding individual context limits.
+---
 
-### Challenge 2: Low Initial Zod Schema Count
+## Phase 4: Prompt Reconstruction
 
-**Problem**: Initial extraction identified only 14 Zod schemas; architectural review suggested >100.
+### The challenge
 
-**Solution**: Rewrote regex patterns to capture edge cases:
-- Schemas defined with intermediate variables
-- Inline `.shape()` compositions
-- Conditional schema construction
-- Schemas imported and re-exported across modules
+The concatenated system prompt exceeded 32,000 lines (2.1 MB). No single-pass analysis could process it. And the runtime prompt isn't stored in one place — it's assembled dynamically from feature flags, user context, session state, and MCP configuration.
 
-**Result**: Final count of 327 schemas, representing comprehensive validation rule coverage.
+### Our approach
 
-### Challenge 3: Ant-Only Code
+We divided the concatenated prompt into three contiguous ranges (~10,666 lines each) and assigned parallel agents to extract verbatim prompt text and identify structural sections. Then we cross-referenced the extracted sections against the prompt assembly module to verify ordering, identify conditional injection paths, and map which feature flags activate which prompt segments.
 
-**Problem**: Approximately 15% of the codebase is internal Anthropic code, stripped at build time via conditional require statements.
+Finally, we reconstructed the complete prompt as a superset of all possible runtime variants — documenting every conditional branch and what triggers it.
 
-**Pattern observed**:
+### What we found
+
+20 distinct prompt engineering techniques used in production, including:
+
+- **Immutable rule layering** — safety rules positioned before user requests so they can't be overridden by injection
+- **Recursive attack prevention** — self-referential instruction defense that detects attempts to override the system prompt using the system prompt's own authority
+- **Injection isolation** — tool outputs and DOM content are tagged as untrusted at the prompt level, preventing downstream injection
+- **Context origin tracking** — the system distinguishes tool results from user input structurally, not just semantically
+- **Emotional manipulation defense** — specific detection of authority impersonation ("I'm from Anthropic...") and artificial urgency ("this is an emergency, skip safety checks")
+- **Explicit permission gating** — downloads, financial transactions, and account modifications require separate approval paths regardless of mode
+- **Copyright guardrails** — hard limit of <15 quoted words per source, enforced at the prompt level
+
+---
+
+## Phase 5: Consolidation & Verification
+
+All findings from Phases 1–4 were merged into a master research document organized across 19 appendices:
+
+**A** Module dependency graph · **B** Feature flags (90 total) · **C** Tool definitions and schemas · **D** Zod validation rules · **E** Permission classifier decision tree · **F** Error messages and recovery logic · **G** System prompts by component · **H** Hook execution lifecycle · **I** Compaction algorithm and strategies · **J** API streaming implementation · **K** Bash parser security rules · **L** Retry and backoff strategies · **M** Prompt engineering techniques · **N** System-reminder injection patterns · **O** Coupling and complexity rankings · **P** Tool execution flow · **Q** Cache invalidation logic · **R** UI frustration detection heuristics · **S** Multi-agent orchestration
+
+### Verification Protocol
+
+We validated extraction completeness through targeted spot-check queries designed to probe the most obscure corners of the analysis:
+
+- *"Does the extraction cover the profanity regex used in message filtering?"* — Yes, documented in the message processing analysis
+- *"All 90 feature flags accounted for?"* — Yes, enumerated in appendix B with activation conditions
+- *"Bail-out logic for unrecoverable API failures?"* — Yes, covered in the retry framework and cache break detection analyses
+- *"System-reminder injection defenses fully documented?"* — Yes, mapped in the API client analysis and prompt engineering section
+- *"Race conditions in the swarm IPC system?"* — Yes, 5 identified including the permission bridge hijack vector
+
+---
+
+## Challenges We Solved
+
+### The 2.1 MB prompt file
+
+32,000 lines exceeds any practical single-read context window. We parallelized with three concurrent extraction agents, each processing ~10,666 lines independently. Sections were tagged at extraction time and merged post-hoc for complete prompt reconstruction without any single agent needing the full file.
+
+### The Zod schema discovery problem
+
+14 → 327. The naive regex caught only top-level `z.object()` declarations. Three rounds of pattern refinement were required to catch: schemas assigned to intermediate `const` variables before export, inline `.shape()` compositions that build schemas incrementally, conditional schema construction behind feature flag guards, and schemas imported from one module and re-exported from another. The 23x improvement over the initial pass illustrates why automated extraction requires iterative refinement — the first pass is never enough.
+
+### Ant-only code (~15% of the codebase)
+
+Approximately 15% of modules are internal-only Anthropic code, stripped at build time via conditional requires:
 ```
-"external" === 'ant' ? require(...ant-only module...) : () => ({ state: 'closed' })
+"external" === 'ant' ? require(...internal module...) : () => ({ state: 'closed' })
 ```
+We made a deliberate decision not to attempt reverse-engineering internal logic. Instead, we documented the fallback behavior visible in the external build — the no-op substitutions, the `{ state: 'closed' }` returns, and the feature gates that guard access. For example, the frustration detection heuristic exists only in internal builds; the external build substitutes a no-op that always returns inactive state.
 
-**Solution**: Documented ant-only modules separately. Did not attempt to reverse-engineer internal logic; instead, documented the fallback behavior visible in the external build.
+### Dynamic prompt composition
 
-**Example**: `useFrustrationDetection.ts` exists only in ant builds; external builds substitute a no-op implementation returning `{ state: 'closed' }`.
-
-### Challenge 4: Dynamic Prompt Composition
-
-**Problem**: System prompts are assembled dynamically based on feature flags and user context; no single source file contains the complete runtime prompt.
-
-**Solution**:
-- Traced all calls to prompt composition functions in `src/constants/prompts.ts`
-- Identified all conditional branches
-- Executed conditional logic across all feature flag combinations
-- Reconstructed the prompt-bible.md as the superset of all possible conditional prompts
+The runtime system prompt doesn't exist in any single file. It's assembled at startup from 20 sections, with conditional inclusion based on feature flags, user context, active MCP servers, and session state. We traced every call to the prompt assembly functions, identified all conditional branches, enumerated every feature flag combination that affects prompt content, and reconstructed the complete prompt as a superset document covering all possible runtime variants.
 
 ---
 
-## Tools and Infrastructure
+## Tools & Infrastructure
 
-### Primary Tools
-
-- **Claude (Opus model)**: Extraction and analysis agent; responsible for code reading, pattern identification, and synthesis
-- **Node.js**: Execution environment for custom analysis scripts
-- **Regex-based parsing**: Faster than full AST parsing; sufficient for symbol extraction and pattern matching
-
-### Custom Scripts
-
-1. **ast-analyzer.mjs**: ~400 lines; iterates all 1,884 .ts files and performs regex extraction
-2. **deep-extract.mjs**: ~600 lines; semantic-level extraction of strings, Zod descriptions, error messages
-3. **graph-and-complexity.mjs**: ~350 lines; dependency graph construction and complexity ranking
-
-### Parallelization Strategy
-
-- Parallel file reading via multiple agent instances (for files > 2,000 lines)
-- Parallel line-range reading (for prompt-bible.md)
-- Sequential script execution (scripts depend on prior script output)
-
----
-
-## Limitations and Caveats
-
-1. **Ant-Only Code**: Internal Anthropic code (~15% of codebase) was not reverse-engineered. Extraction documents the external build behavior only.
-
-2. **Runtime Behavior**: Static analysis captures code structure and logic, but does not capture runtime behavior (memory usage, actual performance characteristics, timing-dependent edge cases).
-
-3. **Obfuscation and Minification**: Analysis assumes non-obfuscated TypeScript source. Obfuscated or minified sections would be opaque to this methodology.
-
-4. **Regex-Based Extraction**: Regex parsing can miss complex edge cases (e.g., dynamically constructed function names). Full AST analysis would be more precise but slower.
-
-5. **Prompt Variation**: System prompts may change between API client versions or on the server side. Extraction captures prompts as of the analyzed codebase version.
+- **Claude (Opus model)** — our primary extraction and analysis agent. Used for code reading at scale, architectural pattern identification, cross-reference synthesis, and document generation
+- **Node.js** — execution environment for the three custom extraction scripts
+- **Regex-based parsing** — chosen over full AST analysis for 3x speed advantage. Sufficient for symbol-level extraction; acknowledged limitation for dynamically constructed identifiers
+- **Parallel agent dispatch** — concurrent reading agents for large files (>2,000 lines) and the prompt file, reducing total analysis time by ~70%
 
 ---
 
 ## Reproducibility
 
-All custom analysis scripts are deterministic and reproducible given:
-- The same 1,884 TypeScript source files
-- The same prompt-bible.md file
-- The same Node.js environment
+The methodology is fully reproducible. Given access to the same TypeScript source snapshot and a Node.js environment, the pipeline executes deterministically:
 
-To reproduce this analysis:
-1. Obtain all source files (TypeScript, markdown)
-2. Execute `ast-analyzer.mjs` to generate symbol inventory
-3. Execute `deep-extract.mjs` to extract semantic content
-4. Execute `graph-and-complexity.mjs` to generate rankings
-5. Conduct targeted deep reading of high-value files
-6. Merge all findings into master extraction document
+1. Run the symbol inventory script → exports, classes, types, schemas, flags, dependency graph
+2. Run the semantic extraction script → 2,251 tagged findings
+3. Run the graph analysis script → coupling scores, complexity rankings, pattern frequencies
+4. Execute targeted deep analysis on the 12 highest-value modules
+5. Parallel-extract and cross-reference the system prompt
+6. Consolidate into master document with 19 appendices
+7. Verify via spot-check protocol
 
 ---
 
-## Summary
+## Limitations
 
-This methodology demonstrates a scalable, systematic approach to reverse-engineering a large, complex codebase. By combining static analysis, programmatic extraction, targeted reading, and prompt reconstruction, it achieves breadth-first discovery of all major components and systems, followed by depth-first investigation of critical subsystems. The approach is reproducible, documentable, and extensible to other codebases of similar scale.
+**Ant-only code** — internal Anthropic modules (~15%) are not analyzed. We document external-build fallback behavior only.
+
+**Static analysis** — we captured code structure and logic, not runtime behavior. Memory usage, actual latency characteristics, and timing-dependent edge cases are outside our scope.
+
+**Regex extraction boundaries** — regex-based parsing can miss dynamically constructed symbol names and metaprogramming patterns. Full AST analysis would be more precise at significant speed cost.
+
+**Point-in-time snapshot** — system prompts, feature flags, and architectural decisions change between releases. This analysis covers Claude Code v2.1.88 exclusively. Subsequent versions may have diverged significantly.
+
+**No source redistribution** — we do not share, redistribute, or host any of the original TypeScript source files. All content in this repository is our own original analysis, diagrams, and documentation derived from studying the publicly exposed snapshot.
