@@ -1,255 +1,129 @@
-# Claude Code v2.1.88 — Complete Architecture Analysis
+# How Claude Code Actually Works
 
-**The definitive reverse-engineering documentation of Anthropic's AI-powered CLI IDE.**
+> On March 31, 2026, a `.map` file in Claude Code's npm package accidentally exposed the full TypeScript source. We read all 512,000 lines. Here's everything we found.
 
-This comprehensive analysis covers 82 documents totaling 112,000+ lines across 15 architectural diagrams. Every system, hook, component, tool, and security mechanism is documented in encyclopedic detail.
+[![Stars](https://img.shields.io/github/stars/instructkr/claude-code?style=social)](https://github.com/instructkr/claude-code/stargazers)
 
 ---
 
-## Architecture Map
+## The Stuff They Don't Tell You
+
+Claude Code isn't just a chat-in-terminal wrapper. It's a 1,902-file TypeScript monolith with its own React rendering engine, a multi-agent swarm system, a two-stage AI safety classifier, and 88 hidden feature flags — many for features that don't exist yet.
+
+Here are some of the things we found buried in the source:
+
+**There's a hidden AI that judges every command you run.** Before Claude Code executes a tool call, a separate classifier called "YOLO" runs a two-stage evaluation. Stage 1 is a fast 64-token scan. If it's suspicious, Stage 2 does a full 4,096-token reasoning pass to decide: allow, deny, or ask the user. Temperature is zero. It errs on the side of blocking. → [Full breakdown](05-security/README.md)
+
+**Your conversations get secretly compressed.** When context pressure exceeds 93%, Claude Code runs one of six compaction strategies — from lightweight microcompaction (clearing old tool results) to spawning an entire forked subprocess that summarizes your conversation into a 9-section format. You never see this happen. → [How compaction works](04-systems/README.md)
+
+**It ships an entire React rendering engine for the terminal.** Not a simple TUI library. A custom React Fiber reconciler, a Yoga flex-layout engine, a screen buffer with packed Int32Arrays, and a frame-diffing system that reduces terminal output from 10KB to 50 bytes on idle scroll. 7,743 lines of rendering code. → [Ink pipeline deep dive](01-architecture/README.md)
+
+**Multi-agent "swarms" communicate through files on disk.** When Claude Code spawns parallel agents, they coordinate via a file-based mailbox system at `~/.claude/work/ipc/` with 500ms polling. The leader writes JSON task messages, followers pick them up. There's a documented race condition where a malicious task could hijack the permission bridge. → [Swarm architecture](07-agents/README.md)
+
+**88+ feature flags control unreleased capabilities.** Build-time flags like `experimental_agents`, `enable_voice_input`, `unsafe_bash_allowed`, and `plugin_marketplace` reveal features in development. 600+ runtime flags prefixed `tengu_` are evaluated through GrowthBook. Dead code elimination strips inactive paths at build time. → [Feature flag matrix](08-history/README.md)
+
+**The system prompt is 30-40K tokens of hidden instructions.** Split into 7 static sections (cached globally) and 13 dynamic sections (rebuilt per session), with a deliberate cache-busting boundary after MCP instructions that forces a new cache block. → [Prompt ordering map](03-prompts/README.md)
+
+---
+
+## What This Repository Is
+
+82 analysis documents. 112,000+ lines of research. 15 architectural diagrams. Every major subsystem mapped, from the bootstrap sequence to the permission engine.
+
+This isn't a shallow overview — it's a complete architectural reconstruction of how a production AI agent actually works under the hood.
 
 ![Architecture Overview](infographics/architecture-overview.svg)
 
 ---
 
-## Section Directory
+## Navigate by What You Want to Learn
 
-### 01 — Architecture (14 documents)
+### "How does it start up?"
+The 10-step boot sequence, 4 entry points (CLI, SDK, MCP, Sandbox), 10 startup modes, and how parallel prefetching gets interactive mode ready in 1.2-1.8 seconds.
+→ **[Architecture & Bootstrap](01-architecture/)** (12 docs, ~14,200 lines)
 
-The foundational layer covering structural patterns, component design, rendering pipeline, and system bootstrap.
+### "How does it talk to the API?"
+Request assembly, provider routing across 4 cloud backends (Anthropic, AWS Bedrock, GCP Vertex, Azure), SSE streaming, exponential backoff retry with jitter, and token cost tracking.
+→ **[Core Systems](04-systems/)** (19 docs, ~24,800 lines)
 
-**Core Documents:**
+### "How does it decide what's safe to run?"
+6 permission modes, rule cascade (project → global → managed), the YOLO two-stage classifier, 44 gitleaks secret-scanning rules, and a hand-rolled recursive-descent bash parser that flags 15 dangerous AST node types.
+→ **[Security & Permissions](05-security/)** (10 docs, ~11,200 lines)
 
-- [codebase-structure.md](01-architecture/codebase-structure.md) — Module inventory and layer decomposition. Maps the physical filesystem structure to logical system boundaries.
-- [hooks-system-deep-dive.md](01-architecture/hooks-system-deep-dive.md) — All 104 React hooks across 8 domain categories (2,306 lines). The definitive guide to input, voice, permissions, notifications, and team coordination.
-- [component-architecture-deep-dive.md](01-architecture/component-architecture-deep-dive.md) — Complete inventory of 389 React components across 5 subsystems (1,695 lines).
-- [ink-rendering-engine-deep-dive.md](01-architecture/ink-rendering-engine-deep-dive.md) — The 6-stage terminal rendering pipeline: State → Virtual DOM → Reconciliation → Layout → Yoga → Terminal Output (2,351 lines).
-- [build-system-deep-dive.md](01-architecture/build-system-deep-dive.md) — Bun bundler configuration, 88 feature flags, and the source map leak (1,265 lines).
-- [bootstrap-entry-point.md](01-architecture/bootstrap-entry-point.md) — The 10-step startup sequence from CLI invocation through initialization to REPL readiness.
-- [query-engine-deep-dive.md](01-architecture/query-engine-deep-dive.md) — The core agent loop executing LLM queries, tool calls, streaming responses, and state updates.
-- [terminal-ui-deep-dive.md](01-architecture/terminal-ui-deep-dive.md) — Terminal UI rendering, viewport management, and interactive component lifecycle.
-- [native-ts-reimplementations-deep-dive.md](01-architecture/native-ts-reimplementations-deep-dive.md) — TypeScript reimplementations of Ink.js native terminal functions.
-- [state-migrations-output-deep-dive.md](01-architecture/state-migrations-output-deep-dive.md) — State persistence, migrations between versions, and output serialization.
-- [ast-analysis.md](01-architecture/ast-analysis.md) — Abstract syntax tree structure analysis for code introspection systems.
-- [data-flow-and-coupling.md](01-architecture/data-flow-and-coupling.md) — Inter-component data dependencies and coupling analysis.
-- [graph-and-complexity.md](01-architecture/graph-and-complexity.md) — Dependency graph visualization and cyclomatic complexity metrics.
-- [DOCUMENT-INDEX.md](01-architecture/DOCUMENT-INDEX.md) — Detailed index of all documents in this section with metadata.
+### "How do tools and plugins work?"
+150+ commands, 3 dispatch types (prompt/local/local-jsx), a 6-phase plugin lifecycle with DFS dependency resolution, homograph attack detection, and 5 scope levels for enterprise control.
+→ **[Tools & Plugins](06-tools-and-plugins/)** (14 docs, ~19,600 lines)
 
----
+### "How do agents coordinate?"
+Leader-follower swarms, file-based IPC, coordinator mode with XML task notifications, session teleportation via git bundles, and speculative execution with copy-on-write forking.
+→ **[Agent Orchestration](07-agents/)** (8 docs, ~11,200 lines)
 
-### 02 — Master Extraction (6 documents)
+### "What hidden instructions does it follow?"
+The full system prompt hierarchy, instruction precedence rules, 7 static + 13 dynamic sections, cache strategy, and the definitions that shape Claude's behavior.
+→ **[Prompts & Instructions](03-prompts/)** (11 docs, ~18,500 lines)
 
-High-level synthesis and knowledge consolidation across the entire codebase.
+### "How was the source extracted?"
+Methodology, tools, validation techniques, and integrity checks used to catalogue the snapshot.
+→ **[Extraction Methodology](02-master-extraction/)** (8 docs, ~9,100 lines)
 
-- [claude-code-rnd-extraction.md](02-master-extraction/claude-code-rnd-extraction.md) — Master extraction document with 19 appendices (A-S) covering all major systems, design patterns, and architectural decisions. The starting point for newcomers.
-- [KNOWLEDGE_BASE.md](02-master-extraction/KNOWLEDGE_BASE.md) — Consolidated knowledge base distilling key insights from all analysis documents.
-- [deep-dive-report.md](02-master-extraction/deep-dive-report.md) — Deep-dive findings and technical highlights across systems.
-- [deep-extraction.md](02-master-extraction/deep-extraction.md) — Semantic-level extraction of design patterns, algorithms, and architectural principles.
-- [analysis-report.md](02-master-extraction/analysis-report.md) — Comprehensive analysis report with findings and recommendations.
-- [code-archaeology.md](02-master-extraction/code-archaeology.md) — Historical code patterns, legacy systems, and evolution analysis.
+### "What features are coming next?"
+88 build-time feature flags, 600+ runtime gates, dead code elimination patterns, and version changelog.
+→ **[Feature Evolution](08-history/)** (6 docs, ~4,100 lines)
 
 ---
 
-### 03 — Prompts (2 documents)
+## Architectural Diagrams
 
-System prompts and model behavioral contracts that shape agent behavior.
+Every major subsystem has a corresponding diagram. Click to view full-size.
 
-- [prompt-bible.md](03-prompts/prompt-bible.md) — Complete system prompt collection spanning 32K+ lines. Every prompt section, conditional modifier, and behavioral instruction is documented with context and justification.
-- [model-behavioral-contract.md](03-prompts/model-behavioral-contract.md) — Model behavior specifications, instruction precedence, output constraints, and safety boundaries.
-
----
-
-### 04 — Systems (19 documents)
-
-Mission-critical subsystems implementing core functionality.
-
-- [api-client-deep-dive.md](04-systems/api-client-deep-dive.md) — Streaming request pipeline with retry logic, exponential backoff, and multi-provider factory pattern (2,165 lines). Covers Anthropic API, OpenAI, Bedrock, and Google provider implementations.
-- [compaction-algorithms-deep-dive.md](04-systems/compaction-algorithms-deep-dive.md) — Six compaction strategies for token limit management: deletion, summarization, context windowing, agent delegation, archival, and smart recompression (1,497 lines).
-- [model-selection-deep-dive.md](04-systems/model-selection-deep-dive.md) — Model selection logic across 11 models and 4 providers with cost, latency, and capability tradeoffs (1,092 lines).
-- [shell-entrypoints-proxy-deep-dive.md](04-systems/shell-entrypoints-proxy-deep-dive.md) — Shell detection, proxy tunnel construction, environment variable bridging, and subprocess management (1,663 lines).
-- [settings-policy-infrastructure-deep-dive.md](04-systems/settings-policy-infrastructure-deep-dive.md) — Settings and policy management system for user preferences and organizational controls.
-- [lsp-integration-deep-dive.md](04-systems/lsp-integration-deep-dive.md) — Language Server Protocol integration for IDE features and code intelligence.
-- [memdir-semantic-memory-deep-dive.md](04-systems/memdir-semantic-memory-deep-dive.md) — Persistent semantic memory system with automatic vector embeddings and retrieval.
-- [memory-extraction-pipeline-deep-dive.md](04-systems/memory-extraction-pipeline-deep-dive.md) — Automatic extraction of relevant context from chat history into long-term memory.
-- [team-memory-sync-deep-dive.md](04-systems/team-memory-sync-deep-dive.md) — Synchronization of memory across team members and shared contexts.
-- [feature-flag-encyclopedia.md](04-systems/feature-flag-encyclopedia.md) — Complete inventory of 88 feature flags with conditions, rollout percentages, and dependencies.
-- [constants-encyclopedia.md](04-systems/constants-encyclopedia.md) — All constants used throughout the system: timeouts, thresholds, limits, and configuration values.
-- [environment-variable-contract.md](04-systems/environment-variable-contract.md) — Environment variable specifications and requirements.
-- [environment-variable-inventory.md](04-systems/environment-variable-inventory.md) — Complete enumeration of all environment variables.
-- [telemetry-event-catalog.md](04-systems/telemetry-event-catalog.md) — Schema and taxonomy of all telemetry events.
-- [telemetry-event-inventory.md](04-systems/telemetry-event-inventory.md) — Complete inventory of telemetry events by category.
-- [growthbook-gates-inventory.md](04-systems/growthbook-gates-inventory.md) — GrowthBook experimentation gates and rollout configurations.
-- [settings-policy-schema.md](04-systems/settings-policy-schema.md) — Complete schema definition for settings and policy objects.
-- [prompt-suggestion-deep-dive.md](04-systems/prompt-suggestion-deep-dive.md) — Prompt suggestion engine for guided interaction patterns.
-- [suggestions-and-secure-storage-deep-dive.md](04-systems/suggestions-and-secure-storage-deep-dive.md) — Suggestion system and secure storage mechanisms for sensitive data.
+| | | |
+|:---:|:---:|:---:|
+| ![Architecture](infographics/architecture-overview.svg) | ![Bootstrap](infographics/bootstrap-sequence.svg) | ![Rendering](infographics/ink-rendering-pipeline.svg) |
+| **System Architecture** | **Bootstrap Sequence** | **Rendering Pipeline** |
+| ![API](infographics/api-client-pipeline.svg) | ![Memory](infographics/memory-systems.svg) | ![Compaction](infographics/compaction-state-machine.svg) |
+| **API Client Pipeline** | **Memory Systems** | **Compaction State Machine** |
+| ![Permissions](infographics/permission-engine.svg) | ![YOLO](infographics/yolo-classifier-pipeline.svg) | ![Commands](infographics/command-dispatch.svg) |
+| **Permission Engine** | **YOLO Classifier** | **Command Dispatch** |
+| ![Plugins](infographics/plugin-lifecycle.svg) | ![Streaming](infographics/streaming-tool-executor.svg) | ![Swarm](infographics/swarm-orchestration.svg) |
+| **Plugin Lifecycle** | **Streaming Executor** | **Swarm Orchestration** |
+| ![Prompts](infographics/system-prompt-ordering.svg) | ![Tiers](infographics/compaction-tiers.svg) | ![Agent](infographics/agent-loop-flow.svg) |
+| **Prompt Ordering** | **Compaction Tiers** | **Agent Loop** |
 
 ---
 
-### 05 — Security (8 documents)
+## Numbers
 
-Comprehensive security architecture and vulnerability analysis.
-
-- [permissions-yolo-deep-dive.md](05-security/permissions-yolo-deep-dive.md) — Two-stage YOLO permission classifier with 6 permission modes and hierarchical decision flow (1,041 lines). Covers auto-approval heuristics, user prompts, and swarm leader delegation.
-- [bash-parser-deep-dive.md](05-security/bash-parser-deep-dive.md) — Hand-rolled bash parser for command validation with fail-closed design and comprehensive test coverage (1,399 lines).
-- [deep-security-audit.md](05-security/deep-security-audit.md) — Comprehensive security audit covering all attack vectors, mitigations, and threat modeling.
-- [security-audit.md](05-security/security-audit.md) — Security audit findings and recommendations.
-- [oauth-lifecycle-deep-dive.md](05-security/oauth-lifecycle-deep-dive.md) — OAuth 2.0 authentication flow, token management, and credential storage.
-- [desanitization-map.md](05-security/desanitization-map.md) — Patterns for reversible data desanitization in specific contexts.
-- [team-memory-security.md](05-security/team-memory-security.md) — Security considerations for shared team memory contexts.
-- [terminal-ui-security.md](05-security/terminal-ui-security.md) — Terminal UI security including input validation and output sanitization.
-
----
-
-### 06 — Tools & Plugins (14 documents)
-
-Tools, commands, plugins, and extensibility mechanisms.
-
-- [command-system-deep-dive.md](06-tools-and-plugins/command-system-deep-dive.md) — Comprehensive command system covering approximately 150 slash commands across 3 execution types (1,850 lines).
-- [plugin-system-deep-dive.md](06-tools-and-plugins/plugin-system-deep-dive.md) — Complete plugin lifecycle from discovery through execution to delisting (1,279 lines).
-- [tool-contract-inventory.md](06-tools-and-plugins/tool-contract-inventory.md) — Tool contracts and execution signatures for all integrated tools.
-- [command-tool-skill-surface.md](06-tools-and-plugins/command-tool-skill-surface.md) — Surface area mapping of commands, tools, and skills.
-- [computer-use-deep-dive.md](06-tools-and-plugins/computer-use-deep-dive.md) — Computer use capabilities and protocols for desktop automation.
-- [computer-use-protocols.md](06-tools-and-plugins/computer-use-protocols.md) — Protocol specifications for computer use interactions.
-- [claude-in-chrome-deep-dive.md](06-tools-and-plugins/claude-in-chrome-deep-dive.md) — Chrome extension architecture and browser automation capabilities.
-- [buddy-system-deep-dive.md](06-tools-and-plugins/buddy-system-deep-dive.md) — Companion sprite system for persistent contextual assistance.
-- [bundled-skills-catalog.md](06-tools-and-plugins/bundled-skills-catalog.md) — Inventory and documentation of built-in skills.
-- [keybindings-system.md](06-tools-and-plugins/keybindings-system.md) — Keyboard binding system and customization mechanisms.
-- [plugin-marketplace-contract.md](06-tools-and-plugins/plugin-marketplace-contract.md) — Marketplace API contract for plugin distribution.
-- [small-services-deep-dive.md](06-tools-and-plugins/small-services-deep-dive.md) — Architectural analysis of small utility services.
-- [utility-subsystems-deep-dive.md](06-tools-and-plugins/utility-subsystems-deep-dive.md) — Utility subsystems supporting tools and plugins.
-- [unmapped-systems.md](06-tools-and-plugins/unmapped-systems.md) — Inventory of remaining unmapped areas requiring further analysis.
-
----
-
-### 07 — Agents (6 documents)
-
-Agent orchestration, coordination, and distributed execution.
-
-- [swarm-orchestration-deep-dive.md](07-agents/swarm-orchestration-deep-dive.md) — Leader-follower orchestration pattern for distributed agent coordination via file-based IPC.
-- [coordinator-voice-moreright-deep-dive.md](07-agents/coordinator-voice-moreright-deep-dive.md) — Coordinator system and voice interaction mechanisms.
-- [daemon-proactive-agent.md](07-agents/daemon-proactive-agent.md) — Background daemon agents performing proactive work without user prompting.
-- [remote-bridge-protocol.md](07-agents/remote-bridge-protocol.md) — Protocol for bridging to remote Claude.ai session via persistent WebSocket.
-- [session-teleport-deep-dive.md](07-agents/session-teleport-deep-dive.md) — Session teleportation enabling migration between environments.
-- [swarm-bridge-sdk.md](07-agents/swarm-bridge-sdk.md) — SDK for building swarm bridge integrations.
-
----
-
-### 08 — History (3 documents)
-
-Product evolution, attribution, and community intelligence.
-
-- [migration-product-history.md](08-history/migration-product-history.md) — Product evolution timeline documenting feature development, architectural decisions, and version migrations.
-- [Wriction-matrix.md](08-history/Wriction-matrix.md) — Attribution and contribution tracking across subsystems.
-- [community-osint.md](08-history/community-osint.md) — Community intelligence including public discussions, user feedback, and ecosystem analysis.
-
----
-
-## Infographics
-
-15 architectural diagrams documenting key system flows, pipelines, and decision trees.
-
-| Diagram | Description | File |
-|---------|-------------|------|
-| Architecture Overview | Full 8-layer system architecture | [View](infographics/architecture-overview.svg) |
-| Agent Loop Flow | Core agent execution cycle with state management | [View](infographics/agent-loop-flow.svg) |
-| API Client Pipeline | Request lifecycle with retry, exponential backoff, and streaming | [View](infographics/api-client-pipeline.svg) |
-| Bootstrap Sequence | 10-step startup timeline from CLI invocation to REPL ready | [View](infographics/bootstrap-sequence.svg) |
-| Command Dispatch | Slash command parsing to execution with context binding | [View](infographics/command-dispatch.svg) |
-| Compaction State Machine | 6-stage token compaction pipeline | [View](infographics/compaction-state-machine.svg) |
-| Compaction Tiers | Token threshold tiers for automatic compaction triggering | [View](infographics/compaction-tiers.svg) |
-| Ink Rendering Pipeline | 6-stage terminal rendering with reconciliation and layout | [View](infographics/ink-rendering-pipeline.svg) |
-| Memory Systems | All 7 memory subsystems and their interactions | [View](infographics/memory-systems.svg) |
-| Permission Engine | Two-stage YOLO decision tree with escalation paths | [View](infographics/permission-engine.svg) |
-| Plugin Lifecycle | Discovery, installation, execution, and delisting | [View](infographics/plugin-lifecycle.svg) |
-| Streaming Tool Executor | Concurrent tool execution with streaming output | [View](infographics/streaming-tool-executor.svg) |
-| Swarm Orchestration | Leader-follower IPC coordination pattern | [View](infographics/swarm-orchestration.svg) |
-| System Prompt Ordering | Prompt section hierarchy and conditional application | [View](infographics/system-prompt-ordering.svg) |
-| YOLO Classifier Pipeline | Two-stage automatic permission classification | [View](infographics/yolo-classifier-pipeline.svg) |
-
----
-
-## Methodology
-
-This analysis employs systematic reverse-engineering across multiple dimensions:
-
-See [METHODOLOGY.md](METHODOLOGY.md) for complete documentation of research approaches, verification strategies, and analysis validation.
-
-**Key Approaches:**
-
-- Comprehensive file enumeration and structural mapping
-- Deep reading of critical implementations
-- Dependency graph tracing and coupling analysis
-- Constant extraction and threshold cataloging
-- Security analysis with threat modeling
-- Integration pattern recognition
-- Code archaeology tracking historical evolution
-
----
-
-## Statistics
-
-| Metric | Value |
+| Metric | Count |
 |--------|-------|
-| **Total Documents** | 82 |
-| **Total Lines** | 112,000+ |
-| **Architecture Documents** | 14 |
-| **System Documents** | 19 |
-| **Security Documents** | 8 |
-| **Tools & Plugins Documents** | 14 |
-| **Agent Documents** | 6 |
-| **Extraction Documents** | 6 |
-| **Prompt Documents** | 2 |
-| **History Documents** | 3 |
-| **Architectural Diagrams** | 15 |
-| **React Hooks Documented** | 104 |
-| **React Components Documented** | 389 |
-| **Commands Documented** | 150+ |
-| **Feature Flags Documented** | 88 |
-| **Telemetry Events Documented** | 50+ |
-| **Environment Variables Documented** | 30+ |
-| **Code Examples** | 500+ |
-| **Tables & Matrices** | 100+ |
+| Source files analyzed | 1,902 |
+| Lines of TypeScript | 512,000+ |
+| Analysis documents | 82 |
+| Lines of analysis | 112,000+ |
+| Architectural diagrams | 15 |
+| Feature flags documented | 88+ |
+| React hooks catalogued | 104 |
+| Commands and tools mapped | 150+ |
 
 ---
 
-## Quick Navigation
+## Tech Stack (What Claude Code Is Built With)
 
-**First-Time Users:** Start with [Master Extraction](02-master-extraction/claude-code-rnd-extraction.md)
-
-**Understanding the Agent Loop:** Read [Query Engine Deep Dive](01-architecture/query-engine-deep-dive.md) → [API Client Pipeline](04-systems/api-client-deep-dive.md) → [Swarm Orchestration](07-agents/swarm-orchestration-deep-dive.md)
-
-**Building Tools:** [Command System](06-tools-and-plugins/command-system-deep-dive.md) → [Plugin System](06-tools-and-plugins/plugin-system-deep-dive.md) → [Tool Contracts](06-tools-and-plugins/tool-contract-inventory.md)
-
-**Security Deep-Dive:** [Permissions YOLO](05-security/permissions-yolo-deep-dive.md) → [Bash Parser](05-security/bash-parser-deep-dive.md) → [Security Audit](05-security/deep-security-audit.md)
-
-**Terminal Rendering:** [Bootstrap Entry Point](01-architecture/bootstrap-entry-point.md) → [Ink Rendering Engine](01-architecture/ink-rendering-engine-deep-dive.md) → [Terminal UI](01-architecture/terminal-ui-deep-dive.md)
-
-**Memory Systems:** [Memory Extraction Pipeline](04-systems/memory-extraction-pipeline-deep-dive.md) → [Team Memory Sync](04-systems/team-memory-sync-deep-dive.md) → [Memdir](04-systems/memdir-semantic-memory-deep-dive.md)
-
-**React Architecture:** [Hooks System](01-architecture/hooks-system-deep-dive.md) → [Components](01-architecture/component-architecture-deep-dive.md) → [State Patterns](01-architecture/state-migrations-output-deep-dive.md)
+Bun runtime, TypeScript in strict mode, React + Ink for terminal UI, Commander.js for CLI parsing, Zod v4 for schema validation, ripgrep for code search, MCP SDK + LSP for protocol integration, OpenTelemetry + gRPC for telemetry, GrowthBook for feature flags, and OAuth 2.0 with macOS Keychain for auth.
 
 ---
 
-## About Claude Code v2.1.88
+## How the Source Became Available
 
-Claude Code is Anthropic's AI-powered command-line IDE combining:
+On March 31, 2026, security researcher [Chaofan Shou](https://x.com/AntiFried_rice) noticed that Claude Code's npm package contained a `.map` file referencing unobfuscated TypeScript sources on Anthropic's R2 storage bucket — making the full `src/` tree publicly downloadable. Not a breach or hack. A packaging oversight.
 
-- **Terminal UI** built on Ink.js for rich interactive experiences
-- **React State Management** with 104 custom hooks coordinating all subsystems
-- **LLM Agent Loop** executing Claude queries, tool calls, and streaming responses
-- **Distributed Agents** via file-based mailbox IPC for team coordination
-- **Voice Input** with hold-to-talk STT via Anthropic voice_stream API
-- **File Indexing** via Rust native modules for O(n) fuzzy matching
-- **Permission System** with two-stage YOLO auto-classifier and hierarchical escalation
-- **Plugin Ecosystem** for extensibility with 150+ built-in commands
-- **Memory Systems** with semantic embeddings and team synchronization
-- **Settings & Policies** for organizational control and compliance
-
-The architecture elegantly layers these systems with clean separation of concerns while maintaining tight coordination for responsive user interaction.
+This repository is a research archive of that snapshot. The original source remains Anthropic's property. We are not affiliated with Anthropic.
 
 ---
 
-**Generated:** 2026-04-02
-**Scope:** Claude Code v2.1.88 Reverse-Engineering Analysis
-**Coverage:** Complete architectural documentation with code examples and security analysis
-**Status:** Comprehensive analysis of public binary and reverse-engineered behavior
+## Disclaimer
+
+This is an educational and defensive security research project. It documents a real source exposure incident for the purpose of studying software supply-chain security and production AI agent architecture. The original Claude Code source is the sole property of Anthropic. This repository is not affiliated with, endorsed by, or maintained by Anthropic. The authors disclaim all liability for misuse.
+
+---
+
+If this helped you understand how AI agents work under the hood, consider giving it a ⭐
